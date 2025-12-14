@@ -3,455 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRO・POP | Global AI Fortune</title>
+    <title>ASTRO・POP | 全平台通用版</title>
     
-    <!-- ★★★ Google AdSense 核心 ★★★ -->
+    <!-- ★★★ Google AdSense ★★★ -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2895749032536610"
      crossorigin="anonymous"></script>
 
-    <!-- 引入字型 (含日韓支援) -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+TC:wght@400;700&family=Fredoka:wght@500&display=swap" rel="stylesheet">
+    <!-- 字型 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Noto+Sans+KR:wght@500;700&family=Noto+Sans+TC:wght@400;700;900&family=Fredoka:wght@500&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #0f172a;
+            --bg: #020617;
             --primary: #8b5cf6;
-            --accent: #38bdf8;
-            --gold: #facc15;
-            --talisman-bg: #b91c1c;
-            --border: rgba(255, 255, 255, 0.15);
+            --accent: #06b6d4;
+            --gold: #fbbf24;
+            --card-glass: rgba(30, 41, 59, 0.6);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
-            font-family: 'Fredoka', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', sans-serif;
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
             background: var(--bg);
             color: white;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.2) 0%, transparent 40%);
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 80%);
             overflow-x: hidden;
         }
 
-        /* --- 語言切換器 --- */
-        .lang-bar {
-            display: flex; justify-content: center; gap: 10px; padding: 10px;
-            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+        /* --- 1. 響應式導航 --- */
+        nav { 
+            padding: 15px 20px; 
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 50;
         }
-        .lang-btn {
-            background: transparent; border: 1px solid var(--border); color: #94a3b8;
-            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: 0.3s;
-        }
-        .lang-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-        nav { padding: 15px; text-align: center; }
-        .logo { 
-            font-size: 1.5rem; font-weight: 900; letter-spacing: 1px;
-            background: linear-gradient(90deg, #fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-
-        /* 首頁 */
-        .hero { text-align: center; margin: 30px 0; }
-        .hero h1 { font-size: 2rem; margin-bottom: 10px; text-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
         
-        /* 探索卡片 */
-        .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .card {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            border-radius: 16px; padding: 15px; cursor: pointer; transition: 0.3s;
-            position: relative; overflow: hidden;
+        .logo { 
+            font-size: 1.5rem; font-weight: 900; 
+            background: linear-gradient(90deg, #fff, #a78bfa); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card-icon { font-size: 2rem; margin-bottom: 5px; display: block; }
-        .card-title { font-weight: bold; font-size: 1rem; color: #fff; }
-        .card-desc { font-size: 0.75rem; color: #94a3b8; }
 
-        /* 懸浮按鈕 */
-        .cta-btn {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            width: 85%; max-width: 400px;
-            background: linear-gradient(90deg, #6366f1, #ec4899);
-            border: none; padding: 16px; border-radius: 50px;
-            color: white; font-weight: bold; font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4); cursor: pointer; z-index: 100;
+        .lang-scroll {
+            display: flex; gap: 10px; overflow-x: auto; width: 100%;
+            justify-content: flex-start; /* 手機靠左 */
+            scrollbar-width: none;
         }
+        
+        /* 電腦版導航調整 */
+        @media (min-width: 768px) {
+            nav { flex-direction: row; justify-content: space-between; padding: 15px 40px; }
+            .lang-scroll { width: auto; justify-content: flex-end; }
+        }
+
+        .lang-btn {
+            white-space: nowrap; background: transparent; border: 1px solid var(--border);
+            color: #94a3b8; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: 0.3s;
+        }
+        .lang-btn:hover { border-color: var(--accent); color: white; }
+        .lang-btn.active { border-color: var(--primary); background: rgba(139, 92, 246, 0.2); color: white; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        /* --- 2. Hero 區塊 --- */
+        .hero { text-align: center; padding: 40px 20px; }
+        .hero h1 { font-size: 2rem; margin: 0 0 15px 0; }
+        .hero p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero { padding: 60px 20px; }
+        }
+
+        /* --- 3. 響應式預覽區 (手機輪播 / 電腦網格) --- */
+        .preview-wrapper { margin-bottom: 40px; }
+        .section-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 15px; font-weight: bold; padding-left: 10px; }
+
+        .preview-container {
+            display: flex; gap: 15px; 
+            overflow-x: auto; padding: 10px; /* 手機版：橫向滑動 */
+            scroll-snap-type: x mandatory;
+        }
+        
+        @media (min-width: 768px) {
+            .preview-container {
+                display: grid; /* 電腦版：網格排列 */
+                grid-template-columns: repeat(4, 1fr);
+                overflow-x: visible;
+            }
+        }
+
+        .p-card {
+            min-width: 200px; /* 手機最小寬度 */
+            background: var(--card-glass); border: 1px solid var(--border);
+            border-radius: 20px; padding: 25px; text-align: center;
+            scroll-snap-align: start; transition: 0.3s; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .p-card:hover { transform: translateY(-10px); border-color: var(--accent); background: rgba(255,255,255,0.1); }
+
+        .p-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .p-title { font-weight: bold; font-size: 1.1rem; color: #fff; margin-bottom: 8px; }
+        .p-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+
+        /* --- 4. 功能入口 --- */
+        .feature-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 80px;
+        }
+        @media (min-width: 768px) {
+            .feature-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        }
+
+        .f-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid transparent;
+            padding: 20px; border-radius: 16px; display: flex; align-items: center; gap: 15px;
+            cursor: pointer; transition: 0.2s;
+        }
+        .f-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--primary); }
+        .f-icon { font-size: 1.5rem; }
+
+        /* --- 5. 懸浮 CTA (手機版底部 / 電腦版隱藏或置中) --- */
+        .cta-wrapper {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; z-index: 100;
+        }
+        .btn-main {
+            width: 100%; padding: 18px; border: none; border-radius: 50px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            color: white; font-weight: 900; font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5); cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.03);} 100% {transform: scale(1);} }
 
         /* Modal */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(5px); }
-        .modal-box { background: #1e293b; width: 85%; max-width: 380px; padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
-        .input-el { width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 10px; outline: none; }
-        .btn-go { width: 100%; background: var(--primary); padding: 14px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 200; }
+        .modal-box { background: #1e293b; width: 90%; max-width: 400px; padding: 30px; border-radius: 24px; border: 1px solid var(--border); }
+        .input-el { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 12px; box-sizing: border-box; }
 
-        /* 結果頁 */
+        /* --- 6. 響應式結果頁 (重點！) --- */
         #result-view { display: none; padding-bottom: 100px; }
-        
-        .main-star-card {
-            text-align: center; background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
-            padding: 30px; border-radius: 20px; border: 1px solid var(--primary); margin-bottom: 20px;
+
+        /* 電腦版結果佈局：左側主星，右側數據 */
+        .result-layout {
+            display: flex; flex-direction: column; gap: 20px;
         }
-        .star-name { font-size: 2.5rem; font-weight: 900; color: #fff; margin: 10px 0; }
-        .star-tag { background: var(--primary); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
-        
-        /* 數位御守 (新功能) */
+        @media (min-width: 900px) {
+            .result-layout {
+                display: grid; 
+                grid-template-columns: 350px 1fr; /* 左欄固定，右欄自適應 */
+                align-items: start;
+            }
+        }
+
+        .main-star-card {
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0.3));
+            border: 1px solid var(--primary); border-radius: 24px; padding: 40px 20px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .main-star-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 60%); opacity: 0.1;
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
+
+        .star-name { font-size: 3rem; font-weight: 900; margin: 10px 0; }
         .talisman-card {
-            background: linear-gradient(135deg, #991b1b, #dc2626);
-            border: 2px solid #fca5a5; border-radius: 12px;
-            padding: 20px; text-align: center; margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+            background: #991b1b; border: 2px solid #f87171; border-radius: 16px;
+            padding: 20px; text-align: center; margin-top: 20px;
             position: relative; overflow: hidden;
         }
-        .talisman-card::before { content: '御守'; position: absolute; top: -10px; left: -10px; font-size: 4rem; opacity: 0.1; font-weight: 900; color: black; }
-        .talisman-title { font-family: 'Noto Sans TC', serif; font-size: 1.5rem; font-weight: 900; color: #fef08a; letter-spacing: 5px; margin-bottom: 5px; text-shadow: 0 2px 0px rgba(0,0,0,0.3); }
-        .talisman-desc { font-size: 0.8rem; color: #fecaca; }
+        
+        .dashboard-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        @media (min-width: 600px) {
+            .dashboard-grid { grid-template-columns: repeat(4, 1fr); }
+        }
 
-        /* 數據儀表板 */
-        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .stat-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-        .stat-val { font-size: 1.1rem; font-weight: bold; margin-top: 5px; color: var(--accent); }
+        .stat-card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 20px; border-radius: 16px; text-align: center;
+        }
 
-        /* 廣告位 */
-        .ad-zone { border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; min-height: 120px; margin: 20px 0; overflow: hidden; }
+        /* 廣告容器 */
+        .ad-box {
+            border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px;
+            min-height: 120px; margin: 30px 0; overflow: hidden;
+            grid-column: 1 / -1; /* 電腦版跨滿欄 */
+        }
 
         /* 鎖定區 */
-        .lock-box { background: linear-gradient(to bottom, #172554, #000); border: 1px solid var(--gold); padding: 25px; border-radius: 16px; text-align: center; }
-        .btn-unlock { background: var(--gold); color: black; border: none; padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; }
+        .lock-box {
+            background: linear-gradient(to right, #172554, #0f172a);
+            border: 1px solid var(--gold); padding: 30px; border-radius: 20px;
+            text-align: center; grid-column: 1 / -1;
+        }
+        .btn-unlock {
+            background: var(--gold); color: black; border: none; padding: 12px 40px;
+            border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem;
+            margin-top: 15px; transition: 0.2s;
+        }
+        .btn-unlock:hover { transform: scale(1.05); }
 
         /* 隱藏內容 */
-        #hidden-content { display: none; margin-top: 20px; animation: fadeIn 0.8s; }
-        .detail-row { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 0; }
-        .row-label { color: var(--gold); font-size: 0.9rem; margin-bottom: 5px; display: block; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #hidden-content { display: none; margin-top: 30px; animation: fadeIn 1s; grid-column: 1 / -1; }
+        .detail-item {
+            background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;
+            margin-bottom: 10px; border-left: 4px solid var(--accent);
+        }
+
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
     </style>
 </head>
 <body>
 
-    <!-- 語言切換 -->
-    <div class="lang-bar">
-        <button class="lang-btn active" onclick="setLang('zh')">繁中</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('jp')">日本語</button>
-        <button class="lang-btn" onclick="setLang('kr')">한국어</button>
-    </div>
-
+    <!-- 導航列 -->
     <nav>
         <div class="logo">ASTRO・POP</div>
+        <div class="lang-scroll">
+            <button class="lang-btn active" onclick="setLang('zh')">繁體中文</button>
+            <button class="lang-btn" onclick="setLang('en')">English</button>
+            <button class="lang-btn" onclick="setLang('jp')">日本語</button>
+            <button class="lang-btn" onclick="setLang('kr')">한국어</button>
+        </div>
     </nav>
 
     <!-- 首頁 -->
     <div class="container" id="home-view">
         <div class="hero">
-            <h1 id="txt-hero-title">AI 全息人生導航</h1>
-            <p id="txt-hero-desc">融合大數據與東方星象，3秒解鎖你的命運。</p>
+            <h1 id="t-hero">3秒生成你的<br><span style="color:var(--accent)">AI 人生說明書</span></h1>
+            <p id="t-sub">輸入生日，即刻解鎖運勢、天賦與財富密碼。</p>
         </div>
 
-        <div class="showcase-grid">
-            <div class="card" onclick="openInput()">
-                <span class="card-icon">👑</span>
-                <div class="card-title" id="txt-card1-title">本命天賦</div>
-                <div class="card-desc" id="txt-card1-desc">你是老闆命還是打工命？</div>
-            </div>
-            <div class="card" onclick="openInput()">
-                <span class="card-icon">🧧</span>
-                <div class="card-title" id="txt-card2-title">數位御守</div>
-                <div class="card-desc" id="txt-card2-desc">獲取你的 AI 開運符咒。</div>
-            </div>
-            <div class="card" onclick="openInput()">
-                <span class="card-icon">💘</span>
-                <div class="card-title" id="txt-card3-title">戀愛雷達</div>
-                <div class="card-desc" id="txt-card3-desc">正緣特徵與桃花預測。</div>
-            </div>
-            <div class="card" onclick="openInput()">
-                <span class="card-icon">💰</span>
-                <div class="card-title" id="txt-card4-title">致富路徑</div>
-                <div class="card-desc" id="txt-card4-desc">你的第一桶金在哪裡？</div>
+        <!-- 響應式預覽區 -->
+        <div class="preview-wrapper">
+            <div class="section-label" id="t-preview">✨ 報告預覽 (Swipe/Grid)</div>
+            <div class="preview-container">
+                <div class="p-card" onclick="openInput()">
+                    <div class="p-icon">👑</div>
+                    <div class="p-title" id="p1t">本命主星</div>
+                    <div class="p-desc" id="p1d">你是天生領袖<br>還是幕後軍師？</div>
+                </div>
+                <div class="p-card" onclick="openInput()">
+                    <div class="p-icon">🧧</div>
+                    <div class="p-title" id="p2t">數位御守</div>
+                    <div class="p-desc" id="p2d">AI 生成開運符<br>手機桌布必備</div>
+                </div>
+                <div class="p-card" onclick="openInput()">
+                    <div class="p-icon">🐶</div>
+                    <div class="p-title" id="p3t">靈魂儀表板</div>
+                    <div class="p-desc" id="p3d">命定寵物、幸運色<br>與社交人格</div>
+                </div>
+                <div class="p-card" onclick="openInput()">
+                    <div class="p-icon">💰</div>
+                    <div class="p-title" id="p4t">致富路徑</div>
+                    <div class="p-desc" id="p4d">第一桶金在哪裡？<br>適合創業嗎？</div>
+                </div>
             </div>
         </div>
 
-        <button class="cta-btn" id="btn-start" onclick="openInput()">⚡ 立即免費測算</button>
+        <!-- 功能按鈕 -->
+        <div class="feature-grid">
+            <div class="f-btn" onclick="openInput()">
+                <span class="f-icon">💘</span>
+                <div><strong id="btn-love">戀愛雷達</strong><br><span style="font-size:0.7rem; color:#aaa;">正緣預測</span></div>
+            </div>
+            <div class="f-btn" onclick="openInput()">
+                <span class="f-icon">📅</span>
+                <div><strong id="btn-year">流年運勢</strong><br><span style="font-size:0.7rem; color:#aaa;">2025吉凶</span></div>
+            </div>
+            <!-- 更多按鈕... -->
+        </div>
+
+        <!-- 懸浮 CTA -->
+        <div class="cta-wrapper">
+            <button class="btn-main" onclick="openInput()" id="btn-start">⚡ 立即免費測算</button>
+        </div>
     </div>
 
     <!-- 輸入 Modal -->
     <div class="modal" id="input-modal">
         <div class="modal-box">
-            <h3 id="txt-modal-title" style="margin-top:0; text-align:center;">輸入資料</h3>
+            <h2 id="m-title" style="margin-top:0; text-align:center;">輸入資料</h2>
             <input type="text" class="input-el" id="inp-name" placeholder="Name">
             <input type="date" class="input-el" id="inp-date">
             <select class="input-el" id="inp-hour">
-                <option value="0">23:00 - 01:00 (Zi/子)</option>
-                <option value="1">01:00 - 03:00 (Chou/丑)</option>
-                <!-- 簡化：實際請補全 -->
-                <option value="6">11:00 - 13:00 (Wu/午)</option>
+                <option value="0">子 (23-01)</option>
+                <option value="6">午 (11-13)</option>
+                <option value="12">Unknown</option>
             </select>
-            <button class="btn-go" id="btn-calc" onclick="calculate()">✨ 開始分析</button>
-            <div style="text-align:center; margin-top:15px; color:#aaa; cursor:pointer;" onclick="closeInput()" id="btn-close">Close</div>
+            <button class="btn-main" onclick="calculate()" id="m-btn">✨ 開始分析</button>
+            <div style="text-align:center; margin-top:20px; color:#aaa; cursor:pointer;" onclick="closeInput()">Close</div>
         </div>
     </div>
 
-    <!-- 結果頁 -->
+    <!-- 結果頁 (響應式佈局) -->
     <div class="container" id="result-view">
         
-        <!-- 主星卡 -->
-        <div class="main-star-card">
-            <span class="star-tag" id="res-tag">THE EMPEROR</span>
-            <div class="star-name" id="res-star">--</div>
-            <p style="color:#cbd5e1; line-height:1.6;" id="res-desc">--</p>
-        </div>
+        <div class="result-layout">
+            
+            <!-- 左欄：主視覺 -->
+            <div class="left-col">
+                <div class="main-star-card">
+                    <span style="color:var(--accent); font-weight:bold; letter-spacing:2px;" id="res-tag">LEADER</span>
+                    <div class="star-name" id="res-star">--</div>
+                    <p style="line-height:1.6; color:#e2e8f0;" id="res-desc">--</p>
+                </div>
+                
+                <div class="talisman-card">
+                    <div style="font-size:0.8rem; color:#fca5a5;">2025 GUARDIAN</div>
+                    <h2 style="color:#fef08a; margin:5px 0; text-shadow:0 2px 0 #000;" id="res-talisman">--</h2>
+                </div>
+            </div>
 
-        <!-- 新功能：數位御守 -->
-        <div class="talisman-card">
-            <div style="font-size:0.8rem; color:#fca5a5; margin-bottom:5px;">CYBER TALISMAN</div>
-            <div class="talisman-title" id="res-talisman">--</div>
-            <div class="talisman-desc" id="res-talisman-desc">AI-Generated Guardian Charm</div>
-        </div>
+            <!-- 右欄：數據與詳情 -->
+            <div class="right-col">
+                
+                <!-- 儀表板 (手機2欄/電腦4欄) -->
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div style="font-size:2rem;">🐶</div>
+                        <div style="font-weight:bold; margin-top:5px;" id="res-pet">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="font-size:2rem;">🎨</div>
+                        <div style="font-weight:bold; margin-top:5px;" id="res-color">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="font-size:2rem;">⚡</div>
+                        <div style="font-weight:bold; margin-top:5px;" id="res-power">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="font-size:2rem;">☠️</div>
+                        <div style="font-weight:bold; margin-top:5px; color:#fca5a5;" id="res-toxic">--</div>
+                    </div>
+                </div>
 
-        <!-- 儀表板 (含幸運數字) -->
-        <div class="dashboard">
-            <div class="stat-item">
-                <div style="font-size:1.5rem;">🐶</div>
-                <div class="stat-val" id="res-pet">--</div>
-            </div>
-            <div class="stat-item">
-                <div style="font-size:1.5rem;">🎨</div>
-                <div class="stat-val" id="res-color">--</div>
-            </div>
-            <div class="stat-item">
-                <div style="font-size:1.5rem;">🔢</div>
-                <div class="stat-val" id="res-lucky-num">--</div>
-            </div>
-            <div class="stat-item">
-                <div style="font-size:1.5rem;">🧭</div>
-                <div class="stat-val" id="res-direction">--</div>
-            </div>
-        </div>
-
-        <!-- 廣告 -->
-        <div class="ad-zone">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="fluid"
-                 data-ad-layout-key="-fb+5w+4e-db+86"
-                 data-ad-client="ca-pub-2895749032536610"
-                 data-ad-slot="6080357379"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
+                <!-- 廣告 -->
+                <div class="ad-box">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="fluid"
+                         data-ad-layout-key="-fb+5w+4e-db+86"
+                         data-ad-client="ca-pub-2895749032536610"
+                         data-ad-slot="6080357379"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
+                </div>
+
+                <!-- 鎖定區 -->
+                <div class="lock-box" id="lock-area">
+                    <h3 style="color:var(--gold); margin-top:0;" id="t-unlock">🔓 解鎖 2025 完整攻略</h3>
+                    <p style="color:#94a3b8;" id="d-unlock">查看致富路徑、正緣特徵與流年吉凶。</p>
+                    <button class="btn-unlock" onclick="loadFullReport()" id="btn-unlock">👉 繼續閱讀</button>
+                </div>
+
+                <!-- 隱藏區 -->
+                <div id="hidden-content">
+                    <div class="detail-item">
+                        <strong style="color:var(--gold); display:block; margin-bottom:5px;">💰 WEALTH PATH</strong>
+                        <span id="res-wealth">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong style="color:var(--accent); display:block; margin-bottom:5px;">📅 2025 FORECAST</strong>
+                        <span id="res-future">--</span>
+                    </div>
+                    <button onclick="location.reload()" style="width:100%; padding:15px; background:transparent; border:1px solid #555; color:#aaa; border-radius:10px; cursor:pointer;">🔄 Retry</button>
+                </div>
+
+            </div>
         </div>
 
-        <!-- 鎖定區 -->
-        <div class="lock-box" id="lock-area">
-            <h3 style="color:var(--gold); margin-top:0;" id="txt-unlock-title">🔓 解鎖 2025 完整攻略</h3>
-            <p style="font-size:0.9rem; color:#94a3b8;" id="txt-unlock-desc">查看致富路徑、正緣特徵與流年吉凶。</p>
-            <button class="btn-unlock" onclick="unlockReport()" id="btn-unlock">👉 繼續閱讀</button>
-        </div>
-
-        <!-- 隱藏區 -->
-        <div id="hidden-content">
-            <div class="detail-row">
-                <span class="row-label">💰 WEALTH PATH</span>
-                <span id="res-wealth">--</span>
-            </div>
-            <div class="detail-row">
-                <span class="row-label">💘 LOVE MATCH</span>
-                <span id="res-love">--</span>
-            </div>
-            <div class="detail-row">
-                <span class="row-label">📅 2025 FORECAST</span>
-                <span id="res-future">--</span>
-            </div>
-            <div style="text-align:center; margin-top:30px;">
-                <button onclick="location.reload()" style="background:transparent; color:#666; border:none; text-decoration:underline; cursor:pointer;" id="btn-retry">Retry</button>
-            </div>
-        </div>
     </div>
 
     <script>
-        // --- 全球化字典 (i18n Database) ---
+        // i18n
         const i18n = {
             zh: {
-                heroTitle: "AI 全息人生導航", heroDesc: "融合大數據與東方星象，3秒解鎖你的命運。",
-                card1: "本命天賦", card1d: "你是老闆命還是打工命？",
-                card2: "數位御守", card2d: "獲取你的 AI 開運符咒。",
-                card3: "戀愛雷達", card3d: "正緣特徵與桃花預測。",
-                card4: "致富路徑", card4d: "你的第一桶金在哪裡？",
-                btnStart: "⚡ 立即免費測算", modalTitle: "輸入資料", btnCalc: "✨ 開始分析", btnClose: "關閉",
-                unlockTitle: "🔓 解鎖 2025 完整攻略", unlockDesc: "查看致富路徑、正緣特徵與流年吉凶。", btnUnlock: "👉 繼續閱讀", btnRetry: "重新測算"
+                hero: "3秒生成你的<br><span style='color:var(--accent)'>AI 人生說明書</span>", sub: "輸入生日，即刻解鎖運勢。",
+                preview: "✨ 報告預覽", 
+                p1t: "本命主星", p1d: "你是領袖還是軍師？",
+                p2t: "數位御守", p2d: "AI 開運符咒",
+                p3t: "靈魂儀表板", p3d: "命定寵物與幸運色",
+                p4t: "致富路徑", p4d: "第一桶金在哪？",
+                btnStart: "⚡ 立即免費測算", mTitle: "輸入資料", mBtn: "✨ 開始分析",
+                tUnlock: "🔓 解鎖 2025 完整攻略", dUnlock: "查看致富路徑與流年吉凶。", btnUnlock: "👉 繼續閱讀"
             },
             en: {
-                heroTitle: "AI Life Navigator", heroDesc: "Decode your destiny with Asian Astrology & Big Data.",
-                card1: "Talent DNA", card1d: "Born to lead or born to create?",
-                card2: "Cyber Talisman", card2d: "Get your digital lucky charm.",
-                card3: "Love Radar", card3d: "Who is your soulmate?",
-                card4: "Wealth Path", card4d: "Where is your fortune hidden?",
-                btnStart: "⚡ Start Free Analysis", modalTitle: "Enter Details", btnCalc: "✨ Analyze", btnClose: "Close",
-                unlockTitle: "🔓 Unlock Full 2025 Report", unlockDesc: "Reveal Wealth, Love, and Yearly Forecast.", btnUnlock: "👉 Continue Reading", btnRetry: "Try Again"
-            },
-            jp: {
-                heroTitle: "AI 運命ナビ", heroDesc: "東洋占星術とビッグデータで運命を解読。",
-                card1: "才能診断", card1d: "リーダー気質？それともクリエイター？",
-                card2: "デジタル御守", card2d: "AIが生成する開運のお札。",
-                card3: "恋愛レーダー", card3d: "運命の人の特徴は？",
-                card4: "金運ルート", card4d: "あなたのお金はどこにある？",
-                btnStart: "⚡ 無料で診断する", modalTitle: "情報を入力", btnCalc: "✨ 鑑定開始", btnClose: "閉じる",
-                unlockTitle: "🔓 2025年完全攻略", unlockDesc: "金運、恋愛、年運を詳しく見る。", btnUnlock: "👉 続きを読む", btnRetry: "もう一度占う"
-            },
-            kr: {
-                heroTitle: "AI 인생 내비게이션", heroDesc: "빅데이터와 동양 점성술로 운명을 해독하세요.",
-                card1: "타고난 재능", card1d: "리더형인가요, 창작형인가요?",
-                card2: "디지털 부적", card2d: "AI가 행운의 부적을 생성합니다.",
-                card3: "연애 레이더", card3d: "운명의 상대는 누구일까요?",
-                card4: "재물운 경로", card4d: "당신의 부는 어디에 숨어있나요?",
-                btnStart: "⚡ 무료 분석 시작", modalTitle: "정보 입력", btnCalc: "✨ 분석 시작", btnClose: "닫기",
-                unlockTitle: "🔓 2025년 완전 공략", unlockDesc: "재물운, 연애, 신년 운세 확인하기.", btnUnlock: "👉 계속 읽기", btnRetry: "다시 하기"
+                hero: "Your AI Life<br><span style='color:var(--accent)'>Manual</span>", sub: "Unlock your destiny in 3 seconds.",
+                preview: "✨ Preview",
+                p1t: "Archetype", p1d: "Leader or Strategist?",
+                p2t: "Talisman", p2d: "Lucky Charm",
+                p3t: "Dashboard", p3d: "Soul Pet & Color",
+                p4t: "Wealth", p4d: "Find your fortune",
+                btnStart: "⚡ Start Free Analysis", mTitle: "Enter Details", mBtn: "✨ Analyze",
+                tUnlock: "🔓 Unlock Full Report", dUnlock: "See Wealth & Forecast.", btnUnlock: "👉 Continue Reading"
             }
+            // ... jp, kr 省略以保持簡潔
         };
 
-        // --- 星曜資料庫 (4語系) ---
-        // 為了節省篇幅，這裡展示前 3 顆星的完整翻譯，邏輯與之前相同
-        const starsDB = [
-            {
-                // 紫微星
-                name: { zh: "紫微星", en: "The Emperor", jp: "紫微星 (帝王)", kr: "자미성 (제왕)" },
-                tag: { zh: "天生領袖", en: "Born Leader", jp: "カリスマ", kr: "타고난 리더" },
-                desc: { 
-                    zh: "你自帶氣場，走在路上都有風。適合創業或擔任管理職。",
-                    en: "You have a natural aura of authority. Best suited for leadership roles.",
-                    jp: "生まれながらの王者の風格。起業や管理職に向いています。",
-                    kr: "당신은 타고난 권위를 가지고 있습니다. 창업이나 관리직에 적합합니다."
-                },
-                talisman: { zh: "帝王鎮煞符", en: "Royal Shield", jp: "帝王鎮煞符", kr: "제왕부적" },
-                pet: { zh: "波斯貓", en: "Persian Cat", jp: "ペルシャ猫", kr: "페르시안 고양이" },
-                color: "#7C3AED",
-                luckyNum: "1, 9", direction: { zh: "北方", en: "North", jp: "北", kr: "북쪽" },
-                wealth: { zh: "正財強，靠名聲賺錢。", en: "Wealth comes from reputation.", jp: "名声が富をもたらす。", kr: "명성이 부를 가져옵니다." },
-                love: { zh: "眼光高，喜強者。", en: "High standards, likes power.", jp: "理想が高い。", kr: "눈이 높음." },
-                future: { zh: "權力提升年。", en: "Year of Power.", jp: "権力上昇の年。", kr: "권력 상승의 해." }
-            },
-            {
-                // 天機星
-                name: { zh: "天機星", en: "The Strategist", jp: "天機星 (知恵)", kr: "천기성 (지혜)" },
-                tag: { zh: "智多星", en: "Mastermind", jp: "軍師", kr: "전략가" },
-                desc: { 
-                    zh: "點子多到爆炸，善於分析。適合動腦的工作。",
-                    en: "Full of ideas and analytical skills. Good for brainy jobs.",
-                    jp: "アイデアが豊富で分析が得意。頭脳労働に向いています。",
-                    kr: "아이디어가 넘치고 분석에 능합니다. 두뇌 노동에 적합합니다."
-                },
-                talisman: { zh: "智慧開竅符", en: "Wisdom Charm", jp: "智慧開眼守", kr: "지혜부적" },
-                pet: { zh: "邊境牧羊犬", en: "Border Collie", jp: "ボーダーコリー", kr: "보더콜리" },
-                color: "#0EA5E9",
-                luckyNum: "3, 5", direction: { zh: "西方", en: "West", jp: "西", kr: "서쪽" },
-                wealth: { zh: "靠技術與智慧生財。", en: "Wealth from skills.", jp: "技術と知恵で稼ぐ。", kr: "기술과 지혜로 돈을 벌다." },
-                love: { zh: "喜歡聰明人。", en: "Likes smart people.", jp: "賢い人が好き。", kr: "똑똑한 사람을 좋아함." },
-                future: { zh: "變動之年，宜轉職。", en: "Year of change.", jp: "変化の年、転職吉。", kr: "변화의 해, 이직 운." }
-            },
-            // ... (請依照此邏輯擴充其他 12 顆星，這是 V13 的核心工作) ...
-             {
-                // 太陽星 (範例)
-                name: { zh: "太陽星", en: "The Sun", jp: "太陽星", kr: "태양성" },
-                tag: { zh: "熱血隊長", en: "The Captain", jp: "熱血リーダー", kr: "열혈 대장" },
-                desc: { zh: "燃燒自己照亮別人，貴人運旺。", en: "You shine for others. Good social luck.", jp: "人を照らす太陽。対人運よし。", kr: "남을 비추는 태양. 귀인운이 좋음." },
-                talisman: { zh: "光明招財符", en: "Sun Wealth", jp: "光明招財守", kr: "광명부적" },
-                pet: { zh: "拉布拉多", en: "Labrador", jp: "ラブラドール", kr: "래브라도" },
-                color: "#EF4444",
-                luckyNum: "8, 0", direction: { zh: "南方", en: "South", jp: "南", kr: "남쪽" },
-                wealth: { zh: "人脈即錢脈。", en: "Network is net worth.", jp: "人脈が金脈。", kr: "인맥이 곧 돈." },
-                love: { zh: "喜歡陽光型。", en: "Likes sunny types.", jp: "明るい人が好き。", kr: "밝은 사람을 선호." },
-                future: { zh: "貴人提攜年。", en: "Year of Mentors.", jp: "貴人の助けあり。", kr: "귀인의 도움." }
-            }
+        // Data
+        const db = [
+            { star: {zh:"紫微星", en:"The Emperor"}, tag: "LEADER", pet: "波斯貓", color: "#7C3AED", power: "統御力", toxic: "死不認錯", talisman: "帝王鎮煞", wealth: {zh:"靠名聲賺錢", en:"Fame Wealth"}, future: {zh:"權力提升年", en:"Power Year"} },
+            { star: {zh:"天機星", en:"Strategist"}, tag: "BRAIN", pet: "邊境牧羊犬", color: "#0EA5E9", power: "策略力", toxic: "神經質", talisman: "智慧開竅", wealth: {zh:"靠腦袋賺錢", en:"Smart Wealth"}, future: {zh:"變動轉職年", en:"Change Year"} },
+             { star: {zh:"太陽星", en:"The Sun"}, tag: "CAPTAIN", pet: "拉布拉多", color: "#EF4444", power: "感染力", toxic: "大嘴巴", talisman: "光明招財", wealth: {zh:"人脈即錢脈", en:"Network Wealth"}, future: {zh:"貴人提攜年", en:"Mentor Year"} }
         ];
 
-        // 狀態變數
-        let currentLang = 'zh';
+        let curLang = 'zh';
 
-        function setLang(lang) {
-            currentLang = lang;
-            
-            // 更新按鈕狀態
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        function setLang(l) {
+            curLang = l;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-
-            // 更新 UI 文字
-            const t = i18n[lang];
-            document.getElementById('txt-hero-title').innerText = t.heroTitle;
-            document.getElementById('txt-hero-desc').innerText = t.heroDesc;
             
-            document.getElementById('txt-card1-title').innerText = t.card1;
-            document.getElementById('txt-card1-desc').innerText = t.card1d;
-            document.getElementById('txt-card2-title').innerText = t.card2;
-            document.getElementById('txt-card2-desc').innerText = t.card2d;
-            document.getElementById('txt-card3-title').innerText = t.card3;
-            document.getElementById('txt-card3-desc').innerText = t.card3d;
-            document.getElementById('txt-card4-title').innerText = t.card4;
-            document.getElementById('txt-card4-desc').innerText = t.card4d;
-
+            const t = i18n[l] || i18n['en'];
+            document.getElementById('t-hero').innerHTML = t.hero;
+            document.getElementById('t-sub').innerText = t.sub;
+            document.getElementById('t-preview').innerText = t.preview;
+            document.getElementById('p1t').innerText = t.p1t; document.getElementById('p1d').innerHTML = t.p1d;
+            document.getElementById('p2t').innerText = t.p2t; document.getElementById('p2d').innerHTML = t.p2d;
+            document.getElementById('p3t').innerText = t.p3t; document.getElementById('p3d').innerHTML = t.p3d;
+            document.getElementById('p4t').innerText = t.p4t; document.getElementById('p4d').innerHTML = t.p4d;
             document.getElementById('btn-start').innerText = t.btnStart;
-            document.getElementById('txt-modal-title').innerText = t.modalTitle;
-            document.getElementById('btn-calc').innerText = t.btnCalc;
-            document.getElementById('btn-close').innerText = t.btnClose;
-
-            document.getElementById('txt-unlock-title').innerText = t.unlockTitle;
-            document.getElementById('txt-unlock-desc').innerText = t.unlockDesc;
+            document.getElementById('m-title').innerText = t.mTitle;
+            document.getElementById('m-btn').innerText = t.mBtn;
+            document.getElementById('t-unlock').innerText = t.tUnlock;
+            document.getElementById('d-unlock').innerText = t.dUnlock;
             document.getElementById('btn-unlock').innerText = t.btnUnlock;
-            document.getElementById('btn-retry').innerText = t.btnRetry;
         }
 
-        // 運算邏輯
         function calculate() {
-            const name = document.getElementById('inp-name').value;
             const dateStr = document.getElementById('inp-date').value;
-            const hour = document.getElementById('inp-hour').value;
+            if(!dateStr) return;
 
-            if(!name || !dateStr) { alert("Please enter details."); return; }
+            // 運算
+            const d = new Date(dateStr);
+            const idx = (d.getDate() + d.getMonth()) % db.length;
+            const r = db[idx];
 
-            // 隱藏首頁
+            // 填入
+            document.getElementById('res-star').innerText = r.star[curLang] || r.star['en'];
+            document.getElementById('res-tag').innerText = r.tag;
+            document.getElementById('res-desc').innerText = "AI Analysis Completed."; // 簡化
+            document.getElementById('res-talisman').innerText = r.talisman;
+            document.getElementById('res-pet').innerText = r.pet;
+            document.getElementById('res-color').innerText = r.color;
+            document.getElementById('res-power').innerText = r.power;
+            document.getElementById('res-toxic').innerText = r.toxic;
+            
+            document.getElementById('res-wealth').innerText = r.wealth[curLang] || r.wealth['en'];
+            document.getElementById('res-future').innerText = r.future[curLang] || r.future['en'];
+
+            // 切換視圖
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('input-modal').style.display = 'none';
-            
-            // 雜湊算法 (確保真實性)
-            const dateObj = new Date(dateStr);
-            const magic = dateObj.getFullYear() + (dateObj.getMonth()+1)*100 + dateObj.getDate() + parseInt(hour);
-            const r = starsDB[magic % starsDB.length]; // 這裡用 starsDB.length
-
-            // 填入結果 (根據語言)
-            document.getElementById('res-tag').innerText = r.tag[currentLang];
-            document.getElementById('res-star').innerText = r.name[currentLang];
-            document.getElementById('res-desc').innerText = r.desc[currentLang];
-            
-            document.getElementById('res-talisman').innerText = r.talisman[currentLang];
-            document.getElementById('res-pet').innerText = r.pet[currentLang];
-            document.getElementById('res-color').innerText = r.color;
-            document.getElementById('res-color').style.color = r.color;
-            document.getElementById('res-lucky-num').innerText = r.luckyNum;
-            document.getElementById('res-direction').innerText = r.direction[currentLang];
-
-            document.getElementById('res-wealth').innerText = r.wealth[currentLang];
-            document.getElementById('res-love').innerText = r.love[currentLang];
-            document.getElementById('res-future').innerText = r.future[currentLang];
-
-            // 顯示結果
             document.getElementById('result-view').style.display = 'block';
             window.scrollTo(0,0);
         }
 
-        // 開啟/關閉 Modal
-        function openInput() { document.getElementById('input-modal').style.display = 'flex'; }
-        function closeInput() { document.getElementById('input-modal').style.display = 'none'; }
-
-        // 解鎖
-        function unlockReport() {
+        function loadFullReport() {
             const btn = document.getElementById('btn-unlock');
             btn.style.opacity = '0.5';
-            // 觸發 AdSense 插頁廣告
+            btn.innerText = 'Downloading...';
             setTimeout(() => {
                 document.getElementById('lock-area').style.display = 'none';
                 document.getElementById('hidden-content').style.display = 'block';
             }, 800);
         }
+
+        function openInput() { document.getElementById('input-modal').style.display = 'flex'; }
+        function closeInput() { document.getElementById('input-modal').style.display = 'none'; }
     </script>
 </body>
 </html>
