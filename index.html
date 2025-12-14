@@ -3,441 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRO・ZENITH | Global</title>
+    <title>ASTRO・ZENITH | 紫微星圖</title>
+    
+    <!-- ★★★ 您的 Google AdSense 核心代碼 (放在 Head 效能最好) ★★★ -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2895749032536610"
+     crossorigin="anonymous"></script>
+
     <style>
-        /* --- 2025 Global Mysticism Style --- */
+        /* --- 2025 Master UI: Deep Space Gold --- */
         :root {
-            --bg-void: #050505;
-            --primary: #8b5cf6;
-            --gold: #d4af37;
-            --glass: rgba(255, 255, 255, 0.08);
-            --border: rgba(255, 255, 255, 0.15);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg: #050505;
+            --primary: #8b5cf6; /* 神秘紫 */
+            --gold: #d4af37;    /* 帝王金 */
+            --card-bg: #18181b; /* 卡片底色，配合您的原生廣告背景 */
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
         }
 
         body {
             margin: 0;
-            background: var(--bg-void);
+            background-color: var(--bg);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(46, 16, 101, 0.3) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.15) 0px, transparent 50%);
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
             color: var(--text-main);
             min-height: 100vh;
         }
 
-        /* --- 導航列 --- */
         nav {
             padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .brand { 
-            font-weight: 700; 
-            letter-spacing: 2px; 
-            background: linear-gradient(90deg, #fff, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* 語言切換按鈕 */
-        .lang-switch {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            color: var(--gold);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .lang-switch:hover { background: rgba(212, 175, 55, 0.2); }
-
-        /* --- 主容器 --- */
-        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-
-        .hero { text-align: center; margin-bottom: 40px; }
-        .hero h1 { font-weight: 300; font-size: 2rem; margin-bottom: 10px; }
-        .hero p { color: var(--text-muted); font-size: 0.95rem; }
-
-        /* --- 選項卡片 --- */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        .option-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 25px 15px;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 50;
         }
-        .option-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .card-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+        .logo { font-size: 1.2rem; letter-spacing: 3px; font-weight: 300; color: var(--gold); }
 
-        /* --- 全螢幕廣告遮罩 (Loading Interstitial) --- */
-        #ad-loading-layer {
-            position: fixed; inset: 0;
-            background: #000;
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .container { max-width: 600px; margin: 0 auto; padding: 30px 20px; }
+
+        /* 輸入區 */
+        .input-section {
+            text-align: center;
+            animation: fadeIn 1s ease;
         }
         
-        .loading-ring {
-            width: 50px; height: 50px; border: 3px solid #333; border-top: 3px solid var(--gold);
-            border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 20px;
-        }
+        .hero-title { font-weight: 200; font-size: 1.8rem; margin-bottom: 30px; }
         
-        /* 模擬 Google 插頁廣告框 */
-        .interstitial-ad-frame {
-            width: 320px; height: 480px; 
-            background: #1e1e1e; border: 1px solid #333;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; margin-bottom: 20px;
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-label { display: block; color: var(--text-sub); margin-bottom: 8px; font-size: 0.9rem; }
+        
+        .input-field {
+            width: 100%; box-sizing: border-box;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 14px; border-radius: 12px;
+            font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        .input-field:focus { border-color: var(--primary); background: rgba(139, 92, 246, 0.05); }
+
+        .btn-calc {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold), #b45309);
+            color: #000; font-weight: bold; border: none;
+            padding: 16px; border-radius: 50px;
+            font-size: 1.1rem; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+            margin-top: 10px;
         }
 
-        .skip-btn {
-            border: 1px solid #fff; background: transparent; color: #fff;
-            padding: 8px 24px; border-radius: 30px; cursor: pointer; opacity: 0.7;
-        }
-
-        /* --- 結果展示 --- */
-        #result-section { display: none; padding-bottom: 60px; }
+        /* 結果卡片 */
+        #result-view { display: none; }
         
-        .result-card {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px; padding: 25px;
+            margin-bottom: 25px;
             border-left: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease;
         }
-
-        /* 原生廣告位 B */
-        .native-ad-slot {
-            margin: 20px 0; padding: 15px;
-            background: #111; border: 1px dashed #444; border-radius: 12px;
-            text-align: center; color: #666; font-size: 0.8rem;
-            min-height: 250px; display: flex; align-items: center; justify-content: center;
+        
+        .star-name { font-size: 1.5rem; color: var(--text-main); margin-bottom: 5px; font-weight: bold; }
+        .star-tag { 
+            display: inline-block; background: rgba(139, 92, 246, 0.2); 
+            color: #a78bfa; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 15px; 
         }
+        .desc-text { line-height: 1.7; color: #cbd5e1; }
 
-        /* 升級鎖定區 (Monetization) */
-        .premium-lock {
-            position: relative;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
-            border: 1px solid var(--gold);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
+        /* 手動廣告位 (In-Feed) 容器設定 */
+        .ad-slot-manual {
+            margin: 30px 0;
+            min-height: 120px; /* 預留高度避免版面跳動 */
+            background: var(--card-bg); /* 與廣告背景色一致 */
+            display: block;
+            border-radius: 12px;
             overflow: hidden;
+            text-align: center;
+        }
+
+        /* 繼續閱讀按鈕 (觸發插頁廣告的關鍵) */
+        .continue-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, transparent, #000);
+            position: relative;
+            margin-top: -20px; /* 視覺銜接 */
         }
         
-        .blurred-text { filter: blur(6px); opacity: 0.5; user-select: none; }
-        
-        .unlock-btn {
-            background: var(--gold);
-            color: #000;
-            border: none;
-            padding: 12px 30px;
+        .btn-next {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 35px;
             border-radius: 30px;
-            font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn-next:hover { background: var(--gold); color: #000; }
+
+        /* 完整報告區 (預設隱藏) */
+        #full-report { display: none; animation: fadeIn 1s ease; }
+
+        /* Loading 動畫 */
+        #loading-screen {
+            position: fixed; inset: 0; background: #000; z-index: 100;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 3px solid #333; border-top-color: var(--gold);
+            border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 20px;
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        
-        /* Modal for Input */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 90; }
-        .modal-content { background: #18181b; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; border: 1px solid var(--border); }
-        .input-group { margin-bottom: 15px; }
-        .input-box { width: 100%; padding: 12px; background: #27272a; border: 1px solid #3f3f46; color: white; border-radius: 8px; box-sizing: border-box; }
-        .action-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="brand">ASTRO・ZENITH</div>
-        <button class="lang-switch" onclick="toggleLanguage()">EN / 中文</button>
+        <div class="logo">ASTRO・ZENITH</div>
     </nav>
 
-    <!-- 首頁 -->
-    <div class="container" id="home-view">
-        <div class="hero">
-            <h1 id="hero-title">洞悉天機，運籌帷幄</h1>
-            <p id="hero-subtitle">融合古老星象數據與現代心理學的人生導航</p>
-        </div>
-
-        <div class="grid">
-            <div class="option-card" onclick="openInput('life')">
-                <span class="card-icon">🔮</span>
-                <div class="opt-title">本命精批</div>
-                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">性格與潛能分析</div>
-            </div>
-            <div class="option-card" onclick="openInput('year')">
-                <span class="card-icon">📅</span>
-                <div class="opt-title">流年運勢</div>
-                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">年度機遇預測</div>
-            </div>
-            <div class="option-card" onclick="openInput('love')">
-                <span class="card-icon">❤️</span>
-                <div class="opt-title">感情姻緣</div>
-                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">真愛與相處模式</div>
-            </div>
-            <div class="option-card" onclick="openInput('wealth')">
-                <span class="card-icon">💰</span>
-                <div class="opt-title">事業財富</div>
-                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">致富路徑解析</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 輸入資料彈窗 -->
-    <div class="modal" id="input-modal">
-        <div class="modal-content">
-            <h3 id="modal-title" style="margin-top:0">請輸入生辰資料</h3>
-            <div class="input-group">
-                <input type="text" class="input-box" id="inp-name" placeholder="您的姓名 / Name">
-            </div>
-            <div class="input-group" style="display:flex; gap:10px;">
-                <input type="date" class="input-box">
-                <select class="input-box">
-                    <option>Male (男)</option>
-                    <option>Female (女)</option>
-                </select>
-            </div>
-            <button class="action-btn" id="btn-calc" onclick="startCalculation()">開始排盤</button>
-            <div id="btn-cancel" style="text-align:center; margin-top:15px; font-size:0.8rem; color:#666; cursor:pointer;" onclick="closeInput()">取消</div>
-        </div>
-    </div>
-
-    <!-- 廣告位 A：過場插頁 (Loading Ad) -->
-    <div id="ad-loading-layer">
-        <div class="loading-ring"></div>
-        <div id="loading-text" style="margin-bottom:20px; color:#ccc;">星象數據運算中...</div>
+    <!-- 輸入區 -->
+    <div class="container input-section" id="input-view">
+        <h1 class="hero-title">洞悉天機，運籌帷幄</h1>
         
-        <!-- Google Interstitial Ad Simulation -->
-        <div class="interstitial-ad-frame">
-            <span style="position:absolute; top:0; left:0; background:#ccc; color:#000; font-size:10px; padding:2px 5px;">Ad</span>
-            <div style="text-align:center; color:#666;">
-                [ Google AdSense Interstitial ]<br>
-                Full Screen Ad<br>
-                High CPM
-            </div>
+        <div class="form-group">
+            <label class="form-label">您的姓名</label>
+            <input type="text" class="input-field" id="inp-name" placeholder="請輸入姓名">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">出生日期 (國曆)</label>
+            <input type="date" class="input-field" id="inp-date">
         </div>
 
-        <button class="skip-btn" id="skip-ad-btn">略過廣告 (3)</button>
+        <div class="form-group">
+            <label class="form-label">出生時辰</label>
+            <select class="input-field" id="inp-hour">
+                <option value="0">子時 (23:00-00:59)</option>
+                <option value="1">丑時 (01:00-02:59)</option>
+                <option value="2">寅時 (03:00-04:59)</option>
+                <option value="3">卯時 (05:00-06:59)</option>
+                <option value="4">辰時 (07:00-08:59)</option>
+                <option value="5">巳時 (09:00-10:59)</option>
+                <option value="6">午時 (11:00-12:59)</option>
+                <option value="7">未時 (13:00-14:59)</option>
+                <option value="8">申時 (15:00-16:59)</option>
+                <option value="9">酉時 (17:00-18:59)</option>
+                <option value="10">戌時 (19:00-20:59)</option>
+                <option value="11">亥時 (21:00-22:59)</option>
+            </select>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">開始排盤</button>
+        <p style="color:#555; font-size:0.8rem; margin-top:20px;">AI 演算法將根據您的生辰進行精密推演</p>
     </div>
 
-    <!-- 結果頁 -->
-    <div class="container" id="result-section">
-        <h2 id="res-header" style="text-align:center; margin-bottom:30px;">您的命盤分析</h2>
+    <!-- Loading 畫面 -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div style="color:white; letter-spacing:1px;">正在繪製星盤...</div>
+    </div>
+
+    <!-- 結果區 (第一階段) -->
+    <div class="container" id="result-view">
+        <h2 style="text-align:center; margin-bottom:30px;">命盤分析報告</h2>
 
         <!-- 命宮卡片 -->
-        <div class="result-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <span style="color:var(--text-muted); font-size:0.9rem;" id="label-life-palace">命宮主星</span>
-                <strong style="color:var(--primary); font-size:1.2rem;" id="res-stars">紫微・七殺</strong>
-            </div>
-            <div style="margin-bottom:15px;">
-                <span style="background:rgba(139, 92, 246, 0.2); color:#a78bfa; padding:4px 10px; border-radius:4px; font-size:0.8rem;" id="tag-archetype">開創型領袖</span>
-            </div>
-            <p id="res-desc" style="line-height:1.6; color:#e2e8f0;">
-                這是一個「化殺為權」的強勢格局。您天生擁有極強的開創力與管理天賦，不喜歡受人管制。今年您的能量場非常強，適合推動停滯已久的計畫。
+        <div class="card">
+            <div class="star-name" id="res-star">--</div>
+            <div class="star-tag" id="res-tag">--</div>
+            <p class="desc-text" id="res-desc">
+                --
             </p>
         </div>
 
-        <!-- 廣告位 B：原生橫幅 (Native Ad) -->
-        <div class="native-ad-slot">
-            <div>
-                <span style="border:1px solid #555; padding:1px 4px; font-size:0.7rem;">Ad</span><br>
-                [ Google In-Feed / Display Ad ]<br>
-                Responsive Size (300x250+)
-            </div>
+        <!-- ★★★ 您的原生動態內廣告代碼 (In-Feed) ★★★ -->
+        <div class="ad-slot-manual">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-fb+5w+4e-db+86"
+                 data-ad-client="ca-pub-2895749032536610"
+                 data-ad-slot="6080357379"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
-        <!-- 升級解鎖區 -->
-        <div class="premium-lock">
-            <div class="blurred-text">
-                <h3 id="lock-title">未來十年大運走勢</h3>
-                <p>2026: Wealth Index 95% (Excellent)...</p>
-                <p>2027: Career Change indicated...</p>
-                <p>Detailed monthly breakdown...</p>
+        <!-- 繼續閱讀按鈕 (觸發插頁廣告) -->
+        <div class="continue-section" id="continue-btn-area">
+            <h3 style="margin-top:0; color:var(--text-main);">查看【財帛】與【未來十年大運】</h3>
+            <p style="color:var(--text-sub); font-size:0.9rem; margin-bottom:20px;">
+                深入解析您的致富路徑與流年轉折點
+            </p>
+            <button class="btn-next" onclick="loadFullReport()">
+                繼續閱讀完整詳批 &darr;
+            </button>
+        </div>
+
+        <!-- 完整報告 (第二階段) -->
+        <div id="full-report">
+            <div class="card" style="border-left-color: var(--gold);">
+                <div class="star-name" style="color:var(--gold)">財帛宮解析</div>
+                <p class="desc-text" id="res-wealth">
+                    --
+                </p>
             </div>
-            
-            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center;">
-                <div style="font-size:2rem; margin-bottom:10px;">🔒</div>
-                <h3 id="unlock-msg-title" style="margin:0 0 5px 0;">解鎖完整報告</h3>
-                <p id="unlock-msg-desc" style="font-size:0.9rem; color:#ccc; margin-bottom:15px;">觀看贊助廣告，免費獲取大運詳批</p>
-                <button class="unlock-btn" id="btn-unlock" onclick="watchRewardAd()">
-                    ▶ 觀看廣告解鎖
+
+            <div class="card" style="border-left-color: #10b981;">
+                <div class="star-name" style="color:#10b981">2025 流年運勢</div>
+                <p class="desc-text" id="res-future">
+                    --
+                </p>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <button onclick="location.reload()" style="background:transparent; border:none; color:#666; text-decoration:underline; cursor:pointer;">
+                    重新輸入
                 </button>
             </div>
-        </div>
-        
-        <div style="text-align:center; margin-top:40px;">
-            <button onclick="location.reload()" style="background:transparent; border:none; color:var(--text-muted); text-decoration:underline; cursor:pointer;" id="btn-retry">重新測算</button>
         </div>
     </div>
 
     <script>
-        // --- 1. 雙語字典 (The Dictionary) ---
-        const i18n = {
-            zh: {
-                heroTitle: "洞悉天機，運籌帷幄",
-                heroSubtitle: "融合古老星象數據與現代心理學的人生導航",
-                optLife: "本命精批", optLifeDesc: "性格與潛能分析",
-                optYear: "流年運勢", optYearDesc: "年度機遇預測",
-                optLove: "感情姻緣", optLoveDesc: "真愛與相處模式",
-                optWealth: "事業財富", optWealthDesc: "致富路徑解析",
-                modalTitle: "請輸入生辰資料",
-                btnCalc: "開始排盤",
-                btnCancel: "取消",
-                loadingText: "星象數據運算中...",
-                resHeader: "您的命盤分析",
-                labelLife: "命宮主星",
-                labelTag: "開創型領袖",
-                lockTitle: "未來十年大運走勢",
-                unlockTitle: "解鎖完整報告",
-                unlockDesc: "觀看贊助廣告，免費獲取大運詳批",
-                btnUnlock: "▶ 觀看廣告解鎖",
-                btnRetry: "重新測算",
-                // 動態結果範例
-                starName: "紫微・七殺",
-                starDesc: "這是一個「化殺為權」的強勢格局。您天生擁有極強的開創力與管理天賦，不喜歡受人管制。今年您的能量場非常強，適合推動停滯已久的計畫。"
+        // --- 核心算法：14主星資料庫 ---
+        // 這些資料是固定的，確保每次算的結果一致且專業
+        const db = [
+            { 
+                star: "紫微星", tag: "帝王之相 (The Emperor)", 
+                desc: "您天生具備領導者的氣場，自尊心強，耳根子軟但決策力高。命宮坐紫微，代表您在群體中容易成為焦點，但也容易感到孤獨。您適合創業或擔任管理職，不適合聽命於人。",
+                wealth: "財運穩健，多為正財。適合經營品牌或高級服務業，透過名聲來帶動財富。不宜投機。",
+                future: "流年運勢：今年是「權力提升」的一年。或許會有晉升機會，或被賦予重任。壓力雖大，但成果豐碩。"
             },
-            en: {
-                heroTitle: "Decode Destiny, Master Future",
-                heroSubtitle: "Ancient Astrology meets Modern Psychology.",
-                optLife: "Life Chart", optLifeDesc: "Personality & Potential",
-                optYear: "Annual Forecast", optYearDesc: "Yearly Opportunities",
-                optLove: "Love & Match", optLoveDesc: "Relationship Patterns",
-                optWealth: "Wealth Path", optWealthDesc: "Career & Finance Strategy",
-                modalTitle: "Enter Birth Details",
-                btnCalc: "Reveal My Chart",
-                btnCancel: "Cancel",
-                loadingText: "Calculating Astral Data...",
-                resHeader: "Your Astral Report",
-                labelLife: "Life Palace Stars",
-                labelTag: "The Pioneer Leader",
-                lockTitle: "10-Year Fortune Trend",
-                unlockTitle: "Unlock Full Report",
-                unlockDesc: "Watch a sponsored ad to unlock for free.",
-                btnUnlock: "▶ Watch Ad to Unlock",
-                btnRetry: "Calculate Again",
-                // Dynamic Result Translation
-                starName: "The Emperor & The General",
-                starDesc: "This is a 'Power through Action' configuration. You possess innate leadership and a drive to break new ground. You dislike being micromanaged. Your energy field is intense this year—perfect for launching stalled projects."
+            { 
+                star: "天機星", tag: "智多星 (The Strategist)", 
+                desc: "您反應靈敏，思緒跳躍，善於分析與規劃。天機入命，代表您一生動盪較多，因為您總是在思考如何改變現狀。適合從事企劃、設計、幕僚等需要動腦的工作。",
+                wealth: "財來財去，流動性大。您的財富來自於「智慧」與「變動」。適合短期投資或技術財，不適合死守資產。",
+                future: "流年運勢：今年是「變動」之年。適合搬家、轉職或出差。切記思多行少，行動力是今年的關鍵。"
+            },
+            { 
+                star: "太陽星", tag: "熱情博愛 (The Sun)", 
+                desc: "您個性直率，藏不住話，喜歡照顧他人，就像太陽一樣燃燒自己照亮別人。但也容易因為太過熱心而招惹是非。您適合公眾事務、傳播媒體或與人頻繁接觸的行業。",
+                wealth: "先名後利。您的財富與您的知名度成正比。大方散財反而能為您帶來更多人脈財。",
+                future: "流年運勢：今年貴人運極佳，特別是男性長輩。適合拓展人脈，參加社交活動。"
+            },
+            { 
+                star: "武曲星", tag: "剛毅果決 (The Warrior)", 
+                desc: "您是實幹家，講求效率，不喜歡拖泥帶水。武曲是財星，代表您對金錢數字敏感，執行力強。個性較為剛直，容易在無意間得罪人，需注意人際圓融。",
+                wealth: "正財星入庫。您是標準的「多勞多得」型。適合金融、金屬產業或軍警職。財運極佳，但需防受騙。",
+                future: "流年運勢：今年是「開拓」的一年。適合執行新計畫，但需注意身體過勞，避免金屬利器之傷。"
+            },
+            { 
+                star: "天同星", tag: "福氣之星 (The Child)", 
+                desc: "您個性溫和，不與人爭，知足常樂。天同入命，代表您一生貴人運好，但也容易因為太過安逸而缺乏衝勁。您適合需要協調、服務或身心靈相關的工作。",
+                wealth: "積少成多。您不適合高風險投資，適合儲蓄型理財。財運平穩，晚年更佳。",
+                future: "流年運勢：今年適合「享受生活」。心情愉快，適合進修、旅遊或談戀愛，事業上宜守不宜攻。"
+            },
+            { 
+                star: "廉貞星", tag: "公關高手 (The Diplomat)", 
+                desc: "您心思細膩，觀察力強，亦正亦邪，非常有魅力。廉貞入命，代表您對事業有野心，同時也重視精神享受。您適合公關、行銷、演藝或具有挑戰性的工作。",
+                wealth: "偏財運旺。您的直覺準確，適合從事有「賭性」或「競爭性」的行業賺錢，但要小心桃花破財。",
+                future: "流年運勢：今年人際關係複雜。需小心合約糾紛或爛桃花。專注於工作表現會有突破性發展。"
+            },
+            { 
+                star: "天府星", tag: "庫藏之星 (The Minister)", 
+                desc: "您個性穩重，包容力強，喜歡享受生活，不打沒把握的仗。天府是南斗帝王星，代表您有守成的能力。適合擔任高階主管、財務總監或土地開發。",
+                wealth: "財庫豐厚。您天生有理財天賦，適合置產（房地產）。財運是14主星中最穩定的。",
+                future: "流年運勢：今年適合「置產」或「儲蓄」。事業平穩上升，無大風大浪，是累積實力的好年份。"
+            },
+            { 
+                star: "太陰星", tag: "溫柔婉約 (The Moon)", 
+                desc: "您性格內向，重感情，有潔癖或特定的審美標準。太陰入命，代表您與女性緣分深，直覺敏銳。適合從事藝術、室內設計、護理或房地產相關工作。",
+                wealth: "財富慢慢累積。適合投資不動產或女性相關用品。財運隨情緒波動，需保持理性。",
+                future: "流年運勢：今年情緒起伏較大，容易胡思亂想。適合安靜進修，避免在晚上做重大決定。"
+            },
+            { 
+                star: "貪狼星", tag: "慾望之星 (The Wolf)", 
+                desc: "您多才多藝，擅長交際，好奇心強，不喜歡一成不變。貪狼是第一大桃花星，代表您異性緣極佳。適合演藝、娛樂、公關或命理玄學工作。",
+                wealth: "橫發橫破。您有機會賺大錢，但也花得兇。適合與人合夥生財，但需防色劫。",
+                future: "流年運勢：今年社交活動頻繁，有機會結識有力人士。桃花運旺，單身者可把握，已婚者需自律。"
+            },
+            { 
+                star: "巨門星", tag: "辯才無礙 (The Orator)", 
+                desc: "您觀察力敏銳，心思深沉，口才極佳，但有時說話太直容易傷人。巨門入命，代表您靠「嘴」吃飯。適合律師、教師、業務或評論家。",
+                wealth: "口舌生財。您的財富來自於您的專業知識與表達能力。越說話越有錢。",
+                future: "流年運勢：今年需防「口舌是非」。少說話多做事，避免在背後議論他人。適合考取證照。"
+            },
+            { 
+                star: "天相星", tag: "宰相之輔 (The Seal)", 
+                desc: "您外表體面，重視形象，樂於助人，是天生的協調者。天相入命，代表您適合輔佐他人，不適合強出頭。適合秘書、特助、服務業或仲介。",
+                wealth: "正財為主。財運來自於您的人脈與信用。適合穩定的薪水或服務費用。",
+                future: "流年運勢：今年是「合作」之年。適合尋找合作夥伴，凡事不要強出頭，退一步海闊天空。"
+            },
+            { 
+                star: "天梁星", tag: "老人之星 (The Sage)", 
+                desc: "您少年老成，心地善良，喜歡說教或照顧人。天梁是蔭星，代表您有長輩緣，逢凶化吉。適合醫療、教育、宗教或公益事業。",
+                wealth: "清高之財。您不適合太過市儈的賺錢方式。透過專業技術或服務他人獲得的財富最長久。",
+                future: "流年運勢：今年健康運需注意。適合做健康檢查或養生。事業上有貴人提攜，關關難過關關過。"
+            },
+            { 
+                star: "七殺星", tag: "孤獨戰將 (The General)", 
+                desc: "您個性剛烈，喜怒形於色，行動力極強。七殺入命，代表您一生大起大落，為了目標不惜代價。適合軍警、創業、業務開發或技術工程。",
+                wealth: "險中求財。您敢於冒險，有機會一夜致富。適合高風險高報酬的投資，但務必設停損點。",
+                future: "流年運勢：今年變動極大。可能會離職、創業或遠行。宜動不宜靜，勇敢跨出舒適圈會有收穫。"
+            },
+            { 
+                star: "破軍星", tag: "開路先鋒 (The Breaker)", 
+                desc: "您我不喜歡受傳統束縛，喜歡求新求變，破壞後再建設。破軍入命，代表您是改革者，但也容易六親緣薄。適合創意、設計、拆除或新興產業。",
+                wealth: "大破大立。您的財運通常在經歷一次大失敗後才會真正到來。先花錢後賺錢。",
+                future: "流年運勢：今年是「除舊佈新」的一年。適合斷捨離，結束不好的關係或工作，重新開始。"
             }
-        };
+        ];
 
-        let currentLang = 'zh'; // 預設語言
+        // --- 核心算法：真實邏輯 (Deterministic Hash) ---
+        // 確保算很多次都是一樣的
+        function calculate() {
+            const name = document.getElementById('inp-name').value;
+            const dateStr = document.getElementById('inp-date').value;
+            const hour = document.getElementById('inp-hour').value;
 
-        // --- 2. 切換語言邏輯 ---
-        function toggleLanguage() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateContent();
+            if(!name || !dateStr) {
+                alert("請完整輸入資料");
+                return;
+            }
+
+            // 1. 顯示 Loading
+            document.getElementById('input-view').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex';
+
+            // 2. 模擬運算延遲
+            setTimeout(() => {
+                // 3. 執行雜湊：把生日數字轉為 Index
+                const dateObj = new Date(dateStr);
+                const year = dateObj.getFullYear();
+                const month = dateObj.getMonth() + 1;
+                const day = dateObj.getDate();
+                const h = parseInt(hour);
+
+                // 獨特特徵碼
+                const magicNumber = year + (month * 100) + (day * 10) + h;
+                const index = magicNumber % db.length; // 確保落在 0 ~ 13 之間
+
+                const result = db[index];
+
+                // 4. 填入資料
+                document.getElementById('res-star').innerText = result.star;
+                document.getElementById('res-tag').innerText = result.tag;
+                document.getElementById('res-desc').innerText = result.desc;
+                document.getElementById('res-wealth').innerText = result.wealth;
+                document.getElementById('res-future').innerText = result.future;
+
+                // 5. 顯示結果頁
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('result-view').style.display = 'block';
+                window.scrollTo(0,0);
+
+            }, 2000); // 2秒儀式感
         }
 
-        function updateContent() {
-            const t = i18n[currentLang];
-            
-            // 更新靜態文字
-            document.getElementById('hero-title').innerText = t.heroTitle;
-            document.getElementById('hero-subtitle').innerText = t.heroSubtitle;
-            
-            // 更新選項卡 (這裡用簡單的方式抓取 DOM，實際專案可以用 data-i18n 屬性)
-            const cards = document.querySelectorAll('.option-card');
-            cards[0].querySelector('.opt-title').innerText = t.optLife;
-            cards[0].querySelector('.opt-desc').innerText = t.optLifeDesc;
-            cards[1].querySelector('.opt-title').innerText = t.optYear;
-            cards[1].querySelector('.opt-desc').innerText = t.optYearDesc;
-            cards[2].querySelector('.opt-title').innerText = t.optLove;
-            cards[2].querySelector('.opt-desc').innerText = t.optLoveDesc;
-            cards[3].querySelector('.opt-title').innerText = t.optWealth;
-            cards[3].querySelector('.opt-desc').innerText = t.optWealthDesc;
+        // --- 載入完整報告 (觸發插頁廣告) ---
+        function loadFullReport() {
+            const btn = document.querySelector('.btn-next');
+            btn.innerHTML = "正在獲取詳細數據...";
+            btn.style.opacity = "0.7";
 
-            // 更新 Modal & Loading
-            document.getElementById('modal-title').innerText = t.modalTitle;
-            document.getElementById('btn-calc').innerText = t.btnCalc;
-            document.getElementById('btn-cancel').innerText = t.btnCancel;
-            document.getElementById('loading-text').innerText = t.loadingText;
-
-            // 更新結果頁
-            document.getElementById('res-header').innerText = t.resHeader;
-            document.getElementById('label-life-palace').innerText = t.labelLife;
-            document.getElementById('res-stars').innerText = t.starName;
-            document.getElementById('tag-archetype').innerText = t.labelTag;
-            document.getElementById('res-desc').innerText = t.starDesc;
-            
-            // 更新解鎖區
-            document.getElementById('lock-title').innerText = t.lockTitle;
-            document.getElementById('unlock-msg-title').innerText = t.unlockTitle;
-            document.getElementById('unlock-msg-desc').innerText = t.unlockDesc;
-            document.getElementById('btn-unlock').innerText = t.btnUnlock;
-            document.getElementById('btn-retry').innerText = t.btnRetry;
+            // 這裡模擬頁面切換行為，這時候 AdSense 的 Vignette Ads (插頁) 會自動跳出來
+            setTimeout(() => {
+                document.getElementById('continue-btn-area').style.display = 'none';
+                document.getElementById('full-report').style.display = 'block';
+                document.getElementById('full-report').scrollIntoView({ behavior: 'smooth' });
+            }, 800);
         }
-
-        // --- 3. 業務流程邏輯 (Business Logic) ---
-        const modal = document.getElementById('input-modal');
-        const homeView = document.getElementById('home-view');
-        const adLayer = document.getElementById('ad-loading-layer');
-        const resultSection = document.getElementById('result-section');
-
-        function openInput(type) {
-            modal.style.display = 'flex';
-        }
-        function closeInput() {
-            modal.style.display = 'none';
-        }
-
-        function startCalculation() {
-            closeInput();
-            homeView.style.display = 'none';
-            adLayer.style.display = 'flex'; // 顯示全螢幕廣告 A
-
-            // 模擬廣告倒數
-            let timeLeft = 3;
-            const btn = document.getElementById('skip-ad-btn');
-            const timer = setInterval(() => {
-                timeLeft--;
-                btn.innerText = currentLang === 'zh' ? `略過廣告 (${timeLeft})` : `Skip Ad (${timeLeft})`;
-                if(timeLeft <= 0) {
-                    clearInterval(timer);
-                    btn.innerText = currentLang === 'zh' ? "關閉廣告" : "Close Ad";
-                    btn.onclick = showResult;
-                }
-            }, 1000);
-        }
-
-        function showResult() {
-            adLayer.style.display = 'none';
-            resultSection.style.display = 'block';
-            window.scrollTo(0,0);
-        }
-
-        function watchRewardAd() {
-            alert(currentLang === 'zh' ? "正在載入激勵廣告...\n(觀看後自動解鎖內容)" : "Loading Rewarded Ad...\n(Content unlocks after watching)");
-            // 實際對接 Google AdMob/AdSense Rewarded Ad 代碼
-        }
-
     </script>
 </body>
-
 </html>
