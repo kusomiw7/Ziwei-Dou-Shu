@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRO・POP | 2026 Destiny & MBTI</title>
+    <title>ASTRO・POP | 2026 Ultimate Destiny</title>
     
-    <!-- ★★★ Google AdSense ★★★ -->
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2895749032536610"
      crossorigin="anonymous"></script>
 
+    <!-- Google Fonts (CJK Support) -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Noto+Sans+KR:wght@500;700&family=Noto+Sans+TC:wght@400;700;900&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
@@ -17,20 +18,19 @@
             --primary: #8b5cf6;
             --accent: #06b6d4;
             --gold: #fbbf24;
-            --mbti: #10b981; /* MBTI 專屬綠色 */
+            --mbti: #10b981;
+            --love: #f43f5e;
             --card-glass: rgba(30, 41, 59, 0.7);
-            --border: rgba(255, 255, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
-            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+            font-family: 'Fredoka', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', sans-serif;
             background: var(--bg);
             color: white;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, #312e81 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, #064e3b 0%, transparent 50%);
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 80%);
             overflow-x: hidden;
         }
 
@@ -38,97 +38,117 @@
         nav { 
             padding: 15px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;
             background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 999; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border);
         }
         @media (min-width: 768px) { nav { flex-direction: row; justify-content: space-between; } }
         
-        .logo { font-size: 1.5rem; font-weight: 900; background: linear-gradient(90deg, #fff, var(--mbti)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; background: linear-gradient(90deg, #fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .lang-scroll { display: flex; gap: 8px; justify-content: center; width: 100%; }
-        .lang-btn { background: transparent; border: 1px solid var(--border); color: #94a3b8; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; }
+        .lang-btn { background: transparent; border: 1px solid var(--border); color: #94a3b8; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition:0.3s; }
         .lang-btn.active { border-color: var(--primary); background: rgba(139, 92, 246, 0.2); color: white; }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
 
         /* Hero */
         .hero { text-align: center; padding: 40px 20px; }
-        .hero h1 { font-size: 2.2rem; margin: 0 0 15px 0; text-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
-        .hero p { color: #94a3b8; font-size: 1rem; line-height: 1.6; }
+        .hero h1 { font-size: 2.2rem; margin: 0 0 15px 0; text-shadow: 0 0 30px rgba(139,92,246,0.6); line-height: 1.2; }
+        .hero p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* Preview Grid */
-        .preview-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; }
-        @media (min-width: 768px) { .preview-container { grid-template-columns: repeat(4, 1fr); } }
-        
-        .p-card { 
-            background: var(--card-glass); border: 1px solid var(--border); border-radius: 20px; 
-            padding: 20px; text-align: center; cursor: pointer; transition: 0.3s;
+        /* Bento Grid (V20) */
+        .bento-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 40px; }
+        @media (min-width: 768px) { 
+            .bento-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 200px); }
+            .item-large { grid-column: span 2; grid-row: span 2; }
         }
-        .p-card:hover { transform: translateY(-5px); border-color: var(--mbti); }
-        .p-icon { font-size: 2rem; margin-bottom: 5px; }
-        .p-title { font-weight: bold; color: #fff; font-size: 1rem; }
+
+        .bento-card {
+            background: var(--card-glass); border: 1px solid var(--border);
+            border-radius: 24px; padding: 25px; cursor: pointer; transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            position: relative; overflow: hidden; min-height: 180px;
+        }
+        .bento-card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(255,255,255,0.08); }
+        .c-icon { font-size: 3rem; margin-bottom: 15px; }
+        .c-title { font-weight: bold; font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
+        .c-desc { font-size: 0.9rem; color: #94a3b8; line-height: 1.4; }
 
         /* CTA */
-        .btn-main { width: 100%; padding: 16px; border: none; border-radius: 50px; background: linear-gradient(90deg, var(--primary), var(--mbti)); color: white; font-weight: 900; font-size: 1.2rem; cursor: pointer; animation: pulse 2s infinite; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4); }
+        .cta-wrapper { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; z-index: 100; }
+        .btn-main {
+            width: 100%; padding: 18px; border: none; border-radius: 50px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            color: white; font-weight: 900; font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5); cursor: pointer; animation: pulse 2s infinite;
+        }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.03);} 100% {transform: scale(1);} }
 
-        /* Result Layout */
+        /* Modal */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(5px); }
+        .modal-box { background: #1e293b; width: 90%; max-width: 400px; padding: 30px; border-radius: 24px; border: 1px solid var(--border); }
+        .input-label { display: block; color: #cbd5e1; font-size: 0.9rem; margin-bottom: 8px; text-align: left; }
+        .input-el { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 12px; box-sizing: border-box; font-size: 1rem; }
+
+        /* Result Page */
         #result-view { display: none; padding-bottom: 100px; }
         .result-layout { display: flex; flex-direction: column; gap: 20px; }
         @media (min-width: 900px) { .result-layout { display: grid; grid-template-columns: 350px 1fr; align-items: start; } }
 
-        /* Main Card */
-        .main-star-card { background: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(0,0,0,0.4)); border: 1px solid var(--primary); border-radius: 24px; padding: 40px 20px; text-align: center; }
-        .star-name { font-size: 2.8rem; font-weight: 900; margin: 15px 0; }
-        
-        /* MBTI Card (New Feature) */
-        .mbti-card { 
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0,0,0,0.4)); 
-            border: 1px solid var(--mbti); border-radius: 20px; padding: 25px; 
-            text-align: center; margin-top: 20px; position: relative; overflow: hidden;
+        /* Left Column */
+        .main-star-card {
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(0,0,0,0.4));
+            border: 1px solid var(--primary); border-radius: 24px; padding: 40px 20px;
+            text-align: center; margin-bottom: 20px; position: relative; overflow: hidden;
         }
-        .mbti-tag { background: var(--mbti); color: black; font-weight: bold; padding: 3px 10px; border-radius: 5px; font-size: 0.8rem; }
-        .mbti-title { font-size: 2.5rem; font-weight: 900; color: var(--mbti); margin: 10px 0; font-family: monospace; letter-spacing: 2px; }
-        
-        /* Promotion Button */
-        .btn-promo {
-            display: block; width: 100%; padding: 12px; margin-top: 15px;
-            background: var(--mbti); color: black; font-weight: bold; text-decoration: none;
-            border-radius: 12px; transition: 0.2s; border: 2px solid var(--mbti);
+        .star-name { font-size: 3rem; font-weight: 900; margin: 15px 0; text-shadow: 0 0 30px rgba(139,92,246,0.6); }
+        .star-tag { background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; letter-spacing: 1px; }
+
+        /* MBTI Compatible Card */
+        .mbti-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(0,0,0,0.6));
+            border: 2px solid var(--mbti); border-radius: 24px; padding: 25px; text-align: center;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
         }
-        .btn-promo:hover { background: transparent; color: var(--mbti); }
+        .mbti-res { font-size: 2.5rem; font-weight: 900; color: white; margin: 10px 0; font-family: monospace; }
+        .btn-mbti {
+            display: flex; align-items: center; justify-content: center; width: 100%; padding: 16px; margin-top: 20px;
+            background: var(--mbti); color: #000; font-weight: 900; border-radius: 15px;
+            text-decoration: none; transition: 0.2s; font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4); border: 2px solid #34d399;
+        }
+        .btn-mbti:hover { transform: scale(1.02); filter: brightness(1.1); }
 
         /* Dashboard */
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (min-width: 600px) { .dashboard-grid { grid-template-columns: repeat(3, 1fr); } }
         .stat-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 16px; text-align: center; }
-        .stat-val { font-size: 0.9rem; font-weight: bold; color: #fff; }
+        .stat-icon { font-size: 1.8rem; display: block; margin-bottom: 5px; }
+        .stat-val { font-size: 0.95rem; font-weight: bold; color: #fff; margin-top: 5px; }
+        .cat-title { grid-column: 1 / -1; margin-top: 25px; font-size: 0.9rem; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 5px; font-weight: bold; }
 
-        /* Lock & Hidden */
-        .lock-box { background: #0f172a; border: 1px solid var(--gold); padding: 30px; border-radius: 20px; text-align: center; margin-top: 20px; }
-        #hidden-content { display: none; margin-top: 20px; }
+        /* Unlock & Content */
+        .lock-box { background: linear-gradient(to right, #1e1b4b, #000); border: 1px solid var(--gold); padding: 30px; border-radius: 20px; text-align: center; margin-top: 20px; }
+        .btn-unlock { background: var(--gold); color: black; border: none; padding: 12px 40px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 15px; }
         
-        /* Share Button */
-        .btn-share {
-            width: 100%; padding: 16px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); 
-            color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; 
-            margin-top: 20px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
-        }
-        .btn-share:active { transform: scale(0.98); }
+        #hidden-content { display: none; margin-top: 20px; animation: fadeIn 1s; }
+        
+        .detail-box { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
+        .detail-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: block; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .detail-list { list-style: none; padding: 0; margin: 0; }
+        .detail-list li { margin-bottom: 12px; color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; display: flex; align-items: start; }
+        .detail-list li::before { content: '✦'; color: var(--primary); margin-right: 10px; flex-shrink: 0;}
 
-        /* Toast Notification */
-        #toast {
-            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center;
-            border-radius: 50px; padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px;
-            transform: translateX(-50%); font-size: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        .btn-share {
+            width: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); 
+            color: white; padding: 18px; border-radius: 15px; font-weight: bold; cursor: pointer; 
+            margin-top: 30px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px; border:none;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
         }
+
+        #toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 1rem; }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
-
-        /* Modal */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 200; }
-        .modal-box { background: #1e293b; width: 90%; max-width: 400px; padding: 30px; border-radius: 24px; }
-        .input-el { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 12px; box-sizing: border-box; }
-
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
     </style>
 </head>
 <body>
@@ -143,40 +163,66 @@
         </div>
     </nav>
 
-    <!-- Home -->
+    <!-- Home (V20 Bento) -->
     <div class="container" id="home-view">
         <div class="hero">
-            <h1 id="txt-hero">2026 AI 全息人生<br><span style="color:var(--mbti)">+ 真實 MBTI 側寫</span></h1>
-            <p id="txt-sub">融合紫微斗數與榮格心理學，揭露你的靈魂代碼。</p>
+            <h1 id="txt-hero">2026 紫微斗數<br><span style="color:var(--accent)">AI 全息人生攻略</span></h1>
+            <p id="txt-sub">輸入生日，即刻解鎖 2026 運勢、愛情雷區與職場人設。</p>
         </div>
 
-        <div class="preview-container">
-            <div class="p-card" onclick="openInput()">
-                <div class="p-icon">👑</div><div class="p-title" id="c1">本命主星</div>
+        <div class="bento-grid">
+            <div class="bento-card item-large" onclick="openInput()">
+                <div class="c-icon">👑</div>
+                <div class="c-title" id="c1t">本命主星</div>
+                <div class="c-desc" id="c1d">你是天生領袖 (聖騎士)<br>還是幕後軍師 (大法師)？</div>
             </div>
-            <div class="p-card" onclick="openInput()">
-                <div class="p-icon">🧠</div><div class="p-title" id="c2">MBTI人格</div>
+            <div class="bento-card" onclick="openInput()">
+                <div class="c-icon">💘</div>
+                <div class="c-title" id="c2t">愛情雷區</div>
+                <div class="c-desc" id="c2d">為什麼總遇渣男？<br>你的致命前任類型。</div>
             </div>
-            <div class="p-card" onclick="openInput()">
-                <div class="p-icon">💘</div><div class="p-title" id="c3">愛情雷區</div>
+            <!-- Ad Slot -->
+            <div class="bento-card" style="background:#000; border:2px dashed #444; padding:0;">
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%; height:100%;"
+                     data-ad-format="fluid"
+                     data-ad-layout-key="-fb+5w+4e-db+86"
+                     data-ad-client="ca-pub-2895749032536610"
+                     data-ad-slot="6080357379"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
-            <div class="p-card" onclick="openInput()">
-                <div class="p-icon">💰</div><div class="p-title" id="c4">致富弱點</div>
+            <div class="bento-card" onclick="openInput()">
+                <div class="c-icon">💼</div>
+                <div class="c-title" id="c3t">職場人設</div>
+                <div class="c-desc" id="c3d">加班狂還是薪水小偷？<br>你的致富弱點。</div>
+            </div>
+            <div class="bento-card" onclick="openInput()">
+                <div class="c-icon">🐶</div>
+                <div class="c-title" id="c4t">靈魂儀表板</div>
+                <div class="c-desc" id="c4d">命定寵物、社交電量<br>與末日存活率。</div>
             </div>
         </div>
 
-        <div style="text-align: center;">
+        <div class="cta-wrapper">
             <button class="btn-main" onclick="openInput()" id="btn-start">⚡ 立即免費測算</button>
         </div>
-        <div style="height:50px"></div>
+        <div style="height:80px"></div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal (Validation) -->
     <div class="modal" id="input-modal">
         <div class="modal-box">
             <h2 id="m-title" style="margin:0 0 20px 0; text-align:center;">輸入資料</h2>
+            
+            <label class="input-label" id="l-name">您的稱呼 (Name)</label>
             <input type="text" class="input-el" id="inp-name" placeholder="Name">
-            <input type="date" class="input-el" id="inp-date">
+            
+            <label class="input-label" id="l-date">出生日期 (Date of Birth)</label>
+            <input type="date" class="input-el" id="inp-date" min="1500-01-01" max="2100-12-31">
+            
+            <label class="input-label" id="l-time">出生時辰 (Birth Time)</label>
             <select class="input-el" id="inp-hour">
                 <option value="0">00:00 - 02:00 (子/丑)</option>
                 <option value="4">04:00 - 06:00 (寅/卯)</option>
@@ -185,8 +231,9 @@
                 <option value="16">16:00 - 18:00 (申/酉)</option>
                 <option value="20">20:00 - 22:00 (戌/亥)</option>
             </select>
+            
             <button class="btn-main" onclick="calculate()" id="m-btn">✨ 開始分析</button>
-            <div style="text-align:center; margin-top:20px; color:#aaa; cursor:pointer;" onclick="closeInput()">Close</div>
+            <div style="text-align:center; margin-top:20px; color:#aaa; cursor:pointer;" onclick="closeInput()" id="m-close">取消</div>
         </div>
     </div>
 
@@ -194,65 +241,51 @@
     <div class="container" id="result-view">
         <div class="result-layout">
             
-            <!-- Left Col -->
+            <!-- Left: Star & Compatible MBTI -->
             <div class="left-col">
-                <!-- 1. Star Card -->
                 <div class="main-star-card">
-                    <span style="background:var(--primary); padding:4px 10px; border-radius:5px; font-size:0.8rem;" id="res-tag">THE EMPEROR</span>
+                    <span class="star-tag" id="res-tag">THE EMPEROR</span>
                     <div class="star-name" id="res-star">--</div>
                     <p style="color:#e2e8f0; line-height:1.6;" id="res-desc">--</p>
                 </div>
 
-                <!-- 2. MBTI Card (With Promo Link) -->
+                <!-- MBTI Compatible Card -->
                 <div class="mbti-card">
-                    <span class="mbti-tag">YOUR TRUE TYPE</span>
-                    <div class="mbti-title" id="res-mbti">----</div>
-                    <p style="font-size:0.9rem; color:#cbd5e1;" id="res-mbti-desc">--</p>
+                    <div style="color:var(--mbti); font-weight:bold; letter-spacing:1px; margin-bottom:10px;" id="l-comp">COMPATIBLE TYPE</div>
+                    <div style="font-size:0.9rem; color:white; margin-bottom:5px;" id="l-match-desc">適合與你互補的人格 (Best Match)</div>
+                    <div class="mbti-res" id="res-mbti">ISFJ</div>
+                    <div style="color:#cbd5e1; font-size:0.9rem; margin-bottom:15px;" id="res-mbti-desc">守護者 (Defender)</div>
                     
-                    <!-- ★★★ Cross Promotion Link ★★★ -->
-                    <a href="https://mbti-9lg4.onrender.com" target="_blank" class="btn-promo">
-                        👉 <span id="txt-promo">測測你的真實 MBTI (專業版)</span>
+                    <a href="https://mbti-9lg4.onrender.com" target="_blank" class="btn-mbti">
+                        👉 <span id="txt-promo">去測測你自己/對象是什麼人格？</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Right Col -->
+            <!-- Right: Dashboard -->
             <div class="right-col">
                 <div class="dashboard-grid">
-                    <div class="stat-card">
-                        <span style="font-size:1.5rem">💞</span>
-                        <div class="stat-val" id="res-love">--</div>
-                        <span style="font-size:0.7rem; color:#888;">Love Style</span>
-                    </div>
-                    <div class="stat-card">
-                        <span style="font-size:1.5rem">🚩</span>
-                        <div class="stat-val" style="color:#fca5a5;" id="res-toxic">--</div>
-                        <span style="font-size:0.7rem; color:#888;">Red Flag</span>
-                    </div>
-                    <div class="stat-card">
-                        <span style="font-size:1.5rem">🏢</span>
-                        <div class="stat-val" id="res-office">--</div>
-                        <span style="font-size:0.7rem; color:#888;">Office Role</span>
-                    </div>
-                    <div class="stat-card">
-                        <span style="font-size:1.5rem">💸</span>
-                        <div class="stat-val" id="res-trap">--</div>
-                        <span style="font-size:0.7rem; color:#888;">Money Trap</span>
-                    </div>
-                    <div class="stat-card">
-                        <span style="font-size:1.5rem">🐶</span>
-                        <div class="stat-val" id="res-pet">--</div>
-                        <span style="font-size:0.7rem; color:#888;">Soul Pet</span>
-                    </div>
-                    <div class="stat-card">
-                        <span style="font-size:1.5rem">⚔️</span>
-                        <div class="stat-val" id="res-rpg">--</div>
-                        <span style="font-size:0.7rem; color:#888;">RPG Class</span>
-                    </div>
+                    <div class="cat-title">❤️ LOVE & SOCIAL</div>
+                    <div class="stat-card"><span class="stat-icon">💞</span><span class="stat-val" id="res-love">--</span><span class="stat-label" id="l-love">Love Style</span></div>
+                    <div class="stat-card"><span class="stat-icon">🚩</span><span class="stat-val" style="color:#fca5a5;" id="res-toxic">--</span><span class="stat-label" id="l-toxic">Toxic Ex</span></div>
+                    <div class="stat-card"><span class="stat-icon">💋</span><span class="stat-val" id="res-flirt">--</span><span class="stat-label" id="l-flirt">Flirt Move</span></div>
+
+                    <div class="cat-title">💼 CAREER & MONEY</div>
+                    <div class="stat-card"><span class="stat-icon">🏢</span><span class="stat-val" id="res-role">--</span><span class="stat-label" id="l-role">Office Role</span></div>
+                    <div class="stat-card"><span class="stat-icon">💸</span><span class="stat-val" id="res-trap">--</span><span class="stat-label" id="l-trap">Money Trap</span></div>
+                    <div class="stat-card"><span class="stat-icon">🚀</span><span class="stat-val" id="res-power">--</span><span class="stat-label" id="l-power">Superpower</span></div>
+
+                    <div class="cat-title">🎲 FUN & RPG</div>
+                    <div class="stat-card"><span class="stat-icon">⚔️</span><span class="stat-val" id="res-rpg">--</span><span class="stat-label" id="l-rpg">RPG Class</span></div>
+                    <div class="stat-card"><span class="stat-icon">🧟</span><span class="stat-val" style="color:#fde047;" id="res-surv">--</span><span class="stat-label" id="l-surv">Survival</span></div>
+                    <div class="stat-card"><span class="stat-icon">🔋</span><span class="stat-val" id="res-batt">--</span><span class="stat-label" id="l-batt">Battery</span></div>
+                    <div class="stat-card"><span class="stat-icon">🗡️</span><span class="stat-val" id="res-wpn">--</span><span class="stat-label" id="l-wpn">Weapon</span></div>
+                    <div class="stat-card"><span class="stat-icon">🏝️</span><span class="stat-val" id="res-spot">--</span><span class="stat-label" id="l-spot">Spot</span></div>
+                    <div class="stat-card"><span class="stat-icon">🐶</span><span class="stat-val" id="res-pet">--</span><span class="stat-label" id="l-pet">Soul Pet</span></div>
                 </div>
 
-                <!-- Ad Slot -->
-                <div style="margin:20px 0; border:2px dashed rgba(255,255,255,0.1); border-radius:12px; min-height:120px; text-align:center;">
+                <!-- Ad -->
+                <div style="margin:25px 0; border:2px dashed rgba(255,255,255,0.1); border-radius:12px; min-height:120px; text-align:center;">
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-format="fluid"
@@ -266,108 +299,248 @@
 
                 <!-- Lock -->
                 <div class="lock-box" id="lock-area">
-                    <h3 style="color:var(--gold); margin-top:0;" id="t-unlock">🔓 解鎖 2026 完整攻略</h3>
-                    <p style="color:#94a3b8;" id="d-unlock">含 5條財運建議、5條愛情建議 與 流年關鍵月。</p>
-                    <button onclick="loadFullReport()" style="background:var(--gold); color:black; border:none; padding:12px 30px; border-radius:30px; font-weight:bold; cursor:pointer;">👉 <span id="uBtn">繼續閱讀</span></button>
+                    <h3 style="color:var(--gold); margin-top:0;" id="t-unlock">🔓 解鎖 2026 深度報告</h3>
+                    <p style="color:#94a3b8;" id="d-unlock">含 朋友/家庭/曖昧/寵物 詳細建議。</p>
+                    <button class="btn-unlock" onclick="loadFullReport()" id="btn-unlock">👉 繼續閱讀</button>
                 </div>
 
-                <!-- Hidden -->
+                <!-- Content -->
                 <div id="hidden-content">
-                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; margin-bottom:10px;">
-                        <strong style="color:var(--gold)">💰 Wealth Tips</strong>
-                        <ul id="list-wealth" style="padding-left:20px; font-size:0.9rem; color:#ccc; margin:5px 0;"></ul>
+                    <div class="detail-box">
+                        <span class="detail-title" id="t-friend">🤝 5 個交友建議 (Friends)</span>
+                        <ul class="detail-list" id="list-friend"></ul>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px;">
-                        <strong style="color:var(--love)">❤️ Love Advice</strong>
-                        <ul id="list-love" style="padding-left:20px; font-size:0.9rem; color:#ccc; margin:5px 0;"></ul>
+                    <div class="detail-box">
+                        <span class="detail-title" id="t-family">🏠 5 個家庭建議 (Family)</span>
+                        <ul class="detail-list" id="list-family"></ul>
+                    </div>
+                    <div class="detail-box">
+                        <span class="detail-title" id="t-crush">💘 5 個曖昧攻略 (Crush)</span>
+                        <ul class="detail-list" id="list-crush"></ul>
+                    </div>
+                    <div class="detail-box">
+                        <span class="detail-title" id="t-pet-tips">🐶 5 個寵物飼養建議 (Pet Tips)</span>
+                        <ul class="detail-list" id="list-pet"></ul>
                     </div>
 
-                    <!-- Share Button -->
                     <button class="btn-share" onclick="shareResult()">
-                        <span>📤</span> <span id="b-share">分享超準結果</span>
+                        <span>📤</span> <span id="b-share">分享結果</span>
                     </button>
-                    
-                    <button onclick="location.reload()" style="width:100%; margin-top:15px; background:transparent; border:none; color:#666; text-decoration:underline;">🔄 Retry</button>
+                    <button onclick="location.reload()" style="width:100%; margin-top:15px; background:transparent; border:none; color:#666; text-decoration:underline; cursor:pointer;">🔄 Retry</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast -->
-    <div id="toast">📋 已複製！快去貼給朋友看！</div>
+    <div id="toast">📋 已複製！</div>
 
     <script>
-        // i18n
+        // --- 1. UI Text ---
         const ui = {
-            zh: { hero:"2026 AI 全息人生<br><span style='color:var(--mbti)'>+ 真實 MBTI 側寫</span>", c1:"本命主星", c2:"MBTI人格", c3:"愛情雷區", c4:"致富弱點", btn:"⚡ 立即免費測算", mTitle:"輸入資料", mBtn:"✨ 開始分析", promo:"測測你的真實 MBTI (專業版)", unlock:"🔓 解鎖 2026 完整攻略", uBtn:"繼續閱讀", share:"分享超準結果" },
-            en: { hero:"2026 AI Destiny<br><span style='color:var(--mbti)'>+ Real MBTI Profile</span>", c1:"Archetype", c2:"MBTI Type", c3:"Love Red Flags", c4:"Money Trap", btn:"⚡ Start Analysis", mTitle:"Enter Details", mBtn:"✨ Analyze", promo:"Take Professional MBTI Test", unlock:"🔓 Unlock 2026 Report", uBtn:"Continue", share:"Share Result" },
-            jp: { hero:"2026 AI 人生攻略<br><span style='color:var(--mbti)'>+ 本格 MBTI 診断</span>", c1:"本命の星", c2:"MBTIタイプ", c3:"恋愛地雷", c4:"浪費癖", btn:"⚡ 無料診断", mTitle:"情報を入力", mBtn:"✨ 分析開始", promo:"本格的なMBTI診断へ", unlock:"🔓 2026年完全攻略", uBtn:"続きを読む", share:"結果をシェア" },
-            kr: { hero:"2026 AI 인생 공략<br><span style='color:var(--mbti)'>+ 리얼 MBTI 프로필</span>", c1:"본명 주성", c2:"MBTI 유형", c3:"연애 지뢰", c4:"돈 새는 곳", btn:"⚡ 무료 분석", mTitle:"정보 입력", mBtn:"✨ 분석 시작", promo:"전문 MBTI 테스트 하러가기", unlock:"🔓 2026년 완전 공략", uBtn:"계속 읽기", share:"결과 공유" }
+            zh: { hero:"2026 紫微斗數<br><span style='color:var(--accent)'>AI 全息人生攻略</span>", sub:"輸入生日，即刻解鎖 2026 運勢、愛情雷區與職場人設。", c1t:"本命主星", c1d:"你是領袖還是軍師？", c2t:"愛情雷區", c2d:"為何總遇渣男？", c3t:"職場人設", c3d:"加班狂還是薪水小偷？", c4t:"靈魂儀表板", c4d:"命定寵物、社交電量", btn:"⚡ 立即免費測算", mTitle:"輸入資料", mBtn:"✨ 開始分析", mClose:"取消", promo:"去測測你自己/對象是什麼人格？", lLove:"戀愛人設", lToxic:"致命前任", lFlirt:"調情必殺", lRole:"辦公室角色", lTrap:"致富弱點", lPower:"職場超能力", lRpg:"RPG 職業", lSurv:"末日存活率", lPet:"命定萌寵", lWpn:"專屬武器", lFood:"靈魂食物", lSpot:"開運聖地", lBatt:"社交電量", tUnlock:"🔓 解鎖 2026 深度報告", dUnlock:"含 朋友/家庭/曖昧/寵物 詳細建議。", uBtn:"👉 繼續閱讀", tFriend:"🤝 交友建議", tFamily:"🏠 家庭建議", tCrush:"💘 曖昧攻略", tPetTips:"🐶 寵物建議", bShare:"分享結果", lComp:"適合的人格", lMatch:"適合與你互補的人格" },
+            en: { hero:"2026 Purple Star<br><span style='color:var(--accent)'>Life Strategy</span>", sub:"Decode destiny, love red flags, and career persona in 3s.", c1t:"Archetype", c1d:"Leader or Strategist?", c2t:"Love Red Flags", c2d:"Why toxic relationships?", c3t:"Work Persona", c3d:"Workaholic or Ghost?", c4t:"Soul Dashboard", c4d:"Soul Pet, Social Battery", btn:"⚡ Start Analysis", mTitle:"Enter Details", mBtn:"✨ Analyze", mClose:"Close", promo:"Test your or your partner's MBTI type", lLove:"Love Style", lToxic:"Toxic Ex", lFlirt:"Flirt Move", lRole:"Office Role", lTrap:"Money Trap", lPower:"Superpower", lRpg:"RPG Class", lSurv:"Survival %", lPet:"Soul Pet", lWpn:"Weapon", lFood:"Soul Food", lSpot:"Lucky Spot", lBatt:"Social Batt", tUnlock:"🔓 Unlock 2026 Report", dUnlock:"Get Friends, Family, Crush & Pet Advice.", uBtn:"👉 Continue", tFriend:"🤝 Friend Tips", tFamily:"🏠 Family Tips", tCrush:"💘 Crush Tips", tPetTips:"🐶 Pet Tips", bShare:"Share Result", lComp:"Compatible Type", lMatch:"Best Match Personality" },
+            jp: { hero:"2026 紫微斗数<br><span style='color:var(--accent)'>AI 人生攻略</span>", sub:"運勢、恋愛の地雷、職場のキャラを即座に分析。", c1t:"本命の星", c1d:"リーダー？参謀？", c2t:"恋愛地雷", c2d:"なぜダメンズを？", c3t:"職場キャラ", c3d:"社畜？給料泥棒？", c4t:"魂のダッシュボード", c4d:"運命のペット、生存率", btn:"⚡ 無料診断", mTitle:"情報を入力", mBtn:"✨ 分析開始", mClose:"閉じる", promo:"あなたやパートナーのMBTIを診断", lLove:"恋愛スタイル", lToxic:"苦手なタイプ", lFlirt:"必殺技", lRole:"職場の役割", lTrap:"浪費の弱点", lPower:"仕事の能力", lRpg:"RPGジョブ", lSurv:"生存率", lPet:"ペット", lWpn:"武器", lFood:"ソウルフード", lSpot:"聖地", lBatt:"社交電池", tUnlock:"🔓 2026年完全版", dUnlock:"友人・家族・恋愛・ペットのアドバイス。", uBtn:"👉 続きを読む", tFriend:"🤝 友人関係", tFamily:"🏠 家族関係", tCrush:"💘 恋愛攻略", tPetTips:"🐶 ペット飼育", bShare:"結果をシェア", lComp:"相性の良いMBTI", lMatch:"ベストパートナー" },
+            kr: { hero:"2026 자미두수<br><span style='color:var(--accent)'>AI 인생 공략</span>", sub:"운세, 연애 지뢰, 직장 캐릭터 즉시 잠금 해제.", c1t:"본명 주성", c1d:"리더인가 참모인가?", c2t:"연애 지뢰", c2d:"나쁜 남자만 꼬임?", c3t:"직장 캐릭터", c3d:"워커홀릭? 월급루팡?", c4t:"영혼 대시보드", c4d:"운명의 펫, 생존율", btn:"⚡ 무료 분석", mTitle:"정보 입력", mBtn:"✨ 분석 시작", mClose:"취소", promo:"나/파트너의 MBTI 테스트하기", lLove:"연애 스타일", lToxic:"최악의 전 애인", lFlirt:"플러팅", lRole:"오피스 역할", lTrap:"돈 새는 곳", lPower:"업무 필살기", lRpg:"RPG 직업", lSurv:"생존율", lPet:"운명의 펫", lWpn:"무기", lFood:"소울 푸드", lSpot:"행운의 장소", lBatt:"소셜 배터리", tUnlock:"🔓 2026년 완전 공략", dUnlock:"친구/가족/썸/펫 조언.", uBtn:"👉 계속 읽기", tFriend:"🤝 친구 조언", tFamily:"🏠 가족 조언", tCrush:"💘 연애 공략", tPetTips:"🐶 펫 조언", bShare:"결과 공유", lComp:"잘 맞는 유형", lMatch:"베스트 매치 MBTI" }
         };
 
-        // Real Logic DB: Star + MBTI Mapping
+        // --- 2. 14 Stars DB (COMPLETE) ---
         const db = [
-            { 
-                // 紫微 = ENTJ (帝王/指揮官)
-                name: {zh:"紫微星", en:"The Emperor", jp:"紫微星", kr:"자미성"}, 
-                mbti: "ENTJ", mbtiDesc: {zh:"天生的指揮官", en:"The Commander", jp:"指揮官", kr:"지휘관"},
-                tag: {zh:"天生領袖", en:"Born Leader", jp:"カリスマ", kr:"타고난 리더"},
-                desc: {zh:"氣場強大，雖高冷但耳根軟。", en:"Natural authority.", jp:"王者の風格。", kr:"타고난 권위."},
-                love: {zh:"霸道總裁", en:"Dominant", jp:"俺様系", kr:"카리스마"}, 
-                toxic: {zh:"叛逆者", en:"Rebels", jp:"反抗的な人", kr:"반항아"},
-                office: {zh:"地下老闆", en:"The Boss", jp:"裏ボス", kr:"실세"}, 
-                trap: {zh:"奢侈品/面子", en:"Luxury", jp:"見栄", kr:"체면"},
-                pet: {zh:"波斯貓", en:"Persian", jp:"ペルシャ猫", kr:"페르시안"}, 
-                rpg: {zh:"聖騎士", en:"Paladin", jp:"パラディン", kr:"성기사"},
-                wTips: {zh:["建立個人品牌","不宜短線投機","投資房地產","經營高端人脈","善用授權"], en:["Build Brand","No Trading","Real Estate","Network","Delegate"]},
-                lTips: {zh:["放下身段","多讚美對方","不要總是指揮","展現脆弱面","接受意見"], en:["Be Humble","Praise","Don't Boss","Vulnerable","Listen"]}
+            {
+                name: {zh:"紫微星", en:"The Emperor", jp:"紫微星", kr:"자미성"}, mbti: "ISFJ", mbtiDesc: {zh:"守護者 (需要你的強勢)", en:"Defender (Needs your lead)", jp:"擁護者", kr:"수호자"},
+                tag: {zh:"天生領袖", en:"Born Leader", jp:"カリスマ", kr:"타고난 리더"}, desc: {zh:"氣場強大，耳根軟。不愛被使喚。", en:"Natural authority.", jp:"王者の風格。", kr:"타고난 권위."},
+                loveStyle: {zh:"霸道總裁", en:"Dominant", jp:"俺様系", kr:"카리스마"}, toxicEx: {zh:"叛逆者", en:"Rebels", jp:"反抗的な人", kr:"반항아"},
+                flirt: {zh:"送昂貴禮物", en:"Expensive Gifts", jp:"貢ぎ物", kr:"비싼 선물"}, role: {zh:"地下老闆", en:"The Boss", jp:"裏ボス", kr:"실세"},
+                trap: {zh:"奢侈品/面子", en:"Luxury/Face", jp:"見栄", kr:"체면"}, power: {zh:"鎮壓全場", en:"Command", jp:"威圧感", kr:"제압"},
+                rpg: {zh:"聖騎士", en:"Paladin", jp:"パラディン", kr:"성기사"}, surv: "100%", batt: {zh:"看心情", en:"Mood", jp:"気分次第", kr:"기분파"},
+                wpn: {zh:"王者之劍", en:"Excalibur", jp:"聖剣", kr:"엑스칼리버"}, spot: {zh:"五星飯店", en:"Luxury Hotel", jp:"高級ホテル", kr:"호텔"},
+                pet: {zh:"波斯貓", en:"Persian Cat", jp:"ペルシャ猫", kr:"페르시안"}, food: {zh:"牛排", en:"Steak", jp:"ステーキ", kr:"스테이크"},
+                friendTips: {zh:["不要總是搶著買單，真正的朋友不看錢。", "多聽朋友傾訴，別急著給建議。", "遠離只會對你拍馬屁的人。", "放下身段，偶爾展現脆弱會更有人緣。", "接受朋友的幫助不是弱點。"], en:["Don't always pay.", "Listen more.", "Avoid yes-men.", "Show vulnerability.", "Accept help."]},
+                familyTips: {zh:["在家裡不要當指揮官，家人不是你的下屬。", "多花時間陪伴父母，而不只是給錢。", "對晚輩要有耐心，不要太嚴厲。", "主動分擔家務，展現貼心的一面。", "家庭旅遊由你規劃，但行程要尊重大家。"], en:["Don't boss family.", "Spend time.", "Be patient.", "Do chores.", "Plan trips but respect others."]},
+                crushTips: {zh:["不要用物質來砸對方，真心更重要。", "放下高姿態，主動關心對方的生活。", "約會時讓對方做決定，展現尊重。", "適時展現你的反差萌（例如喜歡小動物）。", "不要急著確認關係，給對方一點空間。"], en:["Money isn't love.", "Be humble.", "Let them decide.", "Show cute side.", "Give space."]},
+                petTips: {zh:["你的寵物需要高品質的飼料和美容。", "牠們需要很大的活動空間，就像你需要舞台。", "訓練要從小開始，建立你的威信。", "定期帶去健康檢查，不要省這個錢。", "多花時間梳毛，這是建立感情的好時機。"], en:["Quality food.", "Big space.", "Train early.", "Vet checks.", "Grooming."]}
             },
             {
-                // 天機 = INTP (軍師/邏輯學家)
-                name: {zh:"天機星", en:"The Strategist", jp:"天機星", kr:"천기성"}, 
-                mbti: "INTP", mbtiDesc: {zh:"邏輯學家", en:"The Logician", jp:"論理学者", kr:"논리술사"},
-                tag: {zh:"鬼才策士", en:"Mastermind", jp:"軍師", kr:"전략가"},
-                desc: {zh:"點子多到爆炸，但容易焦慮。", en:"Smart but anxious.", jp:"知恵者。", kr:"지혜로움."},
-                love: {zh:"忽冷忽熱", en:"Hot & Cold", jp:"ツンデレ", kr:"밀당"}, 
-                toxic: {zh:"笨蛋", en:"Stupid", jp:"バカ", kr:"바보"},
-                office: {zh:"救火隊", en:"Fixer", jp:"参謀", kr:"해결사"}, 
-                trap: {zh:"3C/課程", en:"Gadgets", jp:"ガジェット", kr:"전자기기"},
-                pet: {zh:"邊境牧羊犬", en:"Collie", jp:"牧羊犬", kr:"목양견"}, 
-                rpg: {zh:"大法師", en:"Mage", jp:"魔法使い", kr:"마법사"},
-                wTips: {zh:["靠技術賺錢","接案/副業","不宜借錢給人","分散風險","學習新技能"], en:["Skills","Side Hustle","No Lending","Diversify","Learn"]},
-                lTips: {zh:["不要想太多","直接表達","給對方空間","停止猜疑","一起學習"], en:["Don't Overthink","Direct","Space","No Doubt","Learn"]}
+                name: {zh:"天機星", en:"Strategist", jp:"天機星", kr:"천기성"}, mbti: "ESFP", mbtiDesc: {zh:"表演者 (讓你放鬆)", en:"Entertainer (Fun)", jp:"エンターテイナー", kr:"연예인"},
+                tag: {zh:"鬼才策士", en:"Mastermind", jp:"軍師", kr:"전략가"}, desc: {zh:"點子多，容易焦慮失眠。", en:"Smart but anxious.", jp:"知恵者。", kr:"지혜로움."},
+                loveStyle: {zh:"忽冷忽熱", en:"Hot & Cold", jp:"ツンデレ", kr:"밀당"}, toxicEx: {zh:"笨蛋", en:"Stupid", jp:"バカ", kr:"바보"},
+                flirt: {zh:"展現智商", en:"Witty Talk", jp:"知的会話", kr:"지적 대화"}, role: {zh:"救火隊", en:"Fixer", jp:"参謀", kr:"해결사"},
+                trap: {zh:"3C/課程", en:"Gadgets", jp:"ガジェット", kr:"전자기기"}, power: {zh:"預判未來", en:"Foresight", jp:"予知", kr:"예지력"},
+                rpg: {zh:"大法師", en:"Mage", jp:"魔法使い", kr:"마법사"}, surv: "80%", batt: {zh:"低耗電", en:"Low", jp:"低", kr:"낮음"},
+                wpn: {zh:"水晶球", en:"Crystal Ball", jp:"水晶玉", kr:"수정구"}, spot: {zh:"書店", en:"Bookstore", jp:"書店", kr:"서점"},
+                pet: {zh:"邊境牧羊犬", en:"Collie", jp:"牧羊犬", kr:"목양견"}, food: {zh:"堅果", en:"Nuts", jp:"ナッツ", kr:"견과류"},
+                friendTips: {zh:["不要對朋友太計較細節，水至清則無魚。", "分享你的點子，但不要強迫別人接受。", "偶爾關掉大腦，陪朋友說一些廢話。", "遠離負能量太強的朋友，你會被影響。", "主動一點，不要總等朋友約你。"], en:["Don't nitpick.", "Share ideas gently.", "Relax with friends.", "Avoid negativity.", "Initiate hangouts."]},
+                familyTips: {zh:["不要對家人碎碎念，他們會受不了。", "家裡的事情不要想太複雜，簡單就好。", "多讚美家人的優點，少挑剔缺點。", "幫家裡解決技術問題（修電腦/網路）。", "睡眠品質很重要，把房間佈置舒適一點。"], en:["Stop nagging.", "Keep family life simple.", "Praise more.", "Fix tech issues.", "Improve sleep environment."]},
+                crushTips: {zh:["不要忽冷忽熱，對方會被你嚇跑。", "直接表達你的喜歡，不要讓人猜。", "約會時專心一點，不要滑手機。", "分享你有趣的知識，但不要變成上課。", "給對方安全感，承諾要做到。"], en:["Be consistent.", "Be direct.", "Focus on dates.", "Share knowledge funnily.", "Keep promises."]},
+                petTips: {zh:["適合養聰明的寵物，可以教牠很多特技。", "寵物能緩解你的焦慮，多抱抱牠。", "注意寵物的神經系統健康。", "不要一直換飼料，寵物腸胃會受不了。", "買益智玩具給牠玩，消耗牠的精力。"], en:["Smart pets suit you.", "Pets reduce anxiety.", "Watch nervous system.", "Consistent diet.", "Puzzle toys."]}
             },
             {
-                // 太陽 = ENFJ (熱血/主人公)
-                name: {zh:"太陽星", en:"The Sun", jp:"太陽星", kr:"태양성"}, 
-                mbti: "ENFJ", mbtiDesc: {zh:"主人公", en:"Protagonist", jp:"主人公", kr:"주인공"},
-                tag: {zh:"熱血隊長", en:"Captain", jp:"リーダー", kr:"대장"},
-                desc: {zh:"燃燒自己照亮別人，大嘴巴。", en:"Shines for others.", jp:"熱血。", kr:"열정적."},
-                love: {zh:"全天暖氣", en:"Warm", jp:"情熱的", kr:"따뜻함"}, 
-                toxic: {zh:"冷暴力", en:"Cold", jp:"冷たい人", kr:"차가움"},
-                office: {zh:"康樂股長", en:"Mood Maker", jp:"盛り上げ役", kr:"분위기메이커"}, 
-                trap: {zh:"請客", en:"Treating", jp:"奢り", kr:"한턱쏘기"},
-                pet: {zh:"拉布拉多", en:"Labrador", jp:"ラブラドール", kr:"래브라도"}, 
-                rpg: {zh:"光之戰士", en:"Warrior", jp:"戦士", kr:"전사"},
-                wTips: {zh:["經營人脈","從事傳播","大方得財","參加社團","做口碑"], en:["Network","Media","Give","Clubs","Reputation"]},
-                lTips: {zh:["保留隱私","不要太雞婆","給對方機會","溫柔一點","不要比較"], en:["Privacy","Don't Meddle","Let Shine","Gentle","No Compare"]}
+                name: {zh:"太陽星", en:"The Sun", jp:"太陽星", kr:"태양성"}, mbti: "INFP", mbtiDesc: {zh:"調停者 (需要你的溫暖)", en:"Mediator", jp:"仲介者", kr:"중재자"},
+                tag: {zh:"熱血隊長", en:"Captain", jp:"リーダー", kr:"대장"}, desc: {zh:"熱心助人，藏不住話。", en:"Helpful & loud.", jp:"熱血。", kr:"열정적."},
+                loveStyle: {zh:"全天暖氣", en:"Warm", jp:"情熱的", kr:"따뜻함"}, toxicEx: {zh:"冷暴力", en:"Cold", jp:"冷たい人", kr:"차가운 사람"},
+                flirt: {zh:"噓寒問暖", en:"Caring", jp:"世話焼き", kr:"챙겨주기"}, role: {zh:"康樂股長", en:"Mood Maker", jp:"盛り上げ役", kr:"분위기 메이커"},
+                trap: {zh:"請客", en:"Treating", jp:"奢り", kr:"한턱쏘기"}, power: {zh:"感染力", en:"Charisma", jp:"求心力", kr:"카리스마"},
+                rpg: {zh:"光之戰士", en:"Warrior", jp:"戦士", kr:"전사"}, surv: "50%", batt: {zh:"無限大", en:"Infinite", jp:"無限", kr:"무한"},
+                wpn: {zh:"烈焰巨劍", en:"Fire Sword", jp:"炎の剣", kr:"화염검"}, spot: {zh:"戶外", en:"Outdoors", jp:"野外", kr:"야외"},
+                pet: {zh:"拉布拉多", en:"Labrador", jp:"ラブラドール", kr:"래브라도"}, food: {zh:"麻辣鍋", en:"Hotpot", jp:"火鍋", kr:"훠궈"},
+                friendTips: {zh:["保留一點隱私，不要把朋友秘密說出去。", "不要太雞婆，有時候朋友只需要傾聽。", "大方是好事，但不要被當提款機。", "偶爾也要展現你的軟弱，讓朋友關心你。", "聚會時照顧邊緣人，他們會很感激。"], en:["Keep secrets.", "Don't over-help.", "Don't be used.", "Show weakness too.", "Include everyone."]},
+                familyTips: {zh:["你是家裡的支柱，但不要給自己太大壓力。", "對父母要有耐心，不要講話太大聲。", "多帶家人出門走走，曬曬太陽。", "家裡的爭執由你來調解，公平公正。", "記得回家吃飯，這對家人很重要。"], en:["Manage pressure.", "Be patient.", "Family outings.", "Mediate fights.", "Dinner at home."]},
+                crushTips: {zh:["不要太熱情，會把對方嚇跑。", "給對方表現的機會，不要搶風頭。", "溫柔一點，不要總是像兄弟一樣相處。", "記得對方的喜好，展現細心的一面。", "不要跟其他異性太好，對方會吃醋。"], en:["Cool down.", "Let them shine.", "Be gentle.", "Remember details.", "Watch jealousy."]},
+                petTips: {zh:["適合養大型犬，陪你一起運動。", "寵物需要大量的戶外活動時間。", "注意寵物的心臟和眼睛健康。", "你是寵物的太陽，不要冷落牠。", "多帶寵物去社交，牠跟你一樣愛熱鬧。"], en:["Big dogs fit you.", "Outdoor activities.", "Watch heart/eyes.", "Be present.", "Socialize pet."]}
             },
             {
-                // 武曲 = ISTJ (執行官/物流師)
-                name: {zh:"武曲星", en:"The General", jp:"武曲星", kr:"무곡성"}, 
-                mbti: "ISTJ", mbtiDesc: {zh:"物流師", en:"Logistician", jp:"管理者", kr:"현실주의자"},
-                tag: {zh:"鋼鐵執行官", en:"Executor", jp:"実行者", kr:"집행관"},
-                desc: {zh:"行動派，講話直，不解風情。", en:"Action-oriented.", jp:"行動派。", kr:"행동파."},
-                love: {zh:"直球對決", en:"Direct", jp:"直球", kr:"직진"}, 
-                toxic: {zh:"優柔寡斷", en:"Weak", jp:"優柔不断", kr:"우유부단"},
-                office: {zh:"績效王", en:"Top Performer", jp:"エース", kr:"에이스"}, 
-                trap: {zh:"運動器材", en:"Gear", jp:"機材", kr:"장비"},
-                pet: {zh:"杜賓犬", en:"Doberman", jp:"ドーベルマン", kr:"도베르만"}, 
-                rpg: {zh:"狂戰士", en:"Berserker", jp:"バーサーカー", kr:"버서커"},
-                wTips: {zh:["專注本業","學習理財","不宜合夥","設停損點","開發新市場"], en:["Focus","Finance","No Partners","Stop Loss","New Markets"]},
-                lTips: {zh:["多點浪漫","講話委婉","送小禮物","多聽少說","不要太現實"], en:["Romantic","Soft","Gifts","Listen","Not Realistic"]}
+                name: {zh:"武曲星", en:"The General", jp:"武曲星", kr:"무곡성"}, mbti: "ENFP", mbtiDesc: {zh:"競選者 (融化你的冷酷)", en:"Campaigner", jp:"広報運動家", kr:"활동가"},
+                tag: {zh:"鋼鐵執行官", en:"Executor", jp:"実行者", kr:"집행관"}, desc: {zh:"行動派，講話直。", en:"Action-oriented.", jp:"行動派。", kr:"행동파."},
+                loveStyle: {zh:"直球對決", en:"Direct", jp:"直球", kr:"직진"}, toxicEx: {zh:"優柔寡斷", en:"Weak", jp:"優柔不断", kr:"우유부단"},
+                flirt: {zh:"幫你解決問題", en:"Solver", jp:"解決", kr:"해결"}, role: {zh:"績效王", en:"Top Performer", jp:"エース", kr:"에이스"},
+                trap: {zh:"投資/器材", en:"Investment", jp:"投資", kr:"투자"}, power: {zh:"執行力", en:"Execution", jp:"実行力", kr:"실행력"},
+                rpg: {zh:"狂戰士", en:"Berserker", jp:"バーサーカー", kr:"버서커"}, surv: "90%", batt: {zh:"低", en:"Low", jp:"低", kr:"낮음"},
+                wpn: {zh:"雙手斧", en:"Axe", jp:"斧", kr:"도끼"}, spot: {zh:"健身房", en:"Gym", jp:"ジム", kr:"헬스장"},
+                pet: {zh:"杜賓犬", en:"Doberman", jp:"ドーベルマン", kr:"도베르만"}, food: {zh:"蛋白餐", en:"Protein", jp:"プロテイン", kr:"단백질"},
+                friendTips: {zh:["說話委婉一點，不要太直接傷人。", "別只談工作，朋友會覺得無聊。", "接受朋友的遲到，不要太嚴格。", "多參加聚會，放鬆心情。", "別太嚴肅，開開玩笑無妨。"], en:["Soft words.", "Not just work.", "Tolerate late.", "Parties.", "Relax."]},
+                familyTips: {zh:["給家用大方點，這是你的責任。", "別把工作情緒帶回家。", "陪家人運動，增進感情。", "幫忙理財，守護家庭財富。", "聽家人把話說完，不要打斷。"], en:["Give money.", "Leave work.", "Exercise.", "Finance help.", "Listen full."]},
+                crushTips: {zh:["別急著確認關係，慢慢來。", "送實用的禮物，對方會喜歡。", "多讚美對方外表，不要只看內在。", "展現可靠一面，給予承諾。", "少批評多鼓勵，對方需要信心。"], en:["Slow down.", "Practical gifts.", "Compliment.", "Reliable.", "Encourage."]},
+                petTips: {zh:["訓練要有耐心，不要打罵。", "適合短毛好整理的寵物。", "固定餵食時間，建立規律。", "注意骨骼健康，補充鈣質。", "別對寵物太兇，牠會怕你。"], en:["Patience.", "Short hair.", "Schedule.", "Bones.", "Be gentle."]}
+            },
+            {
+                name: {zh:"天同星", en:"Lucky Star", jp:"天同星", kr:"천동성"}, mbti: "ENTJ", mbtiDesc: {zh:"指揮官 (帶領你前進)", en:"Commander", jp:"指揮官", kr:"지휘관"},
+                tag: {zh:"幸運寶貝", en:"The Blessed", jp:"愛されキャラ", kr:"행운아"}, desc: {zh:"知足常樂，懶散但命好。", en:"Easy-going.", jp:"温厚。", kr:"온화."},
+                loveStyle: {zh:"被動撒嬌", en:"Passive", jp:"甘えん坊", kr:"애교"}, toxicEx: {zh:"控制狂", en:"Controller", jp:"束縛", kr:"통제광"},
+                flirt: {zh:"裝無辜", en:"Innocent", jp:"無邪気", kr:"순진"}, role: {zh:"吉祥物", en:"Mascot", jp:"マスコット", kr:"마스코트"},
+                trap: {zh:"甜點/公仔", en:"Sweets", jp:"スイーツ", kr:"디저트"}, power: {zh:"躺贏", en:"Luck", jp:"棚ぼた", kr:"행운"},
+                rpg: {zh:"牧師", en:"Healer", jp:"ヒーラー", kr:"힐러"}, surv: "1%", batt: {zh:"中等", en:"Medium", jp:"中", kr:"중간"},
+                wpn: {zh:"治癒法杖", en:"Staff", jp:"杖", kr:"지팡이"}, spot: {zh:"SPA/床", en:"Bed", jp:"ベッド", kr:"침대"},
+                pet: {zh:"巴哥犬", en:"Pug", jp:"パグ", kr:"퍼그"}, food: {zh:"舒芙蕾", en:"Souffle", jp:"スフレ", kr:"수플레"},
+                friendTips: {zh:["別當濫好人，學會拒絕。", "主動約朋友，不要總是被動。", "別放朋友鴿子，守時很重要。", "分享你的幸運給朋友。", "跟積極的人做朋友，帶動你。"], en:["No pushover.", "Initiate.", "No flake.", "Share luck.", "Active friends."]},
+                familyTips: {zh:["幫忙做家事，不要只會吃。", "別太依賴父母，要學會獨立。", "多陪長輩聊天，他們需要陪伴。", "帶家人吃美食，享受生活。", "佈置溫馨居家，讓家人開心。"], en:["Chores.", "Independent.", "Chat.", "Food.", "Cozy home."]},
+                crushTips: {zh:["展現你的才藝，不要只會撒嬌。", "別太黏人，給對方空間。", "製造偶遇，增加緣分。", "請對方幫忙，製造互動機會。", "保持神祕感，不要全盤托出。"], en:["Talents.", "Not clingy.", "Chance meet.", "Ask help.", "Mystery."]},
+                petTips: {zh:["別把寵物養太胖，注意體重。", "定期帶去散步，不要一起懶。", "注意寵物牙齒健康。", "跟寵物一起睡，增加安全感。", "多拍寵物照片，記錄生活。"], en:["No obesity.", "Walks.", "Teeth.", "Sleep together.", "Photos."]}
+            },
+            {
+                name: {zh:"廉貞星", en:"The Charmer", jp:"廉貞星", kr:"염정성"}, mbti: "INTJ", mbtiDesc: {zh:"建築師 (欣賞你的聰明)", en:"Architect", jp:"建築家", kr:"전략가"},
+                tag: {zh:"魅力發電機", en:"Magnetic", jp:"カリスマ", kr:"매력"}, desc: {zh:"第六感強，亦正亦邪。", en:"Charismatic.", jp:"魅力的。", kr:"매력적."},
+                loveStyle: {zh:"窒息的愛", en:"Intense", jp:"激しい", kr:"집착"}, toxicEx: {zh:"比你更瘋的人", en:"Crazies", jp:"ヤバい人", kr:"미친 사람"},
+                flirt: {zh:"眼神放電", en:"Eye Contact", jp:"視線", kr:"눈빛"}, role: {zh:"八卦中心", en:"Gossip", jp:"噂の中心", kr:"가십"},
+                trap: {zh:"名牌/夜生活", en:"Luxury", jp:"ブランド", kr:"명품"}, power: {zh:"看穿謊言", en:"Insight", jp:"見抜く", kr:"통찰"},
+                rpg: {zh:"術士", en:"Warlock", jp:"ウォーロック", kr:"워록"}, surv: "60%", batt: {zh:"高", en:"High", jp:"高", kr:"높음"},
+                wpn: {zh:"吸血鐮刀", en:"Scythe", jp:"鎌", kr:"낫"}, spot: {zh:"酒吧", en:"Bar", jp:"バー", kr:"바"},
+                pet: {zh:"孟加拉貓", en:"Bengal", jp:"ベンガル", kr:"벵갈"}, food: {zh:"紅酒", en:"Wine", jp:"ワイン", kr:"와인"},
+                friendTips: {zh:["別太情緒化，朋友會受不了。", "給朋友信任感，不要猜疑。", "別在背後說人壞話，會傳出去。", "這頓你請客，展現大方。", "分享你的品味，帶朋友逛街。"], en:["Emotion control.", "Trust.", "No gossip.", "Treat them.", "Share taste."]},
+                familyTips: {zh:["別跟家人冷戰，傷感情。", "尊重長輩傳統，不要頂撞。", "帶禮物回家，表達孝心。", "幫家人打扮，提升形象。", "誠實溝通，不要隱瞞。"], en:["No cold war.", "Respect.", "Gifts.", "Style them.", "Honesty."]},
+                crushTips: {zh:["欲擒故縱，保持神秘感。", "展現專業能力，吸引對方。", "別查對方勤，給予信任。", "製造浪漫驚喜，感動對方。", "眼神交流，傳遞愛意。"], en:["Play hard.", "Skills.", "No stalking.", "Surprise.", "Eye contact."]},
+                petTips: {zh:["養稀有品種，展現獨特。", "給牠最好的飼料和用品。", "注意泌尿系統健康。", "別把氣出在寵物上，牠是無辜的。", "訓練牠表演，滿足成就感。"], en:["Rare breed.", "The best.", "Urinary.", "No anger.", "Tricks."]}
+            },
+            {
+                name: {zh:"天府星", en:"The Minister", jp:"天府星", kr:"천부성"}, mbti: "ISTP", mbtiDesc: {zh:"鑑賞家 (懂你的品味)", en:"Virtuoso", jp:"巨匠", kr:"장인"},
+                tag: {zh:"大掌櫃", en:"Manager", jp:"支配人", kr:"관리자"}, desc: {zh:"穩重包容，善於理財。", en:"Steady.", jp:"穩重。", kr:"안정적."},
+                loveStyle: {zh:"麵包大於愛情", en:"Pragmatic", jp:"現実的", kr:"현실적"}, toxicEx: {zh:"窮鬼", en:"Poor", jp:"貧乏人", kr:"가난한 사람"},
+                flirt: {zh:"帶去吃大餐", en:"Food", jp:"食事", kr:"식사"}, role: {zh:"財務大臣", en:"Treasurer", jp:"会計", kr:"총무"},
+                trap: {zh:"美食/房產", en:"Food/House", jp:"美食", kr:"미식"}, power: {zh:"忍耐力", en:"Patience", jp:"忍耐力", kr:"인내심"},
+                rpg: {zh:"領主", en:"Lord", jp:"ロード", kr:"로드"}, surv: "99%", batt: {zh:"穩定", en:"Stable", jp:"安定", kr:"안정"},
+                wpn: {zh:"黃金盾牌", en:"Shield", jp:"盾", kr:"방패"}, spot: {zh:"高級餐廳", en:"Dining", jp:"料亭", kr:"레스토랑"},
+                pet: {zh:"柯基", en:"Corgi", jp:"コーギー", kr:"웰시 코기"}, food: {zh:"懷石料理", en:"Kaiseki", jp:"懐石", kr:"가이세키"},
+                friendTips: {zh:["別太勢利，真心比錢重要。", "請朋友吃飯，大家會愛你。", "多聽少說教，不要當老夫子。", "分享理財經，幫朋友賺錢。", "守信用，說到做到。"], en:["Not snobby.", "Treat.", "Less preach.", "Finance tips.", "Integrity."]},
+                familyTips: {zh:["給父母零用錢，讓他們安心。", "裝修家裡，提升生活品質。", "定期家庭聚餐，凝聚感情。", "照顧弟妹，展現長子風範。", "別太固執，聽聽家人意見。"], en:["Money.", "Renovate.", "Dinner.", "Care.", "Not stubborn."]},
+                crushTips: {zh:["展現經濟實力，讓對方安心。", "送實用禮物，不要華而不實。", "帶去高級場所，享受氣氛。", "展現穩重一面，給予依靠。", "別太急躁，慢慢來。"], en:["Wealth.", "Practical.", "High-end.", "Steady.", "Patience."]},
+                petTips: {zh:["別餵太胖，注意體重控制。", "定期洗澡，保持乾淨。", "買好窩給牠睡。", "注意關節健康，不要爬樓梯。", "多陪伴，不要只顧工作。"], en:["Diet.", "Bath.", "Good bed.", "Joints.", "Company."]}
+            },
+            {
+                name: {zh:"太陰星", en:"The Moon", jp:"太陰星", kr:"태음성"}, mbti: "ESTJ", mbtiDesc: {zh:"總經理 (給你安全感)", en:"Executive", jp:"幹部", kr:"경영자"},
+                tag: {zh:"月光詩人", en:"Artist", jp:"芸術家", kr:"예술가"}, desc: {zh:"溫柔細膩，潔癖。", en:"Gentle.", jp:"繊細。", kr:"섬세함."},
+                loveStyle: {zh:"暗戀/默默", en:"Secret", jp:"片思い", kr:"짝사랑"}, toxicEx: {zh:"粗魯的人", en:"Rude", jp:"粗野", kr:"무례한 사람"},
+                flirt: {zh:"寫信/訊息", en:"Texting", jp:"手紙", kr:"문자"}, role: {zh:"美編", en:"Designer", jp:"デザイナー", kr:"디자이너"},
+                trap: {zh:"佈置/保養", en:"Decor", jp:"装飾", kr:"인테리어"}, power: {zh:"直覺", en:"Intuition", jp:"直感", kr:"직감"},
+                rpg: {zh:"德魯伊", en:"Druid", jp:"ドルイド", kr:"드루이드"}, surv: "40%", batt: {zh:"極低", en:"V.Low", jp:"低い", kr:"매우 낮음"},
+                wpn: {zh:"月刃", en:"Moon Blade", jp:"月刃", kr:"월인"}, spot: {zh:"海邊/房間", en:"Room", jp:"部屋", kr:"방"},
+                pet: {zh:"暹羅貓", en:"Siamese", jp:"シャム猫", kr:"샴 고양이"}, food: {zh:"花草茶", en:"Tea", jp:"お茶", kr:"허브차"},
+                friendTips: {zh:["別玻璃心，朋友開玩笑別當真。", "主動聯絡，不要等人找。", "別想太多，直接問清楚。", "分享心事，不要憋在心裡。", "接受朋友的玩笑，輕鬆一點。"], en:["Tougher.", "Contact.", "Relax.", "Share.", "Jokes."]},
+                familyTips: {zh:["把家弄乾淨，心情會變好。", "幫媽媽煮飯，分擔家務。", "溫柔說話，不要大聲吵架。", "關心長輩健康，買補品。", "別躲在房間，多出來客廳。"], en:["Clean.", "Cook.", "Soft voice.", "Health.", "No hiding."]},
+                crushTips: {zh:["寫卡片表達心意。", "貼心舉動最加分。", "保持乾淨整潔的形象。", "傾聽對方的心聲。", "眼神溫柔注視對方。"], en:["Cards.", "Kindness.", "Clean.", "Listen.", "Eyes."]},
+                petTips: {zh:["保持環境乾淨，寵物才健康。", "養安靜的寵物，適合你的氣質。", "注意皮膚健康，定期檢查。", "溫柔撫摸，建立信任。", "多說話給寵物聽。"], en:["Clean.", "Quiet.", "Skin.", "Petting.", "Talk."]}
+            },
+            {
+                name: {zh:"貪狼星", en:"The Wolf", jp:"貪狼星", kr:"탐랑성"}, mbti: "INFJ", mbtiDesc: {zh:"提倡者 (看穿你的靈魂)", en:"Advocate", jp:"提唱者", kr:"옹호자"},
+                tag: {zh:"社交之王", en:"Socialite", jp:"社交家", kr:"사교계의 왕"}, desc: {zh:"多才多藝桃花旺。", en:"Talented.", jp:"多才。", kr:"다재다능."},
+                loveStyle: {zh:"漁場管理", en:"Player", jp:"プレイボーイ", kr:"어장관리"}, toxicEx: {zh:"無趣的人", en:"Boring", jp:"退屈", kr:"노잼"},
+                flirt: {zh:"肢體接觸", en:"Touch", jp:"ボディタッチ", kr:"스킨십"}, role: {zh:"公關", en:"PR", jp:"広報", kr:"홍보"},
+                trap: {zh:"吃喝玩樂", en:"Party", jp:"遊び", kr:"유흥"}, power: {zh:"萬人迷", en:"Charm", jp:"魅力", kr:"매력"},
+                rpg: {zh:"吟遊詩人", en:"Bard", jp:"吟遊詩人", kr:"음유시인"}, surv: "70%", batt: {zh:"無限", en:"Infinite", jp:"無限", kr:"무한"},
+                wpn: {zh:"魔法豎琴", en:"Harp", jp:"ハープ", kr:"하프"}, spot: {zh:"KTV/夜店", en:"Club", jp:"クラブ", kr:"클럽"},
+                pet: {zh:"柴犬", en:"Shiba", jp:"柴犬", kr:"시바견"}, food: {zh:"自助餐", en:"Buffet", jp:"ビュッフェ", kr:"뷔페"},
+                friendTips: {zh:["別重色輕友，朋友會傷心。", "守承諾，不要遲到。", "別借錢給酒肉朋友。", "真誠待人，不要戴面具。", "展現你的多才多藝。"], en:["Friends first.", "Promise.", "No lending.", "Sincere.", "Talent."]},
+                familyTips: {zh:["早點回家，別讓家人擔心。", "別頂嘴，尊重長輩。", "分享外面的趣事給家人聽。", "帶禮物回家，展現孝心。", "幫忙跑腿，貢獻心力。"], en:["Home early.", "No argue.", "Fun stories.", "Gifts.", "Errands."]},
+                crushTips: {zh:["欲擒故縱，讓對方追你。", "展現才華，吸引目光。", "保持幽默感，逗對方笑。", "保持神祕感，不要太快揭底。", "別太花心，專一很重要。"], en:["Play hard.", "Talent.", "Humor.", "Mystery.", "Faithful."]},
+                petTips: {zh:["多帶出門，消耗精力。", "訓練特技，展現聰明。", "注意飲食，不要亂吃。", "記得結紮，避免意外。", "定期除蟲，保持健康。"], en:["Outdoors.", "Tricks.", "Diet.", "Neuter.", "Deworm."]}
+            },
+            {
+                name: {zh:"巨門星", en:"The Critic", jp:"巨門星", kr:"거문성"}, mbti: "ENFP", mbtiDesc: {zh:"競選者 (融化你的疑心)", en:"Campaigner", jp:"広報運動家", kr:"활동가"},
+                tag: {zh:"毒舌評論家", en:"Orator", jp:"評論家", kr:"비평가"}, desc: {zh:"口才一流，疑心重。", en:"Eloquent.", jp:"弁が立つ。", kr:"언변."},
+                loveStyle: {zh:"試探/爭辯", en:"Debate", jp:"議論", kr:"토론"}, toxicEx: {zh:"說謊的人", en:"Liars", jp:"嘘つき", kr:"거짓말쟁이"},
+                flirt: {zh:"深聊", en:"Deep Talk", jp:"深い話", kr:"깊은 대화"}, role: {zh:"糾察隊", en:"Inspector", jp:"監査", kr:"감찰"},
+                trap: {zh:"考證照", en:"Certificates", jp:"資格", kr:"자격증"}, power: {zh:"表達力", en:"Speech", jp:"表現力", kr:"표현력"},
+                rpg: {zh:"死靈法師", en:"Necro", jp:"ネクロ", kr:"네크로"}, surv: "30%", batt: {zh:"看心情", en:"Mood", jp:"気分", kr:"기분"},
+                wpn: {zh:"黑暗法書", en:"Grimoire", jp:"魔導書", kr:"마도서"}, spot: {zh:"KTV", en:"Karaoke", jp:"カラオケ", kr:"노래방"},
+                pet: {zh:"九官鳥", en:"Bird", jp:"九官鳥", kr:"구관조"}, food: {zh:"黑巧克力", en:"Dark Choco", jp:"チョコ", kr:"다크 초코"},
+                friendTips: {zh:["少說八卦，小心隔牆有耳。", "多讚美，少批評。", "別太多疑，相信朋友。", "保守秘密，建立信任。", "請客吃飯，化解尷尬。"], en:["No gossip.", "Praise.", "Trust.", "Secrets.", "Treat."]},
+                familyTips: {zh:["別跟家人吵架，贏了道理輸了感情。", "關心長輩健康，多問候。", "幫忙溝通家裡的問題。", "少抱怨，多感恩。", "多包容家人的缺點。"], en:["No fight.", "Care.", "Talk.", "No complain.", "Tolerate."]},
+                crushTips: {zh:["別查勤，給對方空間。", "多傾聽，不要一直講自己。", "展現專業，吸引對方。", "保持幽默，不要太嚴肅。", "給予信任，關係才長久。"], en:["No check.", "Listen.", "Pro.", "Humor.", "Trust."]},
+                petTips: {zh:["教說話，增加樂趣。", "清理鳥籠/窩，保持衛生。", "注意呼吸道健康。", "多互動，不要冷落。", "別關太久，讓牠自由。"], en:["Talk.", "Clean.", "Breath.", "Interact.", "Free."]}
+            },
+            {
+                name: {zh:"天相星", en:"The Diplomat", jp:"天相星", kr:"천상성"}, mbti: "ENTP", mbtiDesc: {zh:"辯論家 (激發你的想法)", en:"Debater", jp:"討論者", kr:"변론가"},
+                tag: {zh:"完美宰相", en:"Supporter", jp:"補佐役", kr:"보좌관"}, desc: {zh:"重視形象，善於協調。", en:"Stylish.", jp:"お洒落。", kr:"세련됨."},
+                loveStyle: {zh:"外貌協會", en:"Visual", jp:"面食い", kr:"얼빠"}, toxicEx: {zh:"邋遢的人", en:"Messy", jp:"不潔", kr:"지저분함"},
+                flirt: {zh:"幫忙打扮", en:"Styling", jp:"コーデ", kr:"코디"}, role: {zh:"秘書", en:"Secretary", jp:"秘書", kr:"비서"},
+                trap: {zh:"衣服/醫美", en:"Beauty", jp:"美容", kr:"미용"}, power: {zh:"協調力", en:"Diplomacy", jp:"調整", kr:"조정"},
+                rpg: {zh:"輔助師", en:"Support", jp:"サポ", kr:"서포터"}, surv: "60%", batt: {zh:"高", en:"High", jp:"高", kr:"높음"},
+                wpn: {zh:"護身符", en:"Amulet", jp:"お守り", kr:"부적"}, spot: {zh:"服飾店", en:"Shop", jp:"店", kr:"옷가게"},
+                pet: {zh:"比熊犬", en:"Bichon", jp:"ビション", kr:"비숑"}, food: {zh:"精緻甜點", en:"Pastry", jp:"ケーキ", kr:"케이크"},
+                friendTips: {zh:["有主見點，不要隨波逐流。", "別當濫好人，學會拒絕。", "互相幫忙，建立互惠關係。", "分享穿搭，提升朋友品味。", "誠實表達，不要粉飾太平。"], en:["Opinion.", "No pushover.", "Help.", "Style.", "Honesty."]},
+                familyTips: {zh:["調節家裡的糾紛，當和事佬。", "買漂亮東西佈置家裡。", "保持整潔，家人會開心。", "關心家人的需求。", "陪伴父母逛街。"], en:["Mediate.", "Buy nice.", "Clean.", "Care.", "Company."]},
+                crushTips: {zh:["打扮自己，吸引目光。", "溫柔體貼，展現細心。", "別太順從，要有個性。", "製造浪漫氣氛。", "讚美對方，讓對方開心。"], en:["Dress up.", "Gentle.", "Not passive.", "Romance.", "Praise."]},
+                petTips: {zh:["定期美容，保持漂亮。", "買漂亮衣服給寵物穿。", "注意皮膚健康。", "均衡飲食，不要挑食。", "多幫寵物拍照。"], en:["Grooming.", "Clothes.", "Skin.", "Diet.", "Photos."]}
+            },
+            {
+                name: {zh:"天梁星", en:"The Guardian", jp:"天梁星", kr:"천량성"}, mbti: "ESFP", mbtiDesc: {zh:"表演者 (帶給你活力)", en:"Entertainer", jp:"エンターテイナー", kr:"연예인"},
+                tag: {zh:"守護者", en:"Elder", jp:"長老", kr:"수호자"}, desc: {zh:"老靈魂，愛說教。", en:"Wise.", jp:"賢者。", kr:"현명함."},
+                loveStyle: {zh:"照顧/被照顧", en:"Care", jp:"世話", kr:"돌봄"}, toxicEx: {zh:"不孝順的人", en:"Bad Kid", jp:"不孝者", kr:"불효자"},
+                flirt: {zh:"養生建議", en:"Health Tip", jp:"健康", kr:"건강"}, role: {zh:"里長伯", en:"Leader", jp:"リーダー", kr:"이장"},
+                trap: {zh:"保健食品", en:"Health", jp:"健康食品", kr:"건강식품"}, power: {zh:"庇蔭力", en:"Protect", jp:"加護", kr:"가호"},
+                rpg: {zh:"僧侶", en:"Monk", jp:"僧侶", kr:"수도사"}, surv: "95%", batt: {zh:"低", en:"Low", jp:"低", kr:"낮음"},
+                wpn: {zh:"念珠", en:"Beads", jp:"数珠", kr:"염주"}, spot: {zh:"公園/廟", en:"Park", jp:"公園", kr:"공원"},
+                pet: {zh:"烏龜", en:"Turtle", jp:"亀", kr:"거북이"}, food: {zh:"養生餐", en:"Healthy", jp:"精進料理", kr:"건강식"},
+                friendTips: {zh:["別碎碎念，朋友會煩。", "支持朋友，當他們的後盾。", "分享經驗，幫助朋友成長。", "別太固執，接受新觀念。", "放輕鬆，一起去玩。"], en:["No nag.", "Support.", "Share.", "Not stubborn.", "Relax."]},
+                familyTips: {zh:["孝順父母，百善孝為先。", "照顧晚輩，給予指導。", "傳承家庭傳統。", "注意健康飲食。", "安排家庭旅遊。"], en:["Filial.", "Care.", "Tradition.", "Diet.", "Trip."]},
+                crushTips: {zh:["展現成熟穩重的一面。", "關心對方的健康。", "穩重可靠，給予安全感。", "可靠的承諾。", "耐心等待。"], en:["Mature.", "Health.", "Steady.", "Reliable.", "Patience."]},
+                petTips: {zh:["適合養長壽的寵物。", "定期健康檢查。", "營養均衡，不要亂餵。", "多曬太陽，增強免疫力。", "準備乾淨的水。"], en:["Long life.", "Checkup.", "Nutrition.", "Sun.", "Water."]}
+            },
+            {
+                name: {zh:"七殺星", en:"The General", jp:"七殺星", kr:"칠살성"}, mbti: "ISFP", mbtiDesc: {zh:"探險家 (陪你冒險)", en:"Adventurer", jp:"冒険家", kr:"모험가"},
+                tag: {zh:"孤獨戰狼", en:"General", jp:"将軍", kr:"장군"}, desc: {zh:"剛烈衝動，行動力強。", en:"Fierce.", jp:"激しい。", kr:"강렬함."},
+                loveStyle: {zh:"快狠準", en:"Fast", jp:"即断", kr:"속전속결"}, toxicEx: {zh:"黏人精", en:"Clingy", jp:"重い人", kr:"집착남녀"},
+                flirt: {zh:"帶去冒險", en:"Adventure", jp:"冒険", kr:"모험"}, role: {zh:"業務王", en:"Sales", jp:"営業", kr:"영업왕"},
+                trap: {zh:"重機/車", en:"Cars", jp:"車", kr:"차"}, power: {zh:"衝擊力", en:"Impact", jp:"衝撃", kr:"충격"},
+                rpg: {zh:"刺客", en:"Assassin", jp:"暗殺者", kr:"암살자"}, surv: "99%", batt: {zh:"極低", en:"V.Low", jp:"激低", kr:"매우 낮음"},
+                wpn: {zh:"雙刀", en:"Dual Blades", jp:"双剣", kr:"쌍검"}, spot: {zh:"賽車場", en:"Track", jp:"サーキット", kr:"경기장"},
+                pet: {zh:"狼犬", en:"Shepherd", jp:"シェパード", kr:"셰퍼드"}, food: {zh:"超辣料理", en:"Spicy", jp:"激辛", kr:"매운 음식"},
+                friendTips: {zh:["控制脾氣，不要隨便發火。", "講義氣，朋友會挺你。", "別衝動行事，多思考。", "聽勸，不要一意孤行。", "多笑一點，別太嚴肅。"], en:["Temper.", "Loyalty.", "Calm.", "Listen.", "Smile."]},
+                familyTips: {zh:["別頂撞長輩。", "出門在外要報平安。", "幫忙家裡的粗活。", "對家人要有耐心。", "記得回家看看。"], en:["No argue.", "Call.", "Labor.", "Patience.", "Home."]},
+                crushTips: {zh:["主動出擊，展現魄力。", "展現霸氣，保護對方。", "保護對方，給予安全感。", "別太兇，溫柔一點。", "給予承諾，說到做到。"], en:["Active.", "Power.", "Protect.", "Gentle.", "Promise."]},
+                petTips: {zh:["訓練服從性，避免咬人。", "需要大量運動消耗體力。", "使用結實的牽繩。", "注意外出安全。", "補充肉類蛋白質。"], en:["Obedience.", "Exercise.", "Leash.", "Safety.", "Meat."]}
+            },
+            {
+                name: {zh:"破軍星", en:"The Rebel", jp:"破軍星", kr:"파군성"}, mbti: "ISTJ", mbtiDesc: {zh:"物流師 (幫你收爛攤子)", en:"Logistician", jp:"管理者", kr:"현실주의자"},
+                tag: {zh:"叛逆先鋒", en:"Pioneer", jp:"先駆者", kr:"선구자"}, desc: {zh:"求新求變，先破後立。", en:"Creative.", jp:"創造的。", kr:"창의적."},
+                loveStyle: {zh:"轟轟烈烈", en:"Crazy", jp:"激愛", kr:"불꽃사랑"}, toxicEx: {zh:"控制狂", en:"Controller", jp:"束縛", kr:"통제광"},
+                flirt: {zh:"搞破壞", en:"Tease", jp:"悪戯", kr:"장난"}, role: {zh:"創意總監", en:"Creative", jp:"CD", kr:"디렉터"},
+                trap: {zh:"改裝/拆解", en:"Mods", jp:"改造", kr:"튜닝"}, power: {zh:"破壞力", en:"Break", jp:"破壊", kr:"파괴력"},
+                rpg: {zh:"狂戰士", en:"Berserker", jp:"狂戦士", kr:"광전사"}, surv: "88%", batt: {zh:"看心情", en:"Mood", jp:"気分", kr:"기분파"},
+                wpn: {zh:"雷神之鎚", en:"Hammer", jp:"ハンマー", kr:"망치"}, spot: {zh:"廢墟", en:"Ruins", jp:"廃墟", kr:"폐허"},
+                pet: {zh:"哈士奇", en:"Husky", jp:"ハスキー", kr:"허스키"}, food: {zh:"創意料理", en:"Fusion", jp:"創作料理", kr:"퓨전 요리"},
+                friendTips: {zh:["別喜怒無常，朋友會怕。", "分享創新點子。", "別搞失蹤，要回訊息。", "守信用，不要放鳥。", "珍惜舊朋友。"], en:["Mood.", "Ideas.", "Stay.", "Trust.", "Old friends."]},
+                familyTips: {zh:["別敗家，節省一點。", "多溝通，不要冷戰。", "承擔責任，不要逃避。", "幫忙修東西。", "關心家人的感受。"], en:["Save.", "Talk.", "Responsibility.", "Fix.", "Care."]},
+                crushTips: {zh:["製造特別驚喜。", "展現才華吸引對方。", "別太搞怪，嚇到對方。", "專一一點，不要花心。", "誠懇表達心意。"], en:["Surprise.", "Talent.", "Normal.", "Loyal.", "Sincere."]},
+                petTips: {zh:["買耐咬的玩具。", "晶片植入，防止走失。", "防止走失，關好門窗。", "給予足夠運動量。", "記得結紮。"], en:["Toys.", "Chip.", "Lost.", "Sport.", "Neuter."]}
             }
-            // ... (為確保代碼穩定，此處循環使用 4 顆星邏輯。實際上線請將 14 顆星對應的 MBTI 填入)
         ];
 
         let curLang = 'zh';
@@ -377,52 +550,84 @@
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
             
-            const t = ui[l];
+            const t = ui[l] || ui['en'];
             document.getElementById('txt-hero').innerHTML = t.hero;
-            document.getElementById('c1').innerText = t.c1; document.getElementById('c2').innerText = t.c2;
-            document.getElementById('c3').innerText = t.c3; document.getElementById('c4').innerText = t.c4;
+            document.getElementById('txt-sub').innerText = t.sub;
+            
+            document.getElementById('c1t').innerText = t.c1t; document.getElementById('c1d').innerHTML = t.c1d;
+            document.getElementById('c2t').innerText = t.c2t; document.getElementById('c2d').innerHTML = t.c2d;
+            document.getElementById('c3t').innerText = t.c3t; document.getElementById('c3d').innerHTML = t.c3d;
+            document.getElementById('c4t').innerText = t.c4t; document.getElementById('c4d').innerHTML = t.c4d;
+            
             document.getElementById('btn-start').innerText = t.btn;
-            document.getElementById('m-title').innerText = t.mTitle; document.getElementById('m-btn').innerText = t.mBtn;
+            document.getElementById('m-title').innerText = t.mTitle;
+            document.getElementById('m-btn').innerText = t.mBtn;
+            document.getElementById('m-close').innerText = t.mClose;
+            
+            document.getElementById('l-love').innerText = t.lLove; document.getElementById('l-toxic').innerText = t.lToxic;
+            document.getElementById('l-flirt').innerText = t.lFlirt; document.getElementById('l-role').innerText = t.lRole;
+            document.getElementById('l-trap').innerText = t.lTrap; document.getElementById('l-power').innerText = t.lPower;
+            
+            document.getElementById('l-rpg').innerText = t.lRpg; document.getElementById('l-surv').innerText = t.lSurv;
+            document.getElementById('l-batt').innerText = t.lBatt; document.getElementById('l-wpn').innerText = t.lWpn;
+            document.getElementById('l-spot').innerText = t.lSpot; document.getElementById('l-pet').innerText = t.lPet;
+            
+            document.getElementById('t-unlock').innerText = t.tUnlock; document.getElementById('d-unlock').innerText = t.dUnlock;
+            document.getElementById('btn-unlock').innerText = t.uBtn;
+            
+            document.getElementById('t-friend').innerText = t.tFriend; document.getElementById('t-family').innerText = t.tFamily;
+            document.getElementById('t-crush').innerText = t.tCrush; document.getElementById('t-pet-tips').innerText = t.tPetTips;
+            document.getElementById('b-share').innerText = t.bShare;
+            document.getElementById('l-comp-mbti').innerText = t.lComp; document.getElementById('l-best-match').innerText = t.lMatch;
             document.getElementById('txt-promo').innerText = t.promo;
-            document.getElementById('t-unlock').innerText = t.unlock;
-            document.getElementById('uBtn').innerText = t.uBtn;
-            document.getElementById('b-share').innerText = t.share;
         }
 
-        // Real Logic: Map (Date+Hour) -> Star -> MBTI
         function calculate() {
             const dateStr = document.getElementById('inp-date').value;
-            if(!dateStr) { alert("Please enter date!"); return; }
+            if(!dateStr) { alert("Please enter date."); return; }
+
+            // Year Validation (1500-2100)
+            const year = new Date(dateStr).getFullYear();
+            if(year < 1500 || year > 2100) { alert("年份請介於 1500 - 2100 之間。"); return; }
 
             const d = new Date(dateStr);
             const hour = document.getElementById('inp-hour').value;
-            // 擬真算法：利用日期+時辰作為種子，對應 14 主星
-            const idx = (d.getDate() + d.getMonth() + parseInt(hour)) % db.length;
+            // Deterministic Hash 0-13
+            const idx = (d.getFullYear() + d.getMonth() + d.getDate() + parseInt(hour)) % db.length;
             const r = db[idx];
 
-            // Render
-            document.getElementById('res-star').innerText = r.name[curLang];
-            document.getElementById('res-tag').innerText = r.tag[curLang];
-            document.getElementById('res-desc').innerText = r.desc[curLang];
+            document.getElementById('res-tag').innerText = r.tag[curLang] || r.tag['en'];
+            document.getElementById('res-star').innerText = r.name[curLang] || r.name['en'];
+            document.getElementById('res-desc').innerText = r.desc[curLang] || r.desc['en'];
             
-            // MBTI
+            // Compatible MBTI
             document.getElementById('res-mbti').innerText = r.mbti;
             document.getElementById('res-mbti-desc').innerText = r.mbtiDesc[curLang];
 
-            // Dashboard
-            document.getElementById('res-love').innerText = r.love[curLang];
-            document.getElementById('res-toxic').innerText = r.toxic[curLang];
-            document.getElementById('res-office').innerText = r.office[curLang];
+            document.getElementById('res-love').innerText = r.loveStyle[curLang];
+            document.getElementById('res-toxic').innerText = r.toxicEx[curLang];
+            document.getElementById('res-flirt').innerText = r.flirt[curLang];
+            document.getElementById('res-role').innerText = r.role[curLang];
             document.getElementById('res-trap').innerText = r.trap[curLang];
-            document.getElementById('res-pet').innerText = r.pet[curLang];
-            document.getElementById('res-rpg').innerText = r.rpg[curLang];
-
-            // Lists
-            let wHtml = ""; r.wTips[curLang].forEach(i => wHtml += `<li>⚡ ${i}</li>`);
-            document.getElementById('list-wealth').innerHTML = wHtml;
+            document.getElementById('res-power').innerText = r.power[curLang];
             
-            let lHtml = ""; r.lTips[curLang].forEach(i => lHtml += `<li>❤️ ${i}</li>`);
-            document.getElementById('list-love').innerHTML = lHtml;
+            document.getElementById('res-rpg').innerText = r.rpg[curLang];
+            document.getElementById('res-surv').innerText = r.surv;
+            document.getElementById('res-batt').innerText = r.batt[curLang];
+            document.getElementById('res-wpn').innerText = r.wpn[curLang];
+            document.getElementById('res-spot').innerText = r.spot[curLang];
+            document.getElementById('res-pet').innerText = r.pet[curLang];
+
+            // Fill Detailed Lists
+            const fill = (id, arr) => {
+                const ul = document.getElementById(id); ul.innerHTML = '';
+                const items = arr[curLang] || arr['en'];
+                items.forEach(i => ul.innerHTML += `<li>${i}</li>`);
+            };
+            fill('list-friend', r.friendTips);
+            fill('list-family', r.familyTips);
+            fill('list-crush', r.crushTips);
+            fill('list-pet', r.petTips);
 
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('input-modal').style.display = 'none';
@@ -431,7 +636,7 @@
         }
 
         function loadFullReport() {
-            const btn = document.getElementById('uBtn');
+            const btn = document.getElementById('btn-unlock');
             btn.style.opacity = '0.5'; btn.innerText = 'Loading...';
             setTimeout(() => {
                 document.getElementById('lock-area').style.display = 'none';
@@ -439,40 +644,20 @@
             }, 800);
         }
 
-        // --- Fixing Share Functionality ---
         function shareResult() {
             const star = document.getElementById('res-star').innerText;
             const mbti = document.getElementById('res-mbti').innerText;
-            const rpg = document.getElementById('res-rpg').innerText;
+            const text = `🔮 2026 Destiny:\n🌟 Star: ${star}\n💞 Best Match: ${mbti}\n\nCheck yours:`;
             const url = window.location.href;
             
-            const text = `🔮 2026 Destiny:\n🌟 Star: ${star}\n🧠 MBTI: ${mbti}\n⚔️ Class: ${rpg}\n\nCheck yours here: ${url}`;
-
-            // Toast Function
-            function showToast() {
-                const x = document.getElementById("toast");
-                x.className = "show";
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-            }
-
-            // 1. Try Native Share (Mobile)
-            if (navigator.share) {
-                navigator.share({ title: 'Astro Pop', text: text, url: url })
-                .then(() => console.log('Shared'))
-                .catch((error) => console.log('Share failed', error));
+            if(navigator.share) {
+                navigator.share({title:'Astro Pop', text:text, url:url});
             } else {
-                // 2. Fallback to Clipboard (Desktop/In-App Browser)
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast(); // Show "Copied!" toast
-                } catch (err) {
-                    alert('Copy failed, please screenshot!');
-                }
-                document.body.removeChild(textArea);
+                const tmp = document.createElement('textarea');
+                tmp.value = text + " " + url; document.body.appendChild(tmp);
+                tmp.select(); document.execCommand('copy'); document.body.removeChild(tmp);
+                const t = document.getElementById('toast');
+                t.className = "show"; setTimeout(()=>{ t.className = t.className.replace("show", ""); }, 3000);
             }
         }
 
