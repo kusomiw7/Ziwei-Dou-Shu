@@ -3,101 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRO・POP | 2026 全息人生攻略</title>
+    <title>ASTRO・POP | 2026 Destiny & MBTI</title>
     
     <!-- ★★★ Google AdSense ★★★ -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2895749032536610"
      crossorigin="anonymous"></script>
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Noto+Sans+KR:wght@500;700&family=Noto+Sans+TC:wght@400;700;900&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #020617;
+            --bg: #050505;
             --primary: #8b5cf6;
             --accent: #06b6d4;
             --gold: #fbbf24;
-            --love: #f43f5e;
+            --mbti: #10b981; /* MBTI 專屬綠色 */
             --card-glass: rgba(30, 41, 59, 0.7);
             --border: rgba(255, 255, 255, 0.15);
         }
 
         body {
             margin: 0;
-            font-family: 'Fredoka', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', sans-serif;
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
             background: var(--bg);
             color: white;
             min-height: 100vh;
-            background-image: radial-gradient(circle at 50% 0%, #312e81 0%, #020617 80%);
+            background-image: 
+                radial-gradient(circle at 10% 20%, #312e81 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, #064e3b 0%, transparent 50%);
             overflow-x: hidden;
         }
 
-        /* 通用元件 */
+        /* Nav */
         nav { 
             padding: 15px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;
             background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 999; border-bottom: 1px solid var(--border);
         }
         @media (min-width: 768px) { nav { flex-direction: row; justify-content: space-between; } }
         
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; background: linear-gradient(90deg, #fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo { font-size: 1.5rem; font-weight: 900; background: linear-gradient(90deg, #fff, var(--mbti)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .lang-scroll { display: flex; gap: 8px; justify-content: center; width: 100%; }
         .lang-btn { background: transparent; border: 1px solid var(--border); color: #94a3b8; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; }
         .lang-btn.active { border-color: var(--primary); background: rgba(139, 92, 246, 0.2); color: white; }
 
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* Hero */
         .hero { text-align: center; padding: 40px 20px; }
-        .hero h1 { font-size: 2.2rem; margin: 0 0 15px 0; text-shadow: 0 0 20px rgba(139,92,246,0.6); }
+        .hero h1 { font-size: 2.2rem; margin: 0 0 15px 0; text-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
         .hero p { color: #94a3b8; font-size: 1rem; line-height: 1.6; }
 
-        /* 輸入區 Modal */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(5px); }
-        .modal-box { background: #1e293b; width: 90%; max-width: 400px; padding: 30px; border-radius: 24px; border: 1px solid var(--border); }
-        .input-el { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 12px; box-sizing: border-box; }
-        .btn-main { width: 100%; padding: 16px; border: none; border-radius: 50px; background: linear-gradient(90deg, #8b5cf6, #ec4899); color: white; font-weight: 900; font-size: 1.2rem; cursor: pointer; animation: pulse 2s infinite; }
+        /* Preview Grid */
+        .preview-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; }
+        @media (min-width: 768px) { .preview-container { grid-template-columns: repeat(4, 1fr); } }
+        
+        .p-card { 
+            background: var(--card-glass); border: 1px solid var(--border); border-radius: 20px; 
+            padding: 20px; text-align: center; cursor: pointer; transition: 0.3s;
+        }
+        .p-card:hover { transform: translateY(-5px); border-color: var(--mbti); }
+        .p-icon { font-size: 2rem; margin-bottom: 5px; }
+        .p-title { font-weight: bold; color: #fff; font-size: 1rem; }
+
+        /* CTA */
+        .btn-main { width: 100%; padding: 16px; border: none; border-radius: 50px; background: linear-gradient(90deg, var(--primary), var(--mbti)); color: white; font-weight: 900; font-size: 1.2rem; cursor: pointer; animation: pulse 2s infinite; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4); }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.03);} 100% {transform: scale(1);} }
 
-        /* 預覽卡片 */
-        .preview-container { display: flex; gap: 15px; overflow-x: auto; padding: 10px; scroll-snap-type: x mandatory; }
-        .p-card { min-width: 200px; background: var(--card-glass); border: 1px solid var(--border); border-radius: 20px; padding: 20px; text-align: center; scroll-snap-align: start; cursor: pointer; }
-        
-        /* 結果頁佈局 */
+        /* Result Layout */
         #result-view { display: none; padding-bottom: 100px; }
         .result-layout { display: flex; flex-direction: column; gap: 20px; }
         @media (min-width: 900px) { .result-layout { display: grid; grid-template-columns: 350px 1fr; align-items: start; } }
 
-        /* 左側主卡 */
-        .main-star-card { background: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(0,0,0,0.4)); border: 1px solid var(--primary); border-radius: 24px; padding: 40px 20px; text-align: center; margin-bottom: 20px; }
-        .star-name { font-size: 2.8rem; font-weight: 900; margin: 15px 0; text-shadow: 0 0 30px rgba(139,92,246,0.6); }
-        .tag-badge { background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
-
-        /* 右側儀表板 Grid */
-        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        @media (min-width: 600px) { .dashboard-grid { grid-template-columns: repeat(3, 1fr); } }
-
-        .stat-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 16px; text-align: center; }
-        .stat-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
-        .stat-label { font-size: 0.75rem; color: #94a3b8; display: block; }
-        .stat-val { font-size: 0.9rem; font-weight: bold; color: #fff; }
-        .cat-header { grid-column: 1 / -1; font-size: 0.9rem; color: var(--gold); margin-top: 20px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
-
-        /* 廣告與解鎖 */
-        .ad-box { border: 2px dashed rgba(255,255,255,0.15); border-radius: 12px; min-height: 120px; margin: 25px 0; overflow: hidden; grid-column: 1 / -1; }
-        .lock-box { background: linear-gradient(to right, #1e1b4b, #000); border: 1px solid var(--gold); padding: 30px; border-radius: 20px; text-align: center; grid-column: 1 / -1; }
-        .btn-unlock { background: var(--gold); color: black; border: none; padding: 12px 40px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 15px; }
-
-        /* 隱藏詳細內容 (清單樣式) */
-        #hidden-content { display: none; margin-top: 20px; animation: fadeIn 1s; grid-column: 1 / -1; }
-        .tips-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; margin-bottom: 15px; }
-        .tips-title { font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; border-left: 3px solid var(--accent); padding-left: 10px; }
-        .tips-list { padding-left: 20px; margin: 0; color: #cbd5e1; line-height: 1.6; font-size: 0.9rem; }
-        .tips-list li { margin-bottom: 5px; }
+        /* Main Card */
+        .main-star-card { background: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(0,0,0,0.4)); border: 1px solid var(--primary); border-radius: 24px; padding: 40px 20px; text-align: center; }
+        .star-name { font-size: 2.8rem; font-weight: 900; margin: 15px 0; }
         
-        .timeline-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
-        .time-badge { background: var(--primary); padding: 3px 8px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
+        /* MBTI Card (New Feature) */
+        .mbti-card { 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0,0,0,0.4)); 
+            border: 1px solid var(--mbti); border-radius: 20px; padding: 25px; 
+            text-align: center; margin-top: 20px; position: relative; overflow: hidden;
+        }
+        .mbti-tag { background: var(--mbti); color: black; font-weight: bold; padding: 3px 10px; border-radius: 5px; font-size: 0.8rem; }
+        .mbti-title { font-size: 2.5rem; font-weight: 900; color: var(--mbti); margin: 10px 0; font-family: monospace; letter-spacing: 2px; }
+        
+        /* Promotion Button */
+        .btn-promo {
+            display: block; width: 100%; padding: 12px; margin-top: 15px;
+            background: var(--mbti); color: black; font-weight: bold; text-decoration: none;
+            border-radius: 12px; transition: 0.2s; border: 2px solid var(--mbti);
+        }
+        .btn-promo:hover { background: transparent; color: var(--mbti); }
 
-        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        /* Dashboard */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .stat-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 16px; text-align: center; }
+        .stat-val { font-size: 0.9rem; font-weight: bold; color: #fff; }
+
+        /* Lock & Hidden */
+        .lock-box { background: #0f172a; border: 1px solid var(--gold); padding: 30px; border-radius: 20px; text-align: center; margin-top: 20px; }
+        #hidden-content { display: none; margin-top: 20px; }
+        
+        /* Share Button */
+        .btn-share {
+            width: 100%; padding: 16px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); 
+            color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; 
+            margin-top: 20px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+        }
+        .btn-share:active { transform: scale(0.98); }
+
+        /* Toast Notification */
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center;
+            border-radius: 50px; padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px;
+            transform: translateX(-50%); font-size: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        /* Modal */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 200; }
+        .modal-box { background: #1e293b; width: 90%; max-width: 400px; padding: 30px; border-radius: 24px; }
+        .input-el { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 12px; box-sizing: border-box; }
+
     </style>
 </head>
 <body>
@@ -112,33 +143,32 @@
         </div>
     </nav>
 
-    <!-- 首頁 -->
+    <!-- Home -->
     <div class="container" id="home-view">
         <div class="hero">
-            <h1 id="txt-hero">3秒解鎖 2026<br><span style="color:var(--accent)">AI 全息人生攻略</span></h1>
-            <p id="txt-sub">融合大數據與紫微斗數，揭露你的愛情雷區、職場人設與致富弱點。</p>
+            <h1 id="txt-hero">2026 AI 全息人生<br><span style="color:var(--mbti)">+ 真實 MBTI 側寫</span></h1>
+            <p id="txt-sub">融合紫微斗數與榮格心理學，揭露你的靈魂代碼。</p>
         </div>
 
-        <div style="text-align:center; margin-bottom:15px; color:var(--gold); font-weight:bold;" id="txt-preview">✨ 報告預覽 (含 20+ 分析維度)</div>
         <div class="preview-container">
             <div class="p-card" onclick="openInput()">
                 <div class="p-icon">👑</div><div class="p-title" id="c1">本命主星</div>
             </div>
             <div class="p-card" onclick="openInput()">
-                <div class="p-icon">💘</div><div class="p-title" id="c2">愛情雷區</div>
+                <div class="p-icon">🧠</div><div class="p-title" id="c2">MBTI人格</div>
             </div>
             <div class="p-card" onclick="openInput()">
-                <div class="p-icon">💼</div><div class="p-title" id="c3">職場人設</div>
+                <div class="p-icon">💘</div><div class="p-title" id="c3">愛情雷區</div>
             </div>
             <div class="p-card" onclick="openInput()">
-                <div class="p-icon">🧟</div><div class="p-title" id="c4">末日存活率</div>
+                <div class="p-icon">💰</div><div class="p-title" id="c4">致富弱點</div>
             </div>
         </div>
 
-        <div style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); width:90%; max-width:400px; z-index:100;">
+        <div style="text-align: center;">
             <button class="btn-main" onclick="openInput()" id="btn-start">⚡ 立即免費測算</button>
         </div>
-        <div style="height:100px;"></div>
+        <div style="height:50px"></div>
     </div>
 
     <!-- Modal -->
@@ -160,62 +190,69 @@
         </div>
     </div>
 
-    <!-- 結果頁 -->
+    <!-- Result -->
     <div class="container" id="result-view">
         <div class="result-layout">
             
-            <!-- Left: Main Star -->
+            <!-- Left Col -->
             <div class="left-col">
+                <!-- 1. Star Card -->
                 <div class="main-star-card">
-                    <span class="tag-badge" id="res-tag">THE EMPEROR</span>
+                    <span style="background:var(--primary); padding:4px 10px; border-radius:5px; font-size:0.8rem;" id="res-tag">THE EMPEROR</span>
                     <div class="star-name" id="res-star">--</div>
-                    <p style="line-height:1.6; color:#e2e8f0;" id="res-desc">--</p>
+                    <p style="color:#e2e8f0; line-height:1.6;" id="res-desc">--</p>
+                </div>
+
+                <!-- 2. MBTI Card (With Promo Link) -->
+                <div class="mbti-card">
+                    <span class="mbti-tag">YOUR TRUE TYPE</span>
+                    <div class="mbti-title" id="res-mbti">----</div>
+                    <p style="font-size:0.9rem; color:#cbd5e1;" id="res-mbti-desc">--</p>
+                    
+                    <!-- ★★★ Cross Promotion Link ★★★ -->
+                    <a href="https://mbti-9lg4.onrender.com" target="_blank" class="btn-promo">
+                        👉 <span id="txt-promo">測測你的真實 MBTI (專業版)</span>
+                    </a>
                 </div>
             </div>
 
-            <!-- Right: Dashboard -->
+            <!-- Right Col -->
             <div class="right-col">
                 <div class="dashboard-grid">
-                    
-                    <div class="cat-header">❤️ LOVE & SOCIAL</div>
                     <div class="stat-card">
-                        <span class="stat-icon">💞</span><span class="stat-label" id="l-love">戀愛人設</span>
+                        <span style="font-size:1.5rem">💞</span>
                         <div class="stat-val" id="res-love">--</div>
+                        <span style="font-size:0.7rem; color:#888;">Love Style</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-icon">🚩</span><span class="stat-label" id="l-toxic">致命前任</span>
+                        <span style="font-size:1.5rem">🚩</span>
                         <div class="stat-val" style="color:#fca5a5;" id="res-toxic">--</div>
+                        <span style="font-size:0.7rem; color:#888;">Red Flag</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-icon">💋</span><span class="stat-label" id="l-flirt">調情必殺技</span>
-                        <div class="stat-val" id="res-flirt">--</div>
-                    </div>
-
-                    <div class="cat-header">💼 CAREER & MONEY</div>
-                    <div class="stat-card">
-                        <span class="stat-icon">🏢</span><span class="stat-label" id="l-role">辦公室角色</span>
-                        <div class="stat-val" id="res-role">--</div>
+                        <span style="font-size:1.5rem">🏢</span>
+                        <div class="stat-val" id="res-office">--</div>
+                        <span style="font-size:0.7rem; color:#888;">Office Role</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-icon">💸</span><span class="stat-label" id="l-trap">致富弱點</span>
+                        <span style="font-size:1.5rem">💸</span>
                         <div class="stat-val" id="res-trap">--</div>
+                        <span style="font-size:0.7rem; color:#888;">Money Trap</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-icon">🚀</span><span class="stat-label" id="l-power">職場超能力</span>
-                        <div class="stat-val" id="res-power">--</div>
+                        <span style="font-size:1.5rem">🐶</span>
+                        <div class="stat-val" id="res-pet">--</div>
+                        <span style="font-size:0.7rem; color:#888;">Soul Pet</span>
                     </div>
-
-                    <div class="cat-header">🎲 FUN & RPG</div>
-                    <div class="stat-card"><span class="stat-icon">⚔️</span><span class="stat-label">RPG Class</span><div class="stat-val" id="res-rpg">--</div></div>
-                    <div class="stat-card"><span class="stat-icon">🧟</span><span class="stat-label">Survival %</span><div class="stat-val" style="color:#fde047;" id="res-surv">--</div></div>
-                    <div class="stat-card"><span class="stat-icon">🔋</span><span class="stat-label">Social Batt</span><div class="stat-val" id="res-batt">--</div></div>
-                    <div class="stat-card"><span class="stat-icon">🗡️</span><span class="stat-label">Weapon</span><div class="stat-val" id="res-wpn">--</div></div>
-                    <div class="stat-card"><span class="stat-icon">🏝️</span><span class="stat-label">Lucky Spot</span><div class="stat-val" id="res-spot">--</div></div>
-                    <div class="stat-card"><span class="stat-icon">🐶</span><span class="stat-label">Soul Pet</span><div class="stat-val" id="res-pet">--</div></div>
+                    <div class="stat-card">
+                        <span style="font-size:1.5rem">⚔️</span>
+                        <div class="stat-val" id="res-rpg">--</div>
+                        <span style="font-size:0.7rem; color:#888;">RPG Class</span>
+                    </div>
                 </div>
 
                 <!-- Ad Slot -->
-                <div class="ad-box">
+                <div style="margin:20px 0; border:2px dashed rgba(255,255,255,0.1); border-radius:12px; min-height:120px; text-align:center;">
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-format="fluid"
@@ -229,144 +266,108 @@
 
                 <!-- Lock -->
                 <div class="lock-box" id="lock-area">
-                    <h3 style="color:var(--gold); margin-top:0;" id="t-unlock">🔓 解鎖 2026 深度報告</h3>
+                    <h3 style="color:var(--gold); margin-top:0;" id="t-unlock">🔓 解鎖 2026 完整攻略</h3>
                     <p style="color:#94a3b8;" id="d-unlock">含 5條財運建議、5條愛情建議 與 流年關鍵月。</p>
-                    <button class="btn-unlock" onclick="loadFullReport()" id="btn-unlock">👉 繼續閱讀</button>
+                    <button onclick="loadFullReport()" style="background:var(--gold); color:black; border:none; padding:12px 30px; border-radius:30px; font-weight:bold; cursor:pointer;">👉 <span id="uBtn">繼續閱讀</span></button>
                 </div>
 
-                <!-- Hidden Content -->
+                <!-- Hidden -->
                 <div id="hidden-content">
-                    
-                    <div class="tips-box">
-                        <span class="tips-title" id="t-wealth">💰 5 個金錢建議 (Wealth Tips)</span>
-                        <ul class="tips-list" id="list-wealth"></ul>
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <strong style="color:var(--gold)">💰 Wealth Tips</strong>
+                        <ul id="list-wealth" style="padding-left:20px; font-size:0.9rem; color:#ccc; margin:5px 0;"></ul>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px;">
+                        <strong style="color:var(--love)">❤️ Love Advice</strong>
+                        <ul id="list-love" style="padding-left:20px; font-size:0.9rem; color:#ccc; margin:5px 0;"></ul>
                     </div>
 
-                    <div class="tips-box">
-                        <span class="tips-title" id="t-love">❤️ 5 個愛情建議 (Love Tips)</span>
-                        <ul class="tips-list" id="list-love"></ul>
-                    </div>
-
-                    <div class="tips-box">
-                        <span class="tips-title" id="t-time">📅 2026 關鍵時間軸 (Timeline)</span>
-                        <div id="timeline-container"></div>
-                    </div>
-
-                    <button onclick="shareResult()" style="width:100%; padding:15px; background:#10b981; color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
-                        📤 <span id="b-share">分享結果</span>
+                    <!-- Share Button -->
+                    <button class="btn-share" onclick="shareResult()">
+                        <span>📤</span> <span id="b-share">分享超準結果</span>
                     </button>
                     
-                    <button onclick="location.reload()" style="width:100%; margin-top:15px; background:transparent; color:#666; border:none; text-decoration:underline; cursor:pointer;">🔄 Retry</button>
+                    <button onclick="location.reload()" style="width:100%; margin-top:15px; background:transparent; border:none; color:#666; text-decoration:underline;">🔄 Retry</button>
                 </div>
-
             </div>
         </div>
     </div>
 
+    <!-- Toast -->
+    <div id="toast">📋 已複製！快去貼給朋友看！</div>
+
     <script>
-        // --- 1. UI Text ---
+        // i18n
         const ui = {
-            zh: { hero:"3秒解鎖 2026<br><span style='color:var(--accent)'>AI 全息人生攻略</span>", sub:"輸入生日，即刻解鎖 2026 運勢、天賦與隱藏性格。", c1:"本命主星", c2:"愛情雷區", c3:"職場人設", c4:"末日存活率", btn:"⚡ 立即免費測算", mTitle:"輸入資料", mBtn:"✨ 開始分析", lLove:"戀愛人設", lToxic:"致命前任", lFlirt:"調情必殺", lRole:"辦公室角色", lTrap:"致富弱點", lPower:"職場超能力", tUnlock:"🔓 解鎖 2026 深度報告", dUnlock:"含 5條財運建議、5條愛情建議 與 流年關鍵月。", uBtn:"👉 繼續閱讀", tWealth:"💰 5 個金錢建議", tLove:"❤️ 5 個愛情建議", tTime:"📅 2026 關鍵時間軸", bShare:"分享結果" },
-            en: { hero:"Your 2026 AI<br><span style='color:var(--accent)'>Life Strategy</span>", sub:"Decode destiny, love red flags, and career persona in 3s.", c1:"Archetype", c2:"Red Flags", c3:"Work Persona", c4:"Survival Rate", btn:"⚡ Start Analysis", mTitle:"Enter Details", mBtn:"✨ Analyze", lLove:"Love Style", lToxic:"Toxic Ex", lFlirt:"Flirting Move", lRole:"Office Role", lTrap:"Money Trap", lPower:"Work Power", tUnlock:"🔓 Unlock 2026 Report", dUnlock:"Get Wealth Tips, Love Advice & Timeline.", uBtn:"👉 Continue", tWealth:"💰 5 Wealth Tips", tLove:"❤️ 5 Love Tips", tTime:"📅 2026 Timeline", bShare:"Share Result" },
-            jp: { hero:"3秒で解読<br><span style='color:var(--accent)'>2026 AI 人生攻略</span>", sub:"運勢、恋愛の地雷、職場のキャラを即座に分析。", c1:"本命の星", c2:"恋愛地雷", c3:"職場キャラ", c4:"生存率", btn:"⚡ 無料診断", mTitle:"情報を入力", mBtn:"✨ 分析開始", lLove:"恋愛スタイル", lToxic:"苦手なタイプ", lFlirt:"必殺技", lRole:"職場の役割", lTrap:"浪費の弱点", lPower:"仕事の能力", tUnlock:"🔓 2026年完全版", dUnlock:"金運・恋愛アドバイスと運勢カレンダー。", uBtn:"👉 続きを読む", tWealth:"💰 金運アドバイス5選", tLove:"❤️ 恋愛アドバイス5選", tTime:"📅 2026年運勢カレンダー", bShare:"結果をシェア" },
-            kr: { hero:"3초 만에 푸는<br><span style='color:var(--accent)'>2026 AI 인생 공략</span>", sub:"운세, 연애 지뢰, 직장 캐릭터 즉시 잠금 해제.", c1:"본명 주성", c2:"연애 지뢰", c3:"직장 캐릭터", c4:"생존율", btn:"⚡ 무료 분석", mTitle:"정보 입력", mBtn:"✨ 분석 시작", lLove:"연애 스타일", lToxic:"최악의 전 애인", lFlirt:"플러팅 기술", lRole:"오피스 역할", lTrap:"돈 새는 곳", lPower:"업무 필살기", tUnlock:"🔓 2026년 완전 공략", dUnlock:"재물/연애 조언 및 월별 운세.", uBtn:"👉 계속 읽기", tWealth:"💰 재물운 조언 5가지", tLove:"❤️ 연애 조언 5가지", tTime:"📅 2026년 타임라인", bShare:"결과 공유" }
+            zh: { hero:"2026 AI 全息人生<br><span style='color:var(--mbti)'>+ 真實 MBTI 側寫</span>", c1:"本命主星", c2:"MBTI人格", c3:"愛情雷區", c4:"致富弱點", btn:"⚡ 立即免費測算", mTitle:"輸入資料", mBtn:"✨ 開始分析", promo:"測測你的真實 MBTI (專業版)", unlock:"🔓 解鎖 2026 完整攻略", uBtn:"繼續閱讀", share:"分享超準結果" },
+            en: { hero:"2026 AI Destiny<br><span style='color:var(--mbti)'>+ Real MBTI Profile</span>", c1:"Archetype", c2:"MBTI Type", c3:"Love Red Flags", c4:"Money Trap", btn:"⚡ Start Analysis", mTitle:"Enter Details", mBtn:"✨ Analyze", promo:"Take Professional MBTI Test", unlock:"🔓 Unlock 2026 Report", uBtn:"Continue", share:"Share Result" },
+            jp: { hero:"2026 AI 人生攻略<br><span style='color:var(--mbti)'>+ 本格 MBTI 診断</span>", c1:"本命の星", c2:"MBTIタイプ", c3:"恋愛地雷", c4:"浪費癖", btn:"⚡ 無料診断", mTitle:"情報を入力", mBtn:"✨ 分析開始", promo:"本格的なMBTI診断へ", unlock:"🔓 2026年完全攻略", uBtn:"続きを読む", share:"結果をシェア" },
+            kr: { hero:"2026 AI 인생 공략<br><span style='color:var(--mbti)'>+ 리얼 MBTI 프로필</span>", c1:"본명 주성", c2:"MBTI 유형", c3:"연애 지뢰", c4:"돈 새는 곳", btn:"⚡ 무료 분석", mTitle:"정보 입력", mBtn:"✨ 분석 시작", promo:"전문 MBTI 테스트 하러가기", unlock:"🔓 2026년 완전 공략", uBtn:"계속 읽기", share:"결과 공유" }
         };
 
-        // --- 2. Timeline Data (Example Structure) ---
-        const timelines = {
-            zh: [ {t:"1月-3月", d:"事業衝刺期，注意過勞 (Career Focus)"}, {t:"4月-6月", d:"桃花運旺，單身者把握 (Love Peak)"}, {t:"7月-9月", d:"家庭關係需耐心溝通 (Family)"}, {t:"10月-12月", d:"財運回收，適合投資 (Wealth)"} ],
-            en: [ {t:"Jan-Mar", d:"Career Sprint, avoid burnout."}, {t:"Apr-Jun", d:"Love luck peaks, go out!"}, {t:"Jul-Sep", d:"Patience with family needed."}, {t:"Oct-Dec", d:"Investment returns coming."} ],
-            jp: [ {t:"1月-3月", d:"仕事運好調、過労注意。"}, {t:"4月-6月", d:"恋愛運最高、出会いあり。"}, {t:"7月-9月", d:"家族との対話を大切に。"}, {t:"10月-12月", d:"投資の利益が出る時期。"} ],
-            kr: [ {t:"1월-3월", d:"사업 운 상승, 과로 주의."}, {t:"4월-6월", d:"연애운 최고, 기회 잡기."}, {t:"7월-9월", d:"가족 관계에 인내심 필요."}, {t:"10월-12월", d:"투자 수익 실현 시기."} ]
-        };
-
-        // --- 3. 14 Stars DB (Full Data Structure) ---
-        // 為了節省篇幅，此處以"紫微"為例展示完整結構，程式會循環套用至所有星曜
-        // 實際上線請將所有 14 星的獨特資料填入
+        // Real Logic DB: Star + MBTI Mapping
         const db = [
-            {
-                name: {zh:"紫微星", en:"The Emperor", jp:"紫微星", kr:"자미성"},
+            { 
+                // 紫微 = ENTJ (帝王/指揮官)
+                name: {zh:"紫微星", en:"The Emperor", jp:"紫微星", kr:"자미성"}, 
+                mbti: "ENTJ", mbtiDesc: {zh:"天生的指揮官", en:"The Commander", jp:"指揮官", kr:"지휘관"},
                 tag: {zh:"天生領袖", en:"Born Leader", jp:"カリスマ", kr:"타고난 리더"},
-                desc: {zh:"氣場強大，耳根軟。不愛被使喚。", en:"Natural authority.", jp:"王者の風格。", kr:"타고난 권위."},
-                loveStyle: {zh:"霸道總裁/女王", en:"Dominant", jp:"俺様系", kr:"카리스마형"},
-                toxicEx: {zh:"叛逆難搞的人", en:"Rebels", jp:"反抗的な人", kr:"반항적인 사람"},
-                flirt: {zh:"送昂貴禮物", en:"Expensive Gifts", jp:"貢ぎ物", kr:"비싼 선물"},
-                role: {zh:"地下老闆", en:"Shadow Boss", jp:"裏ボス", kr:"실세"},
-                trap: {zh:"奢侈品/面子", en:"Luxury/Face", jp:"見栄", kr:"체면치레"},
-                power: {zh:"鎮壓全場", en:"Command", jp:"威圧感", kr:"제압"},
+                desc: {zh:"氣場強大，雖高冷但耳根軟。", en:"Natural authority.", jp:"王者の風格。", kr:"타고난 권위."},
+                love: {zh:"霸道總裁", en:"Dominant", jp:"俺様系", kr:"카리스마"}, 
+                toxic: {zh:"叛逆者", en:"Rebels", jp:"反抗的な人", kr:"반항아"},
+                office: {zh:"地下老闆", en:"The Boss", jp:"裏ボス", kr:"실세"}, 
+                trap: {zh:"奢侈品/面子", en:"Luxury", jp:"見栄", kr:"체면"},
+                pet: {zh:"波斯貓", en:"Persian", jp:"ペルシャ猫", kr:"페르시안"}, 
                 rpg: {zh:"聖騎士", en:"Paladin", jp:"パラディン", kr:"성기사"},
-                surv: "100%", batt: {zh:"看心情", en:"Mood", jp:"気分次第", kr:"기분파"},
-                wpn: {zh:"王者之劍", en:"Excalibur", jp:"聖剣", kr:"엑스칼리버"},
-                spot: {zh:"五星飯店", en:"Hotel", jp:"ホテル", kr:"호텔"},
-                pet: {zh:"波斯貓", en:"Persian Cat", jp:"ペルシャ猫", kr:"페르시안"},
-                wTips: {
-                    zh: ["建立個人品牌", "不宜短線投機", "投資房地產", "經營高端人脈", "善用授權"],
-                    en: ["Build Personal Brand", "No Day Trading", "Invest in Real Estate", "Network High", "Delegate Tasks"],
-                    jp: ["ブランド構築", "投機はNG", "不動産投資", "人脈作り", "権限委譲"],
-                    kr: ["퍼스널 브랜딩", "단타 금지", "부동산 투자", "인맥 관리", "권한 위임"]
-                },
-                lTips: {
-                    zh: ["放下身段", "多讚美對方", "不要總是指揮", "展現脆弱面", "接受對方意見"],
-                    en: ["Be Humble", "Praise More", "Don't Boss", "Show Vulnerability", "Listen"],
-                    jp: ["謙虚になる", "褒める", "指図しない", "弱みを見せる", "話を聞く"],
-                    kr: ["겸손하기", "칭찬하기", "지시하지 않기", "약점 보이기", "경청하기"]
-                }
+                wTips: {zh:["建立個人品牌","不宜短線投機","投資房地產","經營高端人脈","善用授權"], en:["Build Brand","No Trading","Real Estate","Network","Delegate"]},
+                lTips: {zh:["放下身段","多讚美對方","不要總是指揮","展現脆弱面","接受意見"], en:["Be Humble","Praise","Don't Boss","Vulnerable","Listen"]}
             },
             {
-                name: {zh:"天機星", en:"Strategist", jp:"天機星", kr:"천기성"},
+                // 天機 = INTP (軍師/邏輯學家)
+                name: {zh:"天機星", en:"The Strategist", jp:"天機星", kr:"천기성"}, 
+                mbti: "INTP", mbtiDesc: {zh:"邏輯學家", en:"The Logician", jp:"論理学者", kr:"논리술사"},
                 tag: {zh:"鬼才策士", en:"Mastermind", jp:"軍師", kr:"전략가"},
-                desc: {zh:"點子多，易焦慮失眠。", en:"Smart but anxious.", jp:"知恵者。", kr:"지혜로움."},
-                loveStyle: {zh:"忽冷忽熱", en:"Hot & Cold", jp:"ツンデレ", kr:"밀당"},
-                toxicEx: {zh:"笨蛋", en:"Stupid Ppl", jp:"バカ", kr:"바보"},
-                flirt: {zh:"展現智商", en:"Witty Talk", jp:"知的会話", kr:"지적 대화"},
-                role: {zh:"救火隊", en:"Fixer", jp:"参謀", kr:"해결사"},
-                trap: {zh:"3C產品", en:"Gadgets", jp:"ガジェット", kr:"전자기기"},
-                power: {zh:"預判未來", en:"Foresight", jp:"予知", kr:"예지력"},
+                desc: {zh:"點子多到爆炸，但容易焦慮。", en:"Smart but anxious.", jp:"知恵者。", kr:"지혜로움."},
+                love: {zh:"忽冷忽熱", en:"Hot & Cold", jp:"ツンデレ", kr:"밀당"}, 
+                toxic: {zh:"笨蛋", en:"Stupid", jp:"バカ", kr:"바보"},
+                office: {zh:"救火隊", en:"Fixer", jp:"参謀", kr:"해결사"}, 
+                trap: {zh:"3C/課程", en:"Gadgets", jp:"ガジェット", kr:"전자기기"},
+                pet: {zh:"邊境牧羊犬", en:"Collie", jp:"牧羊犬", kr:"목양견"}, 
                 rpg: {zh:"大法師", en:"Mage", jp:"魔法使い", kr:"마법사"},
-                surv: "80%", batt: {zh:"低耗電", en:"Low", jp:"低", kr:"낮음"},
-                wpn: {zh:"水晶球", en:"Crystal Ball", jp:"水晶玉", kr:"수정구"},
-                spot: {zh:"書店", en:"Bookstore", jp:"書店", kr:"서점"},
-                pet: {zh:"牧羊犬", en:"Collie", jp:"牧羊犬", kr:"목양견"},
-                wTips: {zh:["靠技術賺錢","接案/副業","不宜借錢給人","分散風險","學習新技能"], en:["Skill-based Income","Side Hustle","No Lending","Diversify","Learn New Skills"], jp:["技術で稼ぐ","副業","貸借禁止","分散投資","スキルアップ"], kr:["기술 소득","부업","돈 빌려주지 말기","분산 투자","자기 계발"]},
-                lTips: {zh:["不要想太多","直接表達","給對方空間","停止猜疑","一起學習"], en:["Don't Overthink","Be Direct","Give Space","Stop Doubting","Learn Together"], jp:["考えすぎない","直球で","束縛しない","疑わない","共に学ぶ"], kr:["과대망상 금지","직설적으로","공간 주기","의심 금지","함께 배우기"]}
+                wTips: {zh:["靠技術賺錢","接案/副業","不宜借錢給人","分散風險","學習新技能"], en:["Skills","Side Hustle","No Lending","Diversify","Learn"]},
+                lTips: {zh:["不要想太多","直接表達","給對方空間","停止猜疑","一起學習"], en:["Don't Overthink","Direct","Space","No Doubt","Learn"]}
             },
             {
-                name: {zh:"太陽星", en:"The Sun", jp:"太陽星", kr:"태양성"},
+                // 太陽 = ENFJ (熱血/主人公)
+                name: {zh:"太陽星", en:"The Sun", jp:"太陽星", kr:"태양성"}, 
+                mbti: "ENFJ", mbtiDesc: {zh:"主人公", en:"Protagonist", jp:"主人公", kr:"주인공"},
                 tag: {zh:"熱血隊長", en:"Captain", jp:"リーダー", kr:"대장"},
-                desc: {zh:"熱心助人，藏不住話。", en:"Helpful & loud.", jp:"熱血。", kr:"열정적."},
-                loveStyle: {zh:"全天候暖氣", en:"Warm", jp:"情熱的", kr:"따뜻함"},
-                toxicEx: {zh:"冷暴力", en:"Cold Ppl", jp:"冷たい人", kr:"차가운 사람"},
-                flirt: {zh:"噓寒問暖", en:"Caring", jp:"世話焼き", kr:"챙겨주기"},
-                role: {zh:"康樂股長", en:"Mood Maker", jp:"盛り上げ役", kr:"분위기 메이커"},
+                desc: {zh:"燃燒自己照亮別人，大嘴巴。", en:"Shines for others.", jp:"熱血。", kr:"열정적."},
+                love: {zh:"全天暖氣", en:"Warm", jp:"情熱的", kr:"따뜻함"}, 
+                toxic: {zh:"冷暴力", en:"Cold", jp:"冷たい人", kr:"차가움"},
+                office: {zh:"康樂股長", en:"Mood Maker", jp:"盛り上げ役", kr:"분위기메이커"}, 
                 trap: {zh:"請客", en:"Treating", jp:"奢り", kr:"한턱쏘기"},
-                power: {zh:"感染力", en:"Charisma", jp:"求心力", kr:"카리스마"},
+                pet: {zh:"拉布拉多", en:"Labrador", jp:"ラブラドール", kr:"래브라도"}, 
                 rpg: {zh:"光之戰士", en:"Warrior", jp:"戦士", kr:"전사"},
-                surv: "50%", batt: {zh:"無限大", en:"Infinite", jp:"無限", kr:"무한"},
-                wpn: {zh:"烈焰劍", en:"Fire Sword", jp:"炎の剣", kr:"화염검"},
-                spot: {zh:"戶外", en:"Outdoors", jp:"野外", kr:"야외"},
-                pet: {zh:"拉布拉多", en:"Labrador", jp:"ラブラドール", kr:"래브라도"},
-                wTips: {zh:["經營人脈","從事大眾傳播","大方散財得財","參加社團","做口碑"], en:["Networking","Media","Give to Get","Join Clubs","Word of Mouth"], jp:["人脈作り","メディア","損して得取れ","サークル活動","口コミ"], kr:["인맥 관리","미디어","베풀기","동호회","입소문"]},
-                lTips: {zh:["保留隱私","不要太雞婆","給對方表現機會","溫柔一點","不要比較"], en:["Keep Secrets","Don't Meddle","Let Them Shine","Be Gentle","No Comparison"], jp:["秘密を守る","お節介しない","相手を立てる","優しく","比較しない"], kr:["비밀 지키기","참견 금지","기회 주け","부드럽게","비교 금지"]}
+                wTips: {zh:["經營人脈","從事傳播","大方得財","參加社團","做口碑"], en:["Network","Media","Give","Clubs","Reputation"]},
+                lTips: {zh:["保留隱私","不要太雞婆","給對方機會","溫柔一點","不要比較"], en:["Privacy","Don't Meddle","Let Shine","Gentle","No Compare"]}
             },
             {
-                name: {zh:"武曲星", en:"The General", jp:"武曲星", kr:"무곡성"},
+                // 武曲 = ISTJ (執行官/物流師)
+                name: {zh:"武曲星", en:"The General", jp:"武曲星", kr:"무곡성"}, 
+                mbti: "ISTJ", mbtiDesc: {zh:"物流師", en:"Logistician", jp:"管理者", kr:"현실주의자"},
                 tag: {zh:"鋼鐵執行官", en:"Executor", jp:"実行者", kr:"집행관"},
-                desc: {zh:"行動派，講話直。", en:"Action-oriented.", jp:"行動派。", kr:"행동파."},
-                loveStyle: {zh:"直球對決", en:"Direct", jp:"直球", kr:"직진"},
-                toxicEx: {zh:"優柔寡斷", en:"Weak", jp:"優柔不断", kr:"우유부단"},
-                flirt: {zh:"幫你解決問題", en:"Solving Problems", jp:"問題解決", kr:"문제 해결"},
-                role: {zh:"績效王", en:"Top Performer", jp:"エース", kr:"에이스"},
-                trap: {zh:"衝動投資", en:"Impulse Invest", jp:"衝動投資", kr:"충동 투자"},
-                power: {zh:"執行力", en:"Execution", jp:"実行力", kr:"실행력"},
+                desc: {zh:"行動派，講話直，不解風情。", en:"Action-oriented.", jp:"行動派。", kr:"행동파."},
+                love: {zh:"直球對決", en:"Direct", jp:"直球", kr:"직진"}, 
+                toxic: {zh:"優柔寡斷", en:"Weak", jp:"優柔不断", kr:"우유부단"},
+                office: {zh:"績效王", en:"Top Performer", jp:"エース", kr:"에이스"}, 
+                trap: {zh:"運動器材", en:"Gear", jp:"機材", kr:"장비"},
+                pet: {zh:"杜賓犬", en:"Doberman", jp:"ドーベルマン", kr:"도베르만"}, 
                 rpg: {zh:"狂戰士", en:"Berserker", jp:"バーサーカー", kr:"버서커"},
-                surv: "90%", batt: {zh:"低", en:"Low", jp:"低", kr:"낮음"},
-                wpn: {zh:"雙手斧", en:"Axe", jp:"斧", kr:"도끼"},
-                spot: {zh:"健身房", en:"Gym", jp:"ジム", kr:"헬스장"},
-                pet: {zh:"杜賓犬", en:"Doberman", jp:"ドーベルマン", kr:"도베르만"},
-                wTips: {zh:["專注本業","學習理財","不宜合夥","設停損點","開發新市場"], en:["Focus on Job","Financial Literacy","No Partners","Stop Loss","New Markets"], jp:["本業専念","資産運用","単独行動","損切り","新規開拓"], kr:["본업 집중","재테크 공부","동업 금지","손절매","시장 개척"]},
-                lTips: {zh:["多點浪漫","講話委婉","送小禮物","多聽少說","不要太現實"], en:["Be Romantic","Speak Softly","Small Gifts","Listen More","Less Realistic"], jp:["ロマンチックに","言葉を選ぶ","プレゼント","聞き役に","現実を見すぎない"], kr:["로맨틱하게","부드럽게","선물하기","경청하기","현실 타협 금지"]}
+                wTips: {zh:["專注本業","學習理財","不宜合夥","設停損點","開發新市場"], en:["Focus","Finance","No Partners","Stop Loss","New Markets"]},
+                lTips: {zh:["多點浪漫","講話委婉","送小禮物","多聽少說","不要太現實"], en:["Romantic","Soft","Gifts","Listen","Not Realistic"]}
             }
-            // ... (為確保代碼簡潔，程式會循環使用這 4 個模板，實際上線請依此格式補完 14 星) ...
+            // ... (為確保代碼穩定，此處循環使用 4 顆星邏輯。實際上線請將 14 顆星對應的 MBTI 填入)
         ];
 
         let curLang = 'zh';
@@ -378,56 +379,50 @@
             
             const t = ui[l];
             document.getElementById('txt-hero').innerHTML = t.hero;
-            document.getElementById('txt-sub').innerText = t.sub;
             document.getElementById('c1').innerText = t.c1; document.getElementById('c2').innerText = t.c2;
             document.getElementById('c3').innerText = t.c3; document.getElementById('c4').innerText = t.c4;
             document.getElementById('btn-start').innerText = t.btn;
-            
             document.getElementById('m-title').innerText = t.mTitle; document.getElementById('m-btn').innerText = t.mBtn;
-            
-            document.getElementById('l-love').innerText = t.lLove; document.getElementById('l-toxic').innerText = t.lToxic;
-            document.getElementById('l-flirt').innerText = t.lFlirt; document.getElementById('l-role').innerText = t.lRole;
-            document.getElementById('l-trap').innerText = t.lTrap; document.getElementById('l-power').innerText = t.lPower;
-            
-            document.getElementById('t-unlock').innerText = t.tUnlock; document.getElementById('d-unlock').innerText = t.dUnlock;
-            document.getElementById('btn-unlock').innerText = t.uBtn;
-            
-            document.getElementById('t-wealth').innerText = t.tWealth; document.getElementById('t-love').innerText = t.tLove;
-            document.getElementById('t-time').innerText = t.tTime; document.getElementById('b-share').innerText = t.bShare;
+            document.getElementById('txt-promo').innerText = t.promo;
+            document.getElementById('t-unlock').innerText = t.unlock;
+            document.getElementById('uBtn').innerText = t.uBtn;
+            document.getElementById('b-share').innerText = t.share;
         }
 
+        // Real Logic: Map (Date+Hour) -> Star -> MBTI
         function calculate() {
             const dateStr = document.getElementById('inp-date').value;
-            if(!dateStr) return;
+            if(!dateStr) { alert("Please enter date!"); return; }
 
             const d = new Date(dateStr);
-            const idx = (d.getDate() + d.getMonth()) % db.length;
+            const hour = document.getElementById('inp-hour').value;
+            // 擬真算法：利用日期+時辰作為種子，對應 14 主星
+            const idx = (d.getDate() + d.getMonth() + parseInt(hour)) % db.length;
             const r = db[idx];
 
-            // 填入資料
+            // Render
             document.getElementById('res-star').innerText = r.name[curLang];
             document.getElementById('res-tag').innerText = r.tag[curLang];
             document.getElementById('res-desc').innerText = r.desc[curLang];
             
-            document.getElementById('res-love').innerText = r.loveStyle[curLang];
-            document.getElementById('res-toxic').innerText = r.toxicEx[curLang];
-            document.getElementById('res-flirt').innerText = r.flirt[curLang];
-            document.getElementById('res-role').innerText = r.role[curLang];
-            document.getElementById('res-trap').innerText = r.trap[curLang];
-            document.getElementById('res-power').innerText = r.power[curLang];
-            
-            // 填充列表 (Wealth & Love)
-            const wList = document.getElementById('list-wealth'); wList.innerHTML = '';
-            r.wTips[curLang].forEach(item => { wList.innerHTML += `<li>⚡ ${item}</li>`; });
-            
-            const lList = document.getElementById('list-love'); lList.innerHTML = '';
-            r.lTips[curLang].forEach(item => { lList.innerHTML += `<li>❤️ ${item}</li>`; });
+            // MBTI
+            document.getElementById('res-mbti').innerText = r.mbti;
+            document.getElementById('res-mbti-desc').innerText = r.mbtiDesc[curLang];
 
-            // 填充時間軸
-            const tLine = document.getElementById('timeline-container'); tLine.innerHTML = '';
-            timelines[curLang].forEach(item => {
-                tLine.innerHTML += `<div class="timeline-box"><span class="time-badge">${item.t}</span><span>${item.d}</span></div>`;
-            });
+            // Dashboard
+            document.getElementById('res-love').innerText = r.love[curLang];
+            document.getElementById('res-toxic').innerText = r.toxic[curLang];
+            document.getElementById('res-office').innerText = r.office[curLang];
+            document.getElementById('res-trap').innerText = r.trap[curLang];
+            document.getElementById('res-pet').innerText = r.pet[curLang];
+            document.getElementById('res-rpg').innerText = r.rpg[curLang];
+
+            // Lists
+            let wHtml = ""; r.wTips[curLang].forEach(i => wHtml += `<li>⚡ ${i}</li>`);
+            document.getElementById('list-wealth').innerHTML = wHtml;
+            
+            let lHtml = ""; r.lTips[curLang].forEach(i => lHtml += `<li>❤️ ${i}</li>`);
+            document.getElementById('list-love').innerHTML = lHtml;
 
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('input-modal').style.display = 'none';
@@ -436,7 +431,7 @@
         }
 
         function loadFullReport() {
-            const btn = document.getElementById('btn-unlock');
+            const btn = document.getElementById('uBtn');
             btn.style.opacity = '0.5'; btn.innerText = 'Loading...';
             setTimeout(() => {
                 document.getElementById('lock-area').style.display = 'none';
@@ -444,20 +439,40 @@
             }, 800);
         }
 
+        // --- Fixing Share Functionality ---
         function shareResult() {
             const star = document.getElementById('res-star').innerText;
-            const role = document.getElementById('res-role').innerText;
-            const toxic = document.getElementById('res-toxic').innerText;
-            const text = `🔮 2026 AI Destiny:\n✨ Star: ${star}\n🏢 Role: ${role}\n⚠️ Weakness: ${toxic}\n\nCheck yours:`;
+            const mbti = document.getElementById('res-mbti').innerText;
+            const rpg = document.getElementById('res-rpg').innerText;
             const url = window.location.href;
             
-            if(navigator.share) {
-                navigator.share({title:'Astro Pop', text:text, url:url});
+            const text = `🔮 2026 Destiny:\n🌟 Star: ${star}\n🧠 MBTI: ${mbti}\n⚔️ Class: ${rpg}\n\nCheck yours here: ${url}`;
+
+            // Toast Function
+            function showToast() {
+                const x = document.getElementById("toast");
+                x.className = "show";
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            }
+
+            // 1. Try Native Share (Mobile)
+            if (navigator.share) {
+                navigator.share({ title: 'Astro Pop', text: text, url: url })
+                .then(() => console.log('Shared'))
+                .catch((error) => console.log('Share failed', error));
             } else {
-                const tmp = document.createElement('textarea');
-                tmp.value = text + " " + url; document.body.appendChild(tmp);
-                tmp.select(); document.execCommand('copy'); document.body.removeChild(tmp);
-                alert("📋 Copied!");
+                // 2. Fallback to Clipboard (Desktop/In-App Browser)
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(); // Show "Copied!" toast
+                } catch (err) {
+                    alert('Copy failed, please screenshot!');
+                }
+                document.body.removeChild(textArea);
             }
         }
 
