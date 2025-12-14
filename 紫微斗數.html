@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ASTRO・ZENITH | Global</title>
+    <style>
+        /* --- 2025 Global Mysticism Style --- */
+        :root {
+            --bg-void: #050505;
+            --primary: #8b5cf6;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-void);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(46, 16, 101, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.15) 0px, transparent 50%);
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* --- 導航列 --- */
+        nav {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .brand { 
+            font-weight: 700; 
+            letter-spacing: 2px; 
+            background: linear-gradient(90deg, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 語言切換按鈕 */
+        .lang-switch {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--gold);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .lang-switch:hover { background: rgba(212, 175, 55, 0.2); }
+
+        /* --- 主容器 --- */
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+
+        .hero { text-align: center; margin-bottom: 40px; }
+        .hero h1 { font-weight: 300; font-size: 2rem; margin-bottom: 10px; }
+        .hero p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- 選項卡片 --- */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .option-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .card-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+
+        /* --- 全螢幕廣告遮罩 (Loading Interstitial) --- */
+        #ad-loading-layer {
+            position: fixed; inset: 0;
+            background: #000;
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-ring {
+            width: 50px; height: 50px; border: 3px solid #333; border-top: 3px solid var(--gold);
+            border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 20px;
+        }
+        
+        /* 模擬 Google 插頁廣告框 */
+        .interstitial-ad-frame {
+            width: 320px; height: 480px; 
+            background: #1e1e1e; border: 1px solid #333;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; margin-bottom: 20px;
+        }
+
+        .skip-btn {
+            border: 1px solid #fff; background: transparent; color: #fff;
+            padding: 8px 24px; border-radius: 30px; cursor: pointer; opacity: 0.7;
+        }
+
+        /* --- 結果展示 --- */
+        #result-section { display: none; padding-bottom: 60px; }
+        
+        .result-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* 原生廣告位 B */
+        .native-ad-slot {
+            margin: 20px 0; padding: 15px;
+            background: #111; border: 1px dashed #444; border-radius: 12px;
+            text-align: center; color: #666; font-size: 0.8rem;
+            min-height: 250px; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* 升級鎖定區 (Monetization) */
+        .premium-lock {
+            position: relative;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .blurred-text { filter: blur(6px); opacity: 0.5; user-select: none; }
+        
+        .unlock-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        /* Modal for Input */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 90; }
+        .modal-content { background: #18181b; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; border: 1px solid var(--border); }
+        .input-group { margin-bottom: 15px; }
+        .input-box { width: 100%; padding: 12px; background: #27272a; border: 1px solid #3f3f46; color: white; border-radius: 8px; box-sizing: border-box; }
+        .action-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand">ASTRO・ZENITH</div>
+        <button class="lang-switch" onclick="toggleLanguage()">EN / 中文</button>
+    </nav>
+
+    <!-- 首頁 -->
+    <div class="container" id="home-view">
+        <div class="hero">
+            <h1 id="hero-title">洞悉天機，運籌帷幄</h1>
+            <p id="hero-subtitle">融合古老星象數據與現代心理學的人生導航</p>
+        </div>
+
+        <div class="grid">
+            <div class="option-card" onclick="openInput('life')">
+                <span class="card-icon">🔮</span>
+                <div class="opt-title">本命精批</div>
+                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">性格與潛能分析</div>
+            </div>
+            <div class="option-card" onclick="openInput('year')">
+                <span class="card-icon">📅</span>
+                <div class="opt-title">流年運勢</div>
+                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">年度機遇預測</div>
+            </div>
+            <div class="option-card" onclick="openInput('love')">
+                <span class="card-icon">❤️</span>
+                <div class="opt-title">感情姻緣</div>
+                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">真愛與相處模式</div>
+            </div>
+            <div class="option-card" onclick="openInput('wealth')">
+                <span class="card-icon">💰</span>
+                <div class="opt-title">事業財富</div>
+                <div class="opt-desc" style="font-size:0.8rem; color:var(--text-muted)">致富路徑解析</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 輸入資料彈窗 -->
+    <div class="modal" id="input-modal">
+        <div class="modal-content">
+            <h3 id="modal-title" style="margin-top:0">請輸入生辰資料</h3>
+            <div class="input-group">
+                <input type="text" class="input-box" id="inp-name" placeholder="您的姓名 / Name">
+            </div>
+            <div class="input-group" style="display:flex; gap:10px;">
+                <input type="date" class="input-box">
+                <select class="input-box">
+                    <option>Male (男)</option>
+                    <option>Female (女)</option>
+                </select>
+            </div>
+            <button class="action-btn" id="btn-calc" onclick="startCalculation()">開始排盤</button>
+            <div id="btn-cancel" style="text-align:center; margin-top:15px; font-size:0.8rem; color:#666; cursor:pointer;" onclick="closeInput()">取消</div>
+        </div>
+    </div>
+
+    <!-- 廣告位 A：過場插頁 (Loading Ad) -->
+    <div id="ad-loading-layer">
+        <div class="loading-ring"></div>
+        <div id="loading-text" style="margin-bottom:20px; color:#ccc;">星象數據運算中...</div>
+        
+        <!-- Google Interstitial Ad Simulation -->
+        <div class="interstitial-ad-frame">
+            <span style="position:absolute; top:0; left:0; background:#ccc; color:#000; font-size:10px; padding:2px 5px;">Ad</span>
+            <div style="text-align:center; color:#666;">
+                [ Google AdSense Interstitial ]<br>
+                Full Screen Ad<br>
+                High CPM
+            </div>
+        </div>
+
+        <button class="skip-btn" id="skip-ad-btn">略過廣告 (3)</button>
+    </div>
+
+    <!-- 結果頁 -->
+    <div class="container" id="result-section">
+        <h2 id="res-header" style="text-align:center; margin-bottom:30px;">您的命盤分析</h2>
+
+        <!-- 命宮卡片 -->
+        <div class="result-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span style="color:var(--text-muted); font-size:0.9rem;" id="label-life-palace">命宮主星</span>
+                <strong style="color:var(--primary); font-size:1.2rem;" id="res-stars">紫微・七殺</strong>
+            </div>
+            <div style="margin-bottom:15px;">
+                <span style="background:rgba(139, 92, 246, 0.2); color:#a78bfa; padding:4px 10px; border-radius:4px; font-size:0.8rem;" id="tag-archetype">開創型領袖</span>
+            </div>
+            <p id="res-desc" style="line-height:1.6; color:#e2e8f0;">
+                這是一個「化殺為權」的強勢格局。您天生擁有極強的開創力與管理天賦，不喜歡受人管制。今年您的能量場非常強，適合推動停滯已久的計畫。
+            </p>
+        </div>
+
+        <!-- 廣告位 B：原生橫幅 (Native Ad) -->
+        <div class="native-ad-slot">
+            <div>
+                <span style="border:1px solid #555; padding:1px 4px; font-size:0.7rem;">Ad</span><br>
+                [ Google In-Feed / Display Ad ]<br>
+                Responsive Size (300x250+)
+            </div>
+        </div>
+
+        <!-- 升級解鎖區 -->
+        <div class="premium-lock">
+            <div class="blurred-text">
+                <h3 id="lock-title">未來十年大運走勢</h3>
+                <p>2026: Wealth Index 95% (Excellent)...</p>
+                <p>2027: Career Change indicated...</p>
+                <p>Detailed monthly breakdown...</p>
+            </div>
+            
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <div style="font-size:2rem; margin-bottom:10px;">🔒</div>
+                <h3 id="unlock-msg-title" style="margin:0 0 5px 0;">解鎖完整報告</h3>
+                <p id="unlock-msg-desc" style="font-size:0.9rem; color:#ccc; margin-bottom:15px;">觀看贊助廣告，免費獲取大運詳批</p>
+                <button class="unlock-btn" id="btn-unlock" onclick="watchRewardAd()">
+                    ▶ 觀看廣告解鎖
+                </button>
+            </div>
+        </div>
+        
+        <div style="text-align:center; margin-top:40px;">
+            <button onclick="location.reload()" style="background:transparent; border:none; color:var(--text-muted); text-decoration:underline; cursor:pointer;" id="btn-retry">重新測算</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. 雙語字典 (The Dictionary) ---
+        const i18n = {
+            zh: {
+                heroTitle: "洞悉天機，運籌帷幄",
+                heroSubtitle: "融合古老星象數據與現代心理學的人生導航",
+                optLife: "本命精批", optLifeDesc: "性格與潛能分析",
+                optYear: "流年運勢", optYearDesc: "年度機遇預測",
+                optLove: "感情姻緣", optLoveDesc: "真愛與相處模式",
+                optWealth: "事業財富", optWealthDesc: "致富路徑解析",
+                modalTitle: "請輸入生辰資料",
+                btnCalc: "開始排盤",
+                btnCancel: "取消",
+                loadingText: "星象數據運算中...",
+                resHeader: "您的命盤分析",
+                labelLife: "命宮主星",
+                labelTag: "開創型領袖",
+                lockTitle: "未來十年大運走勢",
+                unlockTitle: "解鎖完整報告",
+                unlockDesc: "觀看贊助廣告，免費獲取大運詳批",
+                btnUnlock: "▶ 觀看廣告解鎖",
+                btnRetry: "重新測算",
+                // 動態結果範例
+                starName: "紫微・七殺",
+                starDesc: "這是一個「化殺為權」的強勢格局。您天生擁有極強的開創力與管理天賦，不喜歡受人管制。今年您的能量場非常強，適合推動停滯已久的計畫。"
+            },
+            en: {
+                heroTitle: "Decode Destiny, Master Future",
+                heroSubtitle: "Ancient Astrology meets Modern Psychology.",
+                optLife: "Life Chart", optLifeDesc: "Personality & Potential",
+                optYear: "Annual Forecast", optYearDesc: "Yearly Opportunities",
+                optLove: "Love & Match", optLoveDesc: "Relationship Patterns",
+                optWealth: "Wealth Path", optWealthDesc: "Career & Finance Strategy",
+                modalTitle: "Enter Birth Details",
+                btnCalc: "Reveal My Chart",
+                btnCancel: "Cancel",
+                loadingText: "Calculating Astral Data...",
+                resHeader: "Your Astral Report",
+                labelLife: "Life Palace Stars",
+                labelTag: "The Pioneer Leader",
+                lockTitle: "10-Year Fortune Trend",
+                unlockTitle: "Unlock Full Report",
+                unlockDesc: "Watch a sponsored ad to unlock for free.",
+                btnUnlock: "▶ Watch Ad to Unlock",
+                btnRetry: "Calculate Again",
+                // Dynamic Result Translation
+                starName: "The Emperor & The General",
+                starDesc: "This is a 'Power through Action' configuration. You possess innate leadership and a drive to break new ground. You dislike being micromanaged. Your energy field is intense this year—perfect for launching stalled projects."
+            }
+        };
+
+        let currentLang = 'zh'; // 預設語言
+
+        // --- 2. 切換語言邏輯 ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateContent();
+        }
+
+        function updateContent() {
+            const t = i18n[currentLang];
+            
+            // 更新靜態文字
+            document.getElementById('hero-title').innerText = t.heroTitle;
+            document.getElementById('hero-subtitle').innerText = t.heroSubtitle;
+            
+            // 更新選項卡 (這裡用簡單的方式抓取 DOM，實際專案可以用 data-i18n 屬性)
+            const cards = document.querySelectorAll('.option-card');
+            cards[0].querySelector('.opt-title').innerText = t.optLife;
+            cards[0].querySelector('.opt-desc').innerText = t.optLifeDesc;
+            cards[1].querySelector('.opt-title').innerText = t.optYear;
+            cards[1].querySelector('.opt-desc').innerText = t.optYearDesc;
+            cards[2].querySelector('.opt-title').innerText = t.optLove;
+            cards[2].querySelector('.opt-desc').innerText = t.optLoveDesc;
+            cards[3].querySelector('.opt-title').innerText = t.optWealth;
+            cards[3].querySelector('.opt-desc').innerText = t.optWealthDesc;
+
+            // 更新 Modal & Loading
+            document.getElementById('modal-title').innerText = t.modalTitle;
+            document.getElementById('btn-calc').innerText = t.btnCalc;
+            document.getElementById('btn-cancel').innerText = t.btnCancel;
+            document.getElementById('loading-text').innerText = t.loadingText;
+
+            // 更新結果頁
+            document.getElementById('res-header').innerText = t.resHeader;
+            document.getElementById('label-life-palace').innerText = t.labelLife;
+            document.getElementById('res-stars').innerText = t.starName;
+            document.getElementById('tag-archetype').innerText = t.labelTag;
+            document.getElementById('res-desc').innerText = t.starDesc;
+            
+            // 更新解鎖區
+            document.getElementById('lock-title').innerText = t.lockTitle;
+            document.getElementById('unlock-msg-title').innerText = t.unlockTitle;
+            document.getElementById('unlock-msg-desc').innerText = t.unlockDesc;
+            document.getElementById('btn-unlock').innerText = t.btnUnlock;
+            document.getElementById('btn-retry').innerText = t.btnRetry;
+        }
+
+        // --- 3. 業務流程邏輯 (Business Logic) ---
+        const modal = document.getElementById('input-modal');
+        const homeView = document.getElementById('home-view');
+        const adLayer = document.getElementById('ad-loading-layer');
+        const resultSection = document.getElementById('result-section');
+
+        function openInput(type) {
+            modal.style.display = 'flex';
+        }
+        function closeInput() {
+            modal.style.display = 'none';
+        }
+
+        function startCalculation() {
+            closeInput();
+            homeView.style.display = 'none';
+            adLayer.style.display = 'flex'; // 顯示全螢幕廣告 A
+
+            // 模擬廣告倒數
+            let timeLeft = 3;
+            const btn = document.getElementById('skip-ad-btn');
+            const timer = setInterval(() => {
+                timeLeft--;
+                btn.innerText = currentLang === 'zh' ? `略過廣告 (${timeLeft})` : `Skip Ad (${timeLeft})`;
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    btn.innerText = currentLang === 'zh' ? "關閉廣告" : "Close Ad";
+                    btn.onclick = showResult;
+                }
+            }, 1000);
+        }
+
+        function showResult() {
+            adLayer.style.display = 'none';
+            resultSection.style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function watchRewardAd() {
+            alert(currentLang === 'zh' ? "正在載入激勵廣告...\n(觀看後自動解鎖內容)" : "Loading Rewarded Ad...\n(Content unlocks after watching)");
+            // 實際對接 Google AdMob/AdSense Rewarded Ad 代碼
+        }
+
+    </script>
+</body>
+</html>
